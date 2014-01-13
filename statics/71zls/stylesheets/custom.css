@@ -1,0 +1,59 @@
+/*首页中部*/
+.projectSearch { width: 520px; }
+
+/* 创业者俱乐部 */
+.service .service-icon { color:#72c02c; }
+/*Service*/
+.service { overflow: hidden; margin-bottom: 10px; padding: 15px 15px 10px; }
+.service:hover {
+        background: #fcfcfc;
+        box-shadow: 0 0 5px #ddd;
+        -webkit-transition: box-shadow 0.2s ease-in-out;
+        -moz-transition: box-shadow 0.2s ease-in-out;
+        -o-transition: box-shadow 0.2s ease-in-out;
+        transition: box-shadow 0.2s ease-in-out;
+}
+.service:hover i { color: #656565; }
+
+.service .desc { padding: 0 15px; overflow: hidden; }
+.service .desc h4 { font-size: 22px; line-height: 25px; }
+
+.service .service-icon {
+        float: left;
+        padding: 10px;
+        color: #72c02c;
+        font-size: 45px;  
+        text-align: center;
+        -webkit-transition: all 0.4s ease-in-out;
+        -moz-transition: all 0.4s ease-in-out;
+        -o-transition: all 0.4s ease-in-out;
+        transition: all 0.4s ease-in-out;
+}
+.service .service-icon.icon-cogs { font-size: 37px; }
+.service .service-icon.icon-plane { font-size: 43px; }
+
+/* 单品项目 */
+.contentLeft {
+        border-top: 2px solid #53b768;
+        border-left: 1px solid #dcdee1;
+        border-right: 1px solid #dcdee1;
+        border-bottom: 1px solid #dcdee1;
+}
+.contentLeft strong { color: #999; }
+.contentRight {
+        border-top: 2px solid #b8b8b8;
+        border-right: 1px solid #dcdee1;
+        border-bottom: 1px solid #dcdee1;
+        background: #f9f9f9;
+}
+
+/*服务页*/
+
+.tbfilter { background-color: #f5f5f5; border: 1px solid #e3e3e3; }
+
+/* 同城在线 */
+
+.onlineContent { width: 190px; margin-left: 25px; }
+.onlineContent dt { width: 72px; }
+.onlineContent dt img { width: 70px; height: 70px; }
+.onlineContent dd { width: 114px; }

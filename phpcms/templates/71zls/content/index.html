@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{if isset($SEO['title']) && !empty($SEO['title'])}{$SEO['title']}{/if}{$SEO['site_title']}</title>
+<meta name="keywords" content="{$SEO['keyword']}">
+<meta name="description" content="{$SEO['description']}">
+ <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/custom.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/base.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/common.css">
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="{APP_PATH}statics/71zls/js/responese.js"></script>
+    <![endif]-->
+</head>
+<body>
+<body>
+  <div class="header">
+    <div class="navbar navbar-default" role="navigation">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+  
+  <a href="javascript:window.external.AddFavorite('http://www.71zls.com','创业在路上')" class="navbar-brand"><span class="glyphicon glyphicon-star"></span>&nbsp;收藏本站</a>
+      </div>
+    
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="f16"><a href="#">帮助</a></li>
+          <li class="f16"><a href="#">反馈</a></li>
+        </ul>
+      
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle f16" data-toggle="dropdown">最近浏览 <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li class="divider"></li>
+              <li><a href="#">更多&hellip;</a></li>
+            </ul>
+          </li>
+          {if $_username}
+          <li class="f16"><a href="{APP_PATH}index.php?m=member&c=index&a=favorite&t=2">我的收藏</a></li>
+          <li class="f16"> <a href="{APP_PATH}index.php?m=member&siteid={$siteid}" target="_blank">{L('你好')} {get_nickname()},{L('用户中心')}</a></li>
+          <li class="f16"><a href="{APP_PATH}index.php?m=member&c=index&a=logout&forward={urlencode($_GET['forward'])}&siteid={$siteid}" target="_top">{L('退出')}</a></li>
+          {else}
+          <li class="f16"><a href="{APP_PATH}index.php?m=member&c=index&a=login&forward={urlencode($_GET['forward'])}&siteid={$siteid}">我的收藏</a></li>
+          <li class="f16"><a href="{APP_PATH}index.php?m=member&c=index&a=login&forward={urlencode($_GET['forward'])}&siteid={$siteid}">登录</a></li>
+          <li class="f16"><a href="{APP_PATH}index.php?m=member&c=index&a=register&siteid={$siteid}">注册</a></li>
+          {/if}
+         
+
+         
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container mb100">
+    <h1><img src="{APP_PATH}statics/71zls/images/logo.png" class="center-block" alt=""></h1>
+    <div class="row mt50">
+      <div class="col-md-12 text-center">
+        <div class="btnTooltip">
+            <a href="#" class="btn btn-success btn-lg" data-toggle="tooltip" data-placement="left" title="在此免费发布项目、奖金、服务信息、帮助大家一起创业吧">免费发布</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="#" class="btn btn-success btn-lg" data-toggle="tooltip" data-placement="right" title="在此发布你的创业需求，将为你提供最符合你想要的东西">创业帮帮</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="projectSearch center-block mt50">
+      <ul id="myTab" class="nav nav-tabs">
+        <li class="active f14"><a href="#project" data-toggle="tab">找项目</a></li>
+        <li class="f14"><a href="#bonuses" data-toggle="tab">找奖金</a></li>
+        <li class="f14"><a href="#service" data-toggle="tab">找服务</a></li>
+        <li class="f14"><a href="#oneline" data-toggle="tab">同城在线</a></li>
+        <li class="f14"><a href="#clue" data-toggle="tab">创业者俱乐部</a></li>
+      </ul>
+      <div id="myTabContent" class="tab-content pt10 text-center">
+        <div class="tab-pane fade active in" id="project" >
+          <form action="" class="form-inline" role="form">
+            <div class="form-group">
+              <input type="email" class="form-control" id="exampleInputEmail2" placeholder="请输入关键字">
+            </div>
+            <select class="form-control">
+              <option>项目类别</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+            <select class="form-control">
+              <option>投资额度</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+            <select class="form-control">
+              <option>所在区域</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+     
+            <button type="submit" class="btn btn-success">搜索</button>
+       
+          </form>
+          <ul class="list-inline mt10 pull-left">
+            <li class="text-success">热门关键词:</li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+          </ul>
+        </div>
+        <div class="tab-pane fade" id="bonuses"></div>
+        <div class="tab-pane fade" id="service"></div>
+        <div class="tab-pane fade" id="oneline"></div>
+        <div class="tab-pane fade" id="clue"></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <ul class="list-inline text-center">
+      <li>首页</li>
+      <li>-</li>
+      <li>项目首页</li>
+      <li>-</li>
+      <li>服装鞋帽项目</li>
+      <li>-</li>
+      <li>餐饮娱乐项目</li>
+      <li>-</li>
+      <li>美容饰品项</li>
+      <li>-</li>
+      <li>教育网络项目</li>
+      <li>-</li>
+      <li>家居建材项目</li>
+      <li>-</li>
+      <li>机械环保项目</li>
+      <li>-</li>
+      <li>资金首页</li>
+      <li>-</li>
+      <li>服务首页</li>
+    </ul>
+  </div>
+  
+  <script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+  <script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+  <script src="{APP_PATH}statics/71zls/js/custom.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    $('.btnTooltip').tooltip({
+      selector: "[data-toggle=tooltip]",
+      container: "body"
+    })
+  })
+  </script>
+  
+</body>
+</html>

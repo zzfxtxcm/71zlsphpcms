@@ -1,0 +1,31 @@
+# win
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.tmp
+
+# mac
+.DS_Store
+
+# phpcms
+/index.html
+/caches/caches_admin/
+/caches/caches_commons/
+/caches/caches_content/
+/caches/caches_linkage/
+/caches/caches_member/
+/caches/caches_model/
+/caches/caches_scan/
+/caches/caches_search/
+/caches/caches_template/
+/caches/caches_tpl_data/
+/caches/configs/
+/caches/poster_js/
+/caches/sessions/
+/caches/vote_js/
+/caches/error_log.php
+/caches/index.html
+/caches/install.lock
+/html/
+/uploadfile/
+/phpsso_server/
