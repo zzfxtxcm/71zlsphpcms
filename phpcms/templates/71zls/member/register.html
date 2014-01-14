@@ -2,7 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset={CHARSET}" />
-<meta http-equiv="X-UA-Compatible" content="IE=7" />
 <title>phpcmsV9 - {L('member','','member').L('manage_center')}</title>
 <script type="text/javascript" src="{JS_PATH}jquery.min.js"></script>
 <script type="text/javascript" src="{JS_PATH}member_common.js"></script>
@@ -11,6 +10,18 @@
 <script type="text/javascript" src="{JS_PATH}dialog.js"></script>
 <link href="{CSS_PATH}reset.css" rel="stylesheet" type="text/css" />
 <link href="{CSS_PATH}dialog_simp.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/custom.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/base.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/common.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/font-awesome.min.css">
+  <!--[if IE 7]>
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheet/font-awesome-ie7.min.css">
+    <![endif]-->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="{APP_PATH}statics/71zls/js/responese.js"></script>
+    <![endif]-->
 <script language="JavaScript">
 <!--
 $(function(){
@@ -207,15 +218,65 @@ function show_protocol() {
 </style>
 </head>
 <body>
-<div id="header">
-	<div class="content">
-	<div class="logo"><img src="{IMG_PATH}v9/member_logo.jpg"/></div>
-    <span class="log"></span>
+<body>
+  <div class="header">
+    <div class="navbar navbar-default" role="navigation">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+  
+  <a href="javascript:window.external.AddFavorite('http://www.71zls.com','创业在路上')" class="navbar-brand"><span class="glyphicon glyphicon-star"></span>&nbsp;收藏本站</a>
+      </div>
+    
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="f16"><a href="#">帮助</a></li>
+          <li class="f16"><a href="#">反馈</a></li>
+        </ul>
+      
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle f16" data-toggle="dropdown">最近浏览 <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li class="divider"></li>
+              <li><a href="#">更多&hellip;</a></li>
+            </ul>
+          </li>
+          {if $_username}
+          <li class="f16"><a href="{APP_PATH}index.php?m=member&c=index&a=favorite&t=2">我的收藏</a></li>
+          <li class="f16"> <a href="{APP_PATH}index.php?m=member&siteid={$siteid}" target="_blank">{L('你好')} {get_nickname()},{L('用户中心')}</a></li>
+          <li class="f16"><a href="{APP_PATH}index.php?m=member&c=index&a=logout&forward={urlencode($_GET['forward'])}&siteid={$siteid}" target="_top">{L('退出')}</a></li>
+          {else}
+          <li class="f16"><a href="{APP_PATH}index.php?m=member&c=index&a=login&forward={urlencode($_GET['forward'])}&siteid={$siteid}">我的收藏</a></li>
+          <li class="f16"><a href="{APP_PATH}index.php?m=member&c=index&a=login&forward={urlencode($_GET['forward'])}&siteid={$siteid}">登录</a></li>
+          <li class="f16"><a href="{APP_PATH}index.php?m=member&c=index&a=register&siteid={$siteid}">注册</a></li>
+          {/if}
+         
+
+         
+        </ul>
+      </div>
     </div>
-</div>
+  <div class="container">
+      <h1 class="pull-left">
+        <img src="{APP_PATH}statics/71zls/images/logo2.png" class="pull-left" alt="">
+        <div class="pull-left ml10 p15" style="border-left:1px solid #ccc"><small>用户注册</small></div>
+      </h1>
+      
+    </div>
+  </div>
+<!--header头部-->
+
 
 <div id="content">
-	<h2>{L('member').L('register')}&nbsp;&nbsp;&nbsp;&nbsp;<span {if !isset($_GET['t'])}class="on"{/if}><em>1</em>{L('fill_in').L('info')}</span>
+	<h2>&nbsp;&nbsp;&nbsp;&nbsp;<span {if !isset($_GET['t'])}class="on"{/if}><em>1</em>{L('fill_in').L('info')}</span>
 	{if $member_setting['enablemailcheck']}
 	<span {if isset($_GET['t']) && $_GET['t']==2}class="on"{/if}><em>2</em>{L('email').L('validate')}</span>
 	<span><em>3</em>{L('register').L('success')}</span>
@@ -397,5 +458,5 @@ function send_newmail() {
         <div class="submit"><input type="submit" name="dosubmit" value="{L('login')}" onclick="redirect('{APP_PATH}index.php?m=member&c=index&a=login')"></div>
     </div>
 </div>
-
-{template 'member', 'footer'}
+<div style=" height:300px;"></div>
+{template 'member', 'footer_new'}
