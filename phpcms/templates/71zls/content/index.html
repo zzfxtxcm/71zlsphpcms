@@ -15,6 +15,10 @@
   <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/custom.css">
   <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/base.css">
   <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/common.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/font-awesome.min.css">
+  <!--[if IE 7]>
+  <link rel="stylesheet" href="stylesheet/font-awesome-ie7.min.css">
+    <![endif]-->
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <script src="{APP_PATH}statics/71zls/js/responese.js"></script>
@@ -34,23 +38,32 @@
         </button>
   
         <a href="javascript:window.external.AddFavorite('http://www.71zls.com','创业在路上')" class="navbar-brand">
-          <span class="glyphicon glyphicon-star"></span>
-          &nbsp;
-          <span class="f14">收藏本站</span>
+          <span>收藏本站</span>
         </a>
       </div>
     
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li class="f14"><a href="#">帮助</a></li>
-          <li class="f14"><a href="#">反馈</a></li>
+        <ul class="nav navbar-nav btnTooltip">
+          <li class="f14">
+            <a href="#" data-toggle="tooltip" data-placement="right"
+               title="在此免费发布项目、奖金、服务信息、帮助大家一起创业吧">
+               <span style="color:#0099CC"><strong>免费发布</strong></span>
+             </a>
+          </li>
+          <li class="f14">
+            <a href="#" data-toggle="tooltip" data-placement="right"
+               title="在此发布你的创业需求，将为你提供最符合你想要的东西">
+              <span style="color:#0099CC"><strong>创业帮帮</strong></span>
+            </a>
+          </li>
         </ul>
-      
+              
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a href="#" class="dropdown-toggle f14" data-toggle="dropdown">
               最近浏览 <b class="caret"></b>
             </a>
+            
             <ul class="dropdown-menu">
               <li><a href="#">1</a></li>
               <li><a href="#">2</a></li>
@@ -67,11 +80,13 @@
             </li>
             <li class="f14">
               <a href="{APP_PATH}index.php?m=member&siteid={$siteid}" target="_blank">
-                {L('你好')} {get_nickname()},{L('用户中心')}
+                <i class="glyphicon glyphicon-user cF96"></i>
+                {L('您好')} {get_nickname()}
               </a>
             </li>
             <li class="f14">
               <a href="{APP_PATH}index.php?m=member&c=index&a=logout&forward={urlencode($_GET['forward'])}&siteid={$siteid}" target="_top">
+                <i class="icon-signout c9C9"></i>
                 {L('退出')}
               </a>
             </li>
@@ -83,11 +98,13 @@
             </li>
             <li class="f14">
               <a href="{APP_PATH}index.php?m=member&c=index&a=login&forward={urlencode($_GET['forward'])}&siteid={$siteid}">
+                <i class="icon-signin cF96"></i>
                 登录
               </a>
             </li>
             <li class="f14">
               <a href="{APP_PATH}index.php?m=member&c=index&a=register&siteid={$siteid}">
+                <i class="icon-plus-sign c9C9"></i>
                 注册
               </a>
             </li>
@@ -103,7 +120,7 @@
       <img src="{APP_PATH}statics/71zls/images/logo.png"
            class="center-block" alt="{$SEO['site_title']}">
     </h1>
-    <div class="row mt50">
+    <!-- <div class="row mt50">
       <div class="col-md-12 text-center">
         <div class="btnTooltip">
           <div class="col-md-6">
@@ -122,7 +139,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     
     <div class="projectSearch center-block mt50">
       <ul id="myTab" class="nav nav-tabs">
@@ -177,9 +194,61 @@
               <input type="text" class="form-control"
                      id="bonusesSearch" placeholder="请输入关键字">
             </div>
+            <select name="" id="" class="form-control">
+              <option value="">资金类别</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select>
+            <select name="" id="" class="form-control">
+              <option value="">融资额度</option>
+              <option value="">1</option>
+              <option value="">2</option>
+            </select>
+            <select name="" id="" class="form-control">
+              <option value="">所在地区</option>
+              <option value="">1</option>
+              <option value="">2</option>
+            </select>
+            
+            <button type="submit" class="btn btn-success">搜索</button>
+            
           </form>
+          <ul class="list-inline mt20 pull-left">
+            <li class="text-success">热门关键词:</li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+          </ul>
         </div>
-        <div class="tab-pane fade" id="service"></div>
+        <div class="tab-pane fade" id="service">
+          
+          <form action="" class="form-inline" role="form">
+            <div class="form-group">
+              <input type="text" class="form-control"
+                     id="bonusesSearch" placeholder="请输入关键字">
+            </div>
+            <select name="" id="" class="form-control">
+              <option value="">服务类别</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select>
+            <select name="" id="" class="form-control">
+              <option value="">所在地区</option>
+              <option value="">1</option>
+              <option value="">2</option>
+            </select>
+            
+            <button type="submit" class="btn btn-success">搜索</button>
+            
+          </form>
+          <ul class="list-inline mt20 pull-left">
+            <li class="text-success">热门关键词:</li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+          </ul>
+          
+        </div>
         <div class="tab-pane fade" id="oneline"></div>
         <div class="tab-pane fade" id="clue"></div>
       </div>
@@ -187,31 +256,55 @@
   </div>
   
   <div class="footer">
-    <ul class="list-inline text-center">
-      <li>首页</li>
-      <li>-</li>
-      <li>项目首页</li>
-      <li>-</li>
-      <li>服装鞋帽项目</li>
-      <li>-</li>
-      <li>餐饮娱乐项目</li>
-      <li>-</li>
-      <li>美容饰品项</li>
-      <li>-</li>
-      <li>教育网络项目</li>
-      <li>-</li>
-      <li>家居建材项目</li>
-      <li>-</li>
-      <li>机械环保项目</li>
-      <li>-</li>
-      <li>资金首页</li>
-      <li>-</li>
-      <li>服务首页</li>
+    <div class="container pt20 pb5 projectList"
+         style="border-top: 2px solid #6cbf4a; border-bottom: 1px solid #ddd">
+      <ul class="list-inline text-center">
+        <li><a href="">首页</a></li>
+        <li>-</li>
+        <li><a href="">项目首页</a></li>
+        <li>-</li>
+        <li><a href="">服装鞋帽项目</a></li>
+        <li>-</li>
+        <li><a href="">餐饮娱乐项目</a></li>
+        <li>-</li>
+        <li><a href="">美容饰品项</a></li>
+        <li>-</li>
+        <li><a href="">教育网络项目</a></li>
+        <li>-</li>
+        <li><a href="">家居建材项目</a></li>
+        <li>-</li>
+        <li><a href="">机械环保项目</a></li>
+        <li>-</li>
+        <li><a href="">资金首页</a></li>
+        <li>-</li>
+        <li><a href="">服务首页</a></li>
+      </ul>
+    </div>
+    
+    <ul class="list-inline text-center contact mt20">
+      <li><a href="">关于我们</a></li>
+      <li>｜</li>
+      <li><a href="">帮助</a></li>
+      <li>｜</li>
+      <li><a href="">反馈</a></li>
+      <li>｜</li>
+      <li><a href="">推广服务</a></li>
+      <li>｜</li>
+      <li><a href="">渠道招商</a></li>
+      <li>｜</li>
+      <li><a href="">法律法规</a></li>
+      <li>｜</li>
+      <li><a href="">加入我们</a></li>
     </ul>
+    <div class="text-center">
+      &copy;2014&nbsp;&nbsp;71zls&nbsp;&nbsp;版权所有
+      <a href="http://www.miitbeian.gov.cn" target="_blank">闽ICP备13021172号</a>
+    </div>
   </div>
   
   <script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
   <script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+  <script src="{APP_PATH}statics/71zls/js/jquery.cookie.js"></script>
   <script src="{APP_PATH}statics/71zls/js/custom.js"></script>
   <script type="text/javascript">
   $(function() {
@@ -221,6 +314,7 @@
     })
   })
   </script>
+  
   
 </body>
 </html>

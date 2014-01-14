@@ -3,6 +3,12 @@ body { font-size:12px; font-family: Helvetica, Tahoma, Arial, STXihei, "华文�
 
 /* 颜色 */
 .cBlack { color: #000; }
+.cF96 { color: #f96; }
+.c9C9 { color: #9c9; }
 
 /* 头部 */
 #myTab .active a { background: #eee; }
+
+/* 底部 */
+.contact a { color: #000; }
+.projectList a { color: #000; }
