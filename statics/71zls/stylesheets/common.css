@@ -3,3 +3,6 @@ body { font-size:12px; font-family: Helvetica, Tahoma, Arial, STXihei, "华文�
 
 /* 颜色 */
 .cBlack { color: #000; }
+
+/* 头部 */
+#myTab .active a { background: #eee; }
