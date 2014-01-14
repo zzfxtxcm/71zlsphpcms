@@ -27,7 +27,7 @@ body fieldset.blue legend{padding:3px 8px;font-weight:700;color:#347add; backgro
 	.nav-bar ul{background-position: right -155px;background-repeat: repeat-x; height:33px; padding:10px 0 0 10px;}
 	.nav-bar ul li{ float:left; margin-right:5px;}
 	.nav-bar ul li.line{ color:#dfdfdf; padding:0 6px; font-size:14px; margin:4px 0 0}
-	.nav-bar ul li a{float:left;padding-left:3px; font-size:14px; padding-top:5px;color:#386ea8;font-weight:700;}
+	.nav-bar ul li a{float:left;padding-left:3px; font-size:14px; padding-top:5px;font-weight:700;}
 	.nav-bar ul li a span{height:27px; float:left }
 	.nav-bar ul li a.on{ background-position: left -0px; padding-top:0}
 	.nav-bar ul li a.on span{background-position: right -0px;height:27px;padding:5px 10px 0 8px}
@@ -42,7 +42,7 @@ body fieldset.blue legend{padding:3px 8px;font-weight:700;color:#347add; backgro
 	.col-1 span.o2{background-position: right -6px; top:-1px; right:-1px}
 	.col-1 span.o3{background-position: left -9px; bottom:-1px; left:-1px}
 	.col-1 span.o4{background-position: right -9px; bottom:-1px; right:-1px;}
-.col-1 h5.title, .col-1 h6.title{color:#386ea8; padding:5px 10px 3px}
+.col-1 h5.title, .col-1 h6.title{ padding:5px 10px 3px}
 .col-1 h6.title{margin-bottom:8px; font-size:14px}
 .col-1 div.content{padding:0px 10px 10px}
 
