@@ -10,8 +10,21 @@
           <h3 class="panel-title">查找的条件</h3>
         </div>
         <div class="panel-body">
-          <p class="f14"><strong>服务类别：</strong><a href="#" style="color:#000">全部</a> <a href="#" class="text-muted">工商注册</a> <a href="#" class="text-muted">财务会计</a></p>
-          <p class="f14"><strong>所在区域：</strong><a href="#" style="color:#000">不限</a> <a href="#" class="text-muted">厦门</a></p>
+          <p class="f14">
+            <strong>品牌区域：</strong>
+            <a href="#" style="color:#000">全部</a>
+            <a href="#" class="text-muted">北京</a>
+             <a href="#" class="text-muted">上海</a>
+           </p>
+          <p class="f14">
+            <strong>经营方式：</strong>
+              <a href="#" style="color:#000">不限</a> 
+              <a href="#" class="text-muted">厦门</a>
+            {php $price_rang = array('500元以下|1_500','500-1000元|500_1000','1000-1500元|1000_1500','1500-2000元|1500_2000','2000-3000元|2000_3000','3000-4500元|3000_4500','4500元以上|4500_9999')}
+      {loop filters('price',$modelid,$price_rang) $r}
+        {$r[menu]}
+      {/loop}
+           </p>
         </div>
       </div>
     </div>
@@ -49,9 +62,9 @@
               </tr>
             </thead>
             <tbody>
-                
+                {php $sql = structure_filters_sql($modelid,$cityid)}
 
-                {pc:content action="lists" catid="$catid" num="2" order="id DESC" page="$page"}
+                {pc:content action="lists" where="$where" catid="$catid" num="2" order="id DESC" page="$page"}
                 {loop $data $r}
               <tr>
                 <td>

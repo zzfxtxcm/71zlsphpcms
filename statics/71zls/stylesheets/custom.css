@@ -72,3 +72,14 @@
 .onlineContent dt { width: 72px; }
 .onlineContent dt img { width: 70px; height: 70px; }
 .onlineContent dd { width: 114px; }
+/*分享*/
+
+.Article-Tool a{width:16px;height:16px;line-height:17px;background: url(../../images/v9/icon.png) no-repeat; margin-left:6px;}
+.Article-Tool a:hover{text-decoration: none}
+.Article-Tool a.t,.Article-Tool a.t6{background-position: left -336px; width:auto; padding-left:16px; color:#8896b1}
+.Article-Tool a.t1{background-position: left -117px;}
+.Article-Tool a.t2{background-position: left -161px;}
+.Article-Tool a.t3{background-position: left -207px;}
+.Article-Tool a.t4{background-position: left -252px;}
+.Article-Tool a.t5{background-position: left -296px;}
+.Article-Tool a.t6{background-position: left -423px;padding-left:18px;}

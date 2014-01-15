@@ -1323,7 +1323,29 @@ function catpos($catid, $symbol=' > '){
 	}
 	return $pos;
 }
-
+/**
+ * 当前路径
+ * 返回指定栏目路径层级
+ * @param $catid 栏目id
+ * @param $symbol 栏目间隔符
+ */
+function catpos1($catid, $symbol=' > '){
+	$category_arr = array();
+	$siteids = getcache('category_content','commons');
+	$siteid = $siteids[$catid];
+	$category_arr = getcache('category_content_'.$siteid,'commons');
+	if(!isset($category_arr[$catid])) return '';
+	$pos = '';
+	$siteurl = siteurl($category_arr[$catid]['siteid']);
+	$arrparentid = array_filter(explode(',', $category_arr[$catid]['arrparentid'].','.$catid));
+	
+	
+		$url = $category_arr[$catid]['url'];
+		
+		$pos = '<a href="'.$url.'">'.$category_arr[$catid]['catname'].'</a>';
+	
+	return $pos;
+}
 /**
  * 根据catid获取子栏目数据的sql语句
  * @param string $module 缓存文件名

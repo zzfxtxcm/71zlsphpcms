@@ -5,27 +5,37 @@
       <div class="col-md-8 contentLeft">
         <div class="row">
           <div class="col-md-6">
-            <h2>项目名称</h2>
-            <p>QQ:299900</p>
-            <p><strong class="f14">行业类别：</strong>餐饮美食</p>
-            <p><strong class="f14">主营产品：</strong>汉堡</p>
-            <p><strong class="f14">品牌区域：</strong>上海</p>
-            <p><strong class="f14">投资资金：</strong>5万以下</p>
-            <p><strong class="f14">经营方式：</strong>代理</p>
-            <p><strong class="f14">扶持政策：</strong>提供装修</p>
-            <p><strong class="f14">预计收益：</strong>3万/年</p>
-            <p><strong class="f14">投资规模：</strong>20m，3人</p>
-            <p><strong class="f14">项目特色：</strong>优质品牌 市场巨大</p>
+            <h2>{$title}</h2>
+            <p><a href="http://wpa.qq.com/msgrd?V=1&Uin={$qq}&Site=在路上创业网&Menu=yes" target="_blank"><img src="http://wpa.qq.com/pa?p=1:{$qq}:13" alt="点击这里给我发送消息" border="0"></a></p>
+            <p><strong class="f14">行业类别：</strong>{catpos1($catid)}</p>
+            <p><strong class="f14">主营产品：</strong>{$product}</p>
+            <p><strong class="f14">品牌区域：</strong>
+            		{loop $zone $r}
+					<a href="{structure_filters_url('zone',array('zone'=>$r[linkageid],'catid'=>$catid,'city'=>$city),0,$modelid)}" class="blue">{$r[name]}</a>
+					{/loop} </p>
+            <p><strong class="f14">投资资金：</strong>{$price}元以下</p>
+            <p><strong class="f14">经营方式：</strong>{$manage}</p>
+            <p><strong class="f14">扶持政策：</strong>{$support}</p>
+            <p><strong class="f14">预计收益：</strong>{$income}</p>
+            <p><strong class="f14">投资规模：</strong>{$scale}</p>
+            <p><strong class="f14">项目特色：</strong>{$feature}</p>
             <p>
+
               <a href="#" class="btn btn-success">免费留言咨询</a>
-              &nbsp;&nbsp;
-              <a href="#" class="btn btn-success">收藏该项目</a>
+              &nbsp;&nbsp; 
+             
+              <a href="javascript:;" onclick="add_favorite('{$title}');" class="btn btn-success"> <span id='favorite'>收藏该项目</span></a>
+          		
             </p>
           </div>
           <div class="col-md-6 text-right pt20">
-            <p>发布日期：2013-12-26&nbsp;&nbsp;浏览次数：86</p>
+            <p>发布日期：{$inputtime}&nbsp;&nbsp;浏览次数：<span id="hits"></span></p>
             <div>
-              <img src="#" class="img-thumbnail" style="width:350px; height:350px" alt="">
+             
+              {loop $photos $r}
+               <img src="{$r[url]}" class="img-thumbnail" style="width:350px; height:350px" alt="">
+				
+             {/loop}
             </div>
           </div>
         </div>
@@ -34,27 +44,21 @@
           <h4><i class=""></i>项目介绍</h2>
         </div>
         <p>
-          所谓产权房，是指产权人对房屋（指）拥有所有权，对该房屋占用范围内的土地拥有使用权，产权人对这两项权利享有占有
-          使用，收益和处分的权利。这种权利是绝对的、排他的，不受其他任何人的干涉和影响，产权人可以转让、出租、抵押、典
-          当等方式合法处置自己的房地产权利。房屋产权定义
+         {$description}
         </p>
         
         <div class="page-header">
           <h4>项目优势</h2>
         </div>
         <p>
-          所谓产权房，是指产权人对房屋（指）拥有所有权，对该房屋占用范围内的土地拥有使用权，产权人对这两项权利享有占有
-          使用，收益和处分的权利。这种权利是绝对的、排他的，不受其他任何人的干涉和影响，产权人可以转让、出租、抵押、典
-          当等方式合法处置自己的房地产权利。房屋产权定义
+          {$advantage}
         </p>
         
         <div class="page-header">
           <h4>品牌介绍</h2>
         </div>
         <p>
-          所谓产权房，是指产权人对房屋（指）拥有所有权，对该房屋占用范围内的土地拥有使用权，产权人对这两项权利享有占有
-          使用，收益和处分的权利。这种权利是绝对的、排他的，不受其他任何人的干涉和影响，产权人可以转让、出租、抵押、典
-          当等方式合法处置自己的房地产权利。房屋产权定义
+          {$brandin}
         </p>
         
         <div class="well">
@@ -96,15 +100,30 @@
         </div>
         
       </div>
-      <div class="col-md-4 contentRight">
+      <div class="col-md-4 contentRight ">
         <h4>您还可以</h4>
         <h5><i class="icon-search f20" style="color:#e9762a"></i>&nbsp;&nbsp;查看相识项目</h5>
         <h5>分享到</h5>
-        <div class="well">
-          hh
+        <div class="Article-Tool well">
+          <img src="http://v.t.qq.com/share/images/s/weiboicon16.png" style="padding-bottom:3px;" onclick="postToWb();" class="cu" title="分享到腾讯微博"/><script type="text/javascript">
+	function postToWb(){
+		var _t = encodeURI(document.title);
+		var _url = encodeURIComponent(document.location);
+		var _appkey = encodeURI("cba3558104094dbaa4148d8caa436a0b");
+		var _pic = encodeURI('{$thumb}');
+		var _site = '';
+		var _u = 'http://v.t.qq.com/share/share.php?url='+_url+'&appkey='+_appkey+'&site='+_site+'&pic='+_pic+'&title='+_t;
+		window.open( _u,'', 'width=700, height=680, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no' );
+	}
+</script>
+          <script type="text/javascript">document.write('<a href="http://v.t.sina.com.cn/share/share.php?url='+encodeURIComponent(location.href)+'&appkey=3172366919&title='+encodeURIComponent('{new_addslashes($title)}')+'" title="分享到新浪微博" class="t1" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');</script>
+		  <script type="text/javascript">document.write('<a href="http://www.douban.com/recommend/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent('{new_addslashes($title)}')+'" title="分享到豆瓣" class="t2" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');</script>
+		  <script type="text/javascript">document.write('<a href="http://share.renren.com/share/buttonshare.do?link='+encodeURIComponent(location.href)+'&title='+encodeURIComponent('{new_addslashes($title)}')+'" title="分享到人人" class="t3" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');</script>
+		  <script type="text/javascript">document.write('<a href="http://www.kaixin001.com/repaste/share.php?rtitle='+encodeURIComponent('{new_addslashes($title)}')+'&rurl='+encodeURIComponent(location.href)+'&rcontent=" title="分享到开心网" class="t4" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');</script>
+		  <script type="text/javascript">document.write('<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+encodeURIComponent(location.href)+'" title="分享到QQ空间" class="t5" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');</script>
         </div>
         <p>
-          <a href="#" class="btn btn-default">我要发布需求</a>
+          <a href="http://127.0.0.1/71zlsphpcms/index.php?m=member&c=content&a=publish" class="btn btn-default">我要发布需求</a>
         </p>
         <p>
           <img src="" width="359px" height="359px" alt="">
@@ -113,4 +132,55 @@
     </div>
     
   </div>
+  <script type="text/javascript">
+<!--
+	function show_ajax(obj) {
+		var keywords = $(obj).text();
+		var offset = $(obj).offset();
+		var jsonitem = '';
+		$.getJSON("{APP_PATH}index.php?m=content&c=index&a=json_list&type=keyword&modelid={$modelid}&id={$id}&keywords="+encodeURIComponent(keywords),
+				function(data){
+				var j = 1;
+				var string = "<div class='point key-float'><div style='position:relative'><div class='arro'></div>";
+				string += "<a href='JavaScript:;' onclick='$(this).parent().parent().remove();' hidefocus='true' class='close'><span>关闭</span></a><div class='contents f12'>";
+				if(data!=0) {
+				  $.each(data, function(i,item){
+					j = i+1;
+					jsonitem += "<a href='"+item.url+"' target='_blank'>"+j+"、"+item.title+"</a><BR>";
+					
+				  });
+					string += jsonitem;
+				} else {
+					string += '没有找到相关的信息！';
+				}
+					string += "</div><span class='o1'></span><span class='o2'></span><span class='o3'></span><span class='o4'></span></div></div>";		
+					$(obj).after(string);
+					$('.key-float').mouseover(
+						function (){
+							$(this).siblings().css({"z-index":0})
+							$(this).css({"z-index":1001});
+						}
+					)
+					$(obj).next().css({ "left": +offset.left-100, "top": +offset.top+$(obj).height()+12});
+				});
+	}
+
+	function add_favorite(title) {
+		$.getJSON('{APP_PATH}api.php?op=add_favorite&title='+encodeURIComponent(title)+'&url='+encodeURIComponent(location.href)+'&'+Math.random()+'&callback=?', function(data){
+			if(data.status==1)	{
+				$("#favorite").html('收藏成功');
+			} else {
+				alert('请登录');
+			}
+		});
+	}
+
+//-->
+</script>
+
+<script language="JavaScript" src="{APP_PATH}api.php?op=count&id={$id}&modelid={$modelid}"></script>
+ <p class="f14">
+                <strong>上一篇：</strong><a href="{$previous_page[url]}">{$previous_page[title]}</a><br />
+                <strong>下一篇：</strong><a href="{$next_page[url]}">{$next_page[title]}</a>
+            </p>
 {template "content","footer"}
