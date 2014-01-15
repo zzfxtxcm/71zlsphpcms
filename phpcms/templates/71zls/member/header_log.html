@@ -1,96 +1,93 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>创业在路上www.71zls.com - {L('member','','member').L('manage_center')}</title>
-<link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
-  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/custom.css">
-  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/base.css">
-  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/common.css">
-  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/font-awesome.min.css">
-  <!--[if IE 7]>
-  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheet/font-awesome-ie7.min.css">
-    <![endif]-->
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <script src="{APP_PATH}statics/71zls/js/responese.js"></script>
-    <![endif]-->
-<script type="text/javascript" src="{JS_PATH}jquery.min.js"></script>
-<script type="text/javascript" src="{JS_PATH}cookie.js"></script>
-<style type="text/css">
-.onError {
-    
-    border-color: #40B3FF;
-    color: #FF0000;
-}
-</style>
-<script type="text/javascript" src="{JS_PATH}dialog.js"></script>
-<script type="text/javascript" src="{JS_PATH}formvalidator.js" charset="UTF-8"></script>
-<script type="text/javascript" src="{JS_PATH}formvalidatorregex.js" charset="UTF-8"></script>
-<script language="JavaScript">
-<!--
-$(function(){
-	$.formValidator.initConfig({autotip:true,formid:"myform",onerror:function(msg){}});
-	$("#username").formValidator({onshow:"{L('input').L('username')}",onfocus:"{L('between_2_to_20')}"}).inputValidator({min:2,max:20,onerror:"{L('between_2_to_20')}"}).regexValidator({regexp:"ps_username",datatype:"enum",onerror:"{L('username').L('format_incorrect')}"});
-	$("#password").formValidator({onshow:"{L('input').L('password')}",onfocus:"{L('password').L('between_6_to_20')}"}).inputValidator({min:6,max:20,onerror:"{L('password').L('between_6_to_20')}"});
-
-});
-//-->
-</script>
-
-
-</head>
-<body>
-  <div class="header">
-    <div class="navbar navbar-default" role="navigation">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
+    <div class="header">
+      <div class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
   
-  <a href="javascript:window.external.AddFavorite('http://www.71zls.com','创业在路上')" class="navbar-brand"><span class="glyphicon glyphicon-star"></span>&nbsp;收藏本站</a>
-      </div>
+          <a href="javascript:window.external.AddFavorite('http://www.71zls.com','创业在路上')" class="navbar-brand"><span class="glyphicon glyphicon-star"></span>&nbsp;收藏本站</a>
+        </div>
     
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li class="f16"><a href="#">帮助</a></li>
-          <li class="f16"><a href="#">反馈</a></li>
-        </ul>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav btnTooltip">
+            <li class="f14">
+              <a href="#" data-toggle="tooltip" data-placement="right"
+                 title="在此免费发布项目、奖金、服务信息、帮助大家一起创业吧">
+                 <span style="color:#0099CC"><strong>免费发布</strong></span>
+               </a>
+            </li>
+            <li class="f14">
+              <a href="#" data-toggle="tooltip" data-placement="right"
+                 title="在此发布你的创业需求，将为你提供最符合你想要的东西">
+                <span style="color:#0099CC"><strong>创业帮帮</strong></span>
+              </a>
+            </li>
+          </ul>
       
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle f16" data-toggle="dropdown">最近浏览 <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li class="divider"></li>
-              <li><a href="#">更多&hellip;</a></li>
-            </ul>
-          </li>
-          {if $_username}
-          <li class="f16"><a href="{APP_PATH}index.php?m=member&c=index&a=favorite&t=2">我的收藏</a></li>
-          <li class="f16"> <a href="{APP_PATH}index.php?m=member&siteid={$siteid}" target="_blank">{L('你好')} {get_nickname()},{L('用户中心')}</a></li>
-          <li class="f16"><a href="{APP_PATH}index.php?m=member&c=index&a=logout&forward={urlencode($_GET['forward'])}&siteid={$siteid}" target="_top">{L('退出')}</a></li>
-          {else}
-          <li class="f16"><a href="{APP_PATH}index.php?m=member&c=index&a=login&forward={urlencode($_GET['forward'])}&siteid={$siteid}">我的收藏</a></li>
-          <li class="f16"><a href="{APP_PATH}index.php?m=member&c=index&a=login&forward={urlencode($_GET['forward'])}&siteid={$siteid}">登录</a></li>
-          <li class="f16"><a href="{APP_PATH}index.php?m=member&c=index&a=register&siteid={$siteid}">注册</a></li>
-          {/if}
-         
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle f14" data-toggle="dropdown">
+                最近浏览 <b class="caret"></b>
+              </a>
+            
+              <ul class="dropdown-menu">
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li class="divider"></li>
+                <li><a href="#">更多&hellip;</a></li>
+              </ul>
+            </li>
+            {if $_username}
+              <li class="f14">
+                <a href="{APP_PATH}index.php?m=member&c=index&a=favorite&t=2">
+                  我的收藏
+                </a>
+              </li>
+              <li class="f14">
+                <a href="{APP_PATH}index.php?m=member&siteid={$siteid}" target="_blank">
+                  <i class="glyphicon glyphicon-user cF96"></i>
+                  {L('您好')} {get_nickname()}
+                </a>
+              </li>
+              <li class="f14">
+                <a href="{APP_PATH}index.php?m=member&c=index&a=logout&forward={urlencode($_GET['forward'])}&siteid={$siteid}" target="_top">
+                  <i class="icon-signout c9C9"></i>
+                  {L('退出')}
+                </a>
+              </li>
+              {else}
+              <li class="f14">
+                <a href="{APP_PATH}index.php?m=member&c=index&a=login&forward={urlencode($_GET['forward'])}&siteid={$siteid}">
+                  我的收藏
+                </a>
+              </li>
+              <li class="f14">
+                <a href="{APP_PATH}index.php?m=member&c=index&a=login&forward={urlencode($_GET['forward'])}&siteid={$siteid}">
+                  <i class="icon-signin cF96"></i>
+                  登录
+                </a>
+              </li>
+              <li class="f14">
+                <a href="{APP_PATH}index.php?m=member&c=index&a=register&siteid={$siteid}">
+                  <i class="icon-plus-sign c9C9"></i>
+                  注册
+                </a>
+              </li>
+            {/if}
 
-         
-        </ul>
+          </ul>
+          
+        </div>
+      </div>
+      <div class="container">
+        <h1 class="pull-left">
+          <img src="{APP_PATH}statics/71zls/images/logo2.png" class="pull-left" alt="">
+          <div class="pull-left ml10 p15" style="border-left:1px solid #ccc"><small>用户登入</small></div>
+        </h1>
+      
       </div>
     </div>
-   <div class="container">
-      <h1 class="pull-left">
-        <img src="{APP_PATH}statics/71zls/images/logo2.png" class="pull-left" alt="">
-        <div class="pull-left ml10 p15" style="border-left:1px solid #ccc"><small>用户登入</small></div>
-      </h1>
-      
-    </div>
-  </div>

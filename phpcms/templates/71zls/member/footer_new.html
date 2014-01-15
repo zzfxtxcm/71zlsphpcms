@@ -1,26 +1,48 @@
-<div class="footer">
-    <ul class="list-inline text-center">
-      {pc:content action="category" catid="0" num="25" siteid="$siteid" order="listorder ASC"}
-      <li><a href="{siteurl($siteid)}">首页</a></li>  
-         {loop $data $k $v}
-            <li>-</li>
-            <li><a href="{$v[url]}">{$v[catname]}首页</a></li>
+  <div class="footer">
+    <div class="container pt20 pb5 projectList"
+         style="border-top: 2px solid #6cbf4a; border-bottom: 1px solid #ddd">
+      <ul class="list-inline text-center">
+        {pc:content action="category" catid="0" num="25" siteid="$siteid" order="listorder ASC"}
+        <li><a href="{siteurl($siteid)}">首页</a></li>  
+           {loop $data $k $v}
+              <li>-</li>
+              <li><a href="{$v[url]}">{$v[catname]}首页</a></li>
 
-             {pc:content action="category" catid="$k" num="10" siteid="$siteid" order="listorder ASC"}
-             {if $k==9}
-              {loop $data $r}
-               <li>-</li> 
-                <li><a href="{$r[url]}">{$r[catname]}项目</a></li>
-               {/loop}
-               {/if}
-              {/pc}
-         {/loop}
-      {/pc}
-      
-     
+               {pc:content action="category" catid="$k" num="10" siteid="$siteid" order="listorder ASC"}
+               {if $k==9}
+                {loop $data $r}
+                 <li>-</li> 
+                  <li><a href="{$r[url]}">{$r[catname]}项目</a></li>
+                 {/loop}
+                 {/if}
+                {/pc}
+           {/loop}
+        {/pc}
+      </ul>
+    </div>
+    
+    <ul class="list-inline text-center contact mt20">
+      <li><a href="">关于我们</a></li>
+      <li>｜</li>
+      <li><a href="">帮助</a></li>
+      <li>｜</li>
+      <li><a href="">反馈</a></li>
+      <li>｜</li>
+      <li><a href="">推广服务</a></li>
+      <li>｜</li>
+      <li><a href="">渠道招商</a></li>
+      <li>｜</li>
+      <li><a href="">法律法规</a></li>
+      <li>｜</li>
+      <li><a href="">加入我们</a></li>
     </ul>
+    <div class="text-center">
+      &copy;2014&nbsp;&nbsp;71zls&nbsp;&nbsp;版权所有
+      <a href="http://www.miitbeian.gov.cn" target="_blank">闽ICP备13021172号</a>
+    </div>
   </div>
   
+  <script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
   <script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
   <script src="{APP_PATH}statics/71zls/js/custom.js"></script>
   <script type="text/javascript">
@@ -32,5 +54,4 @@
   })
   </script>
   
-</body>
-</html>
+  
