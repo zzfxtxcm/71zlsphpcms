@@ -22,7 +22,7 @@ $LANG['system']						=	'系统';
 $LANG['must_input']					=	'必填';
 $LANG['search']						=	'搜索';
 $LANG['listorder']					=	'排序';
-$LANG['contribute']					=	'投稿';
+$LANG['contribute']					=	'发布';
 $LANG['field_enabled']				=	'<font color="red"> 启用</font>';
 $LANG['field_disabled'] 			=	'禁用';
 $LANG['fieldname']					=	'字段类型';
