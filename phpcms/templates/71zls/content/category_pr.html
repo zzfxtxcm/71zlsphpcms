@@ -50,75 +50,46 @@
             </thead>
             <tbody>
                 
-              <tr>
-                <td>
-                  <div class="row">
-                    <div class="col-md-3"><a href="#" class="pull-left"><img src="images/logo2.png" width="110px" height="90px" class="img-thumbnail" alt=""></a></div>
-                    <div class="col-md-6">
-                      <span>
-                        <a href="#" style="color:#fa8904">hhhhh </a><a href="#" class="btn btn-success btn-xs">在线</a>
-                      </span>
-                      <p class="mt10 lh150">
-                        餐饮业（catering）是通过即时加工制作、商业销售和服务性劳动于一体，向消费
-                        者专门提供各种酒水、食品，消费场所和设施的食品生产经营行业。
-                      </p>
-                    </div>
-                    <div class="col-md-3 pt10">
-                      <a href="#" class="btn btn-warning btn-sm">快捷留言 <i class="glyphicon glyphicon-envelope"></i></a>
-                      <a href="#" class="btn btn-warning btn-sm mt10">项目详情 <i class="glyphicon glyphicon-ok"></i></a>
-                    </div>
-                  </div>
-                </td>
-                <td><p class="mt30">2013-12-25</p></td>
-              </tr>
-                
 
-                
+                {pc:content action="lists" catid="$catid" num="2" order="id DESC" page="$page"}
+                {loop $data $r}
               <tr>
                 <td>
                   <div class="row">
-                    <div class="col-md-3"><a href="#" class="pull-left"><img src="images/logo2.png" width="110px" height="90px" class="img-thumbnail" alt=""></a></div>
+                    <div class="col-md-3">
+                      <a href="{$r[url]}" class="pull-left">
+                        {if $r[thumb]}
+                      <img src="{$r[thumb]}" width="110px" height="90px" class="img-thumbnail" alt="">
+                        {else}
+                         <img src="{APP_PATH}statics/71zls/images/logo2.png" width="110px" height="90px" class="img-thumbnail" alt="">
+                        {/if}
+                    </a></div>
                     <div class="col-md-6">
                       <span>
-                        <a href="#" style="color:#fa8904">hhhhh </a><a href="#" class="btn btn-success btn-xs">在线</a>
+                        <a href="{$r[url]}" style="color:#fa8904">{$r[title]} </a><a href="#" class="btn btn-success btn-xs">在线</a>
                       </span>
                       <p class="mt10 lh150">
-                        餐饮业（catering）是通过即时加工制作、商业销售和服务性劳动于一体，向消费
-                        者专门提供各种酒水、食品，消费场所和设施的食品生产经营行业。
+                        
+                        {str_cut($r[description],230,'...')}
                       </p>
                     </div>
                     <div class="col-md-3 pt10">
                       <a href="#" class="btn btn-warning btn-sm">快捷留言 <i class="glyphicon glyphicon-envelope"></i></a>
-                      <a href="#" class="btn btn-warning btn-sm mt10">项目详情 <i class="glyphicon glyphicon-ok"></i></a>
+                      <a href="{$r[url]}" class="btn btn-warning btn-sm mt10">项目详情 <i class="glyphicon glyphicon-ok"></i></a>
                     </div>
                   </div>
                 </td>
-                <td><p class="mt30">2013-12-25</p></td>
+                <td><p class="mt30">{date('Y-m-d ',$r[inputtime])}</p></td>
               </tr>
-                
-              <tr>
-                <td>
-                  <div class="row">
-                    <div class="col-md-3"><a href="#" class="pull-left"><img src="images/logo2.png" width="110px" height="90px" class="img-thumbnail" alt=""></a></div>
-                    <div class="col-md-6">
-                      <span>
-                        <a href="#" style="color:#fa8904">hhhhh </a><a href="#" class="btn btn-success btn-xs">在线</a>
-                      </span>
-                      <p class="mt10 lh150">
-                        餐饮业（catering）是通过即时加工制作、商业销售和服务性劳动于一体，向消费
-                        者专门提供各种酒水、食品，消费场所和设施的食品生产经营行业。
-                      </p>
-                    </div>
-                    <div class="col-md-3 pt10">
-                      <a href="#" class="btn btn-warning btn-sm">快捷留言 <i class="glyphicon glyphicon-envelope"></i></a>
-                      <a href="#" class="btn btn-warning btn-sm mt10">项目详情 <i class="glyphicon glyphicon-ok"></i></a>
-                    </div>
-                  </div>
-                </td>
-                <td><p class="mt30">2013-12-25</p></td>
-              </tr>
+              {/loop}
+               
+             
                 
             </tbody>
+            <tr>
+              <td  align="center">{$pages}
+                {/pc}</td>
+            </tr>
           </table>
         </div>
         <div class="pull-right pt10" style="width:350px">

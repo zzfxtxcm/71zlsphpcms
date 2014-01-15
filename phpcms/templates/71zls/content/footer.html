@@ -22,19 +22,16 @@
     </div>
     
     <ul class="list-inline text-center contact mt20">
-      <li><a href="">关于我们</a></li>
-      <li>｜</li>
-      <li><a href="">帮助</a></li>
-      <li>｜</li>
-      <li><a href="">反馈</a></li>
-      <li>｜</li>
-      <li><a href="">推广服务</a></li>
-      <li>｜</li>
-      <li><a href="">渠道招商</a></li>
-      <li>｜</li>
-      <li><a href="">法律法规</a></li>
-      <li>｜</li>
-      <li><a href="">加入我们</a></li>
+      
+
+
+
+      {pc:content action="category" catid="1" num="15" siteid="$siteid" order="listorder ASC"}
+      {loop $data $r}
+        <li><a href="{$r[url]}" target="_blank">{$r[catname]}</a></li> 
+        <li>｜</li>  
+      {/loop}
+      {/pc}
     </ul>
     <div class="text-center">
       &copy;2014&nbsp;&nbsp;71zls&nbsp;&nbsp;版权所有

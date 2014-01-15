@@ -1,126 +1,13 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
-  <link rel="stylesheet" href="stylesheets/custom.css">
-  <link rel="stylesheet" href="stylesheets/base.css">
-  <link rel="stylesheet" href="stylesheets/common.css">
-  <link rel="stylesheet" href="stylesheets/font-awesome.min.css">
-  <!--[if IE 7]>
-  <link rel="stylesheet" href="stylesheet/font-awesome-ie7.min.css">
-    <![endif]-->
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <script src="js/responese.js"></script>
-    <![endif]-->
-</head>
-<body>
-  <div class="header">
-    <div class="navbar navbar-default" role="navigation">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a href="#" class="navbar-brand"><span class="glyphicon glyphicon-star"></span>&nbsp;收藏本站</a>
-      </div>
-    
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li class="f16"><a href="#">帮助</a></li>
-          <li class="f16"><a href="#">反馈</a></li>
-        </ul>
-      
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle f16" data-toggle="dropdown">最近浏览 <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li class="divider"></li>
-              <li><a href="#">更多&hellip;</a></li>
-            </ul>
-          </li>
-          <li class="f16"><a href="#">我的收藏</a></li>
-          <li class="f16"><a href="#">登录</a></li>
-          <li class="f16"><a href="#">注册</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="container">
-      <h1 class="pull-left"><img src="images/logo2.png" alt=""></h1>
-      <div class="projectSearch pull-left ml20">
-        <ul id="myTab" class="nav nav-tabs">
-          <li class="active f14"><a href="#project" data-toggle="tab">找项目</a></li>
-          <li class="f14"><a href="#bonuses" data-toggle="tab">找奖金</a></li>
-          <li class="f14"><a href="#service" data-toggle="tab">找服务</a></li>
-          <li class="f14"><a href="#oneline" data-toggle="tab">同城在线</a></li>
-          <li class="f14"><a href="#clue" data-toggle="tab">创业者俱乐部</a></li>
-        </ul>
-        <div id="myTabContent" class="tab-content pt10 text-center">
-          <div class="tab-pane fade active in" id="project">
-            <form action="" class="form-inline" role="form">
-              <div class="form-group">
-                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="请输入关键字">
-              </div>
-              <select class="form-control">
-                <option>项目类别</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-              <select class="form-control">
-                <option>投资额度</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-              <select class="form-control">
-                <option>所在区域</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-              <button type="submit" class="btn btn-success">搜索</button>
-            </form>
-            <ul class="list-inline mt10 pull-left">
-              <li class="text-success">热门关键词:</li>
-              <li>1</li>
-              <li>2</li>
-              <li>3</li>
-            </ul>
-          </div>
-          <div class="tab-pane fade" id="bonuses"></div>
-          <div class="tab-pane fade" id="service"></div>
-          <div class="tab-pane fade" id="oneline"></div>
-          <div class="tab-pane fade" id="clue"></div>
-        </div>
-      </div>
-      <div class="btnTooltip pull-left mt30 ml50">
-        <a href="#" class="btn btn-success btn-lg" data-toggle="tooltip" data-placement="left" title="" data-original-title="在此免费发布项目、奖金、服务信息、帮助大家一起创业吧">免费发布</a>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="#" class="btn btn-success btn-lg" data-toggle="tooltip" data-placement="right" title="" data-original-title="在此发布你的创业需求，将为你提供最符合你想要的东西">创业帮帮</a>
-      </div>
-    </div>
-  </div>
+{template "content","header_new_page"}
+
+
   
   <div class="container mb50">
     
     <div class="well">
       <div class="panel panel-success"  style="margin:0">
         <div class="panel-heading">
-          <h3 class="panel-title">我要发布的需求</h3>
+          <h3 class="panel-title">查找的条件</h3>
         </div>
         <div class="panel-body">
           <p class="f14"><strong>服务类别：</strong><a href="#" style="color:#000">全部</a> <a href="#" class="text-muted">工商注册</a> <a href="#" class="text-muted">财务会计</a></p>
@@ -163,73 +50,46 @@
             </thead>
             <tbody>
                 
+
+                {pc:content action="lists" catid="$catid" num="2" order="id DESC" page="$page"}
+                {loop $data $r}
               <tr>
                 <td>
                   <div class="row">
-                    <div class="col-md-3"><a href="#" class="pull-left"><img src="images/logo2.png" width="110px" height="90px" class="img-thumbnail" alt=""></a></div>
+                    <div class="col-md-3">
+                      <a href="{$r[url]}" class="pull-left">
+                        {if $r[thumb]}
+                      <img src="{$r[thumb]}" width="110px" height="90px" class="img-thumbnail" alt="">
+                        {else}
+                         <img src="{APP_PATH}statics/71zls/images/logo2.png" width="110px" height="90px" class="img-thumbnail" alt="">
+                        {/if}
+                    </a></div>
                     <div class="col-md-6">
                       <span>
-                        <a href="#" style="color:#fa8904">hhhhh </a><a href="#" class="btn btn-success btn-xs">在线</a>
+                        <a href="{$r[url]}" style="color:#fa8904">{$r[title]} </a><a href="#" class="btn btn-success btn-xs">在线</a>
                       </span>
                       <p class="mt10 lh150">
-                        餐饮业（catering）是通过即时加工制作、商业销售和服务性劳动于一体，向消费
-                        者专门提供各种酒水、食品，消费场所和设施的食品生产经营行业。
+                        
+                        {str_cut($r[description],230,'...')}
                       </p>
                     </div>
                     <div class="col-md-3 pt10">
                       <a href="#" class="btn btn-warning btn-sm">快捷留言 <i class="glyphicon glyphicon-envelope"></i></a>
-                      <a href="#" class="btn btn-warning btn-sm mt10">项目详情 <i class="glyphicon glyphicon-ok"></i></a>
+                      <a href="{$r[url]}" class="btn btn-warning btn-sm mt10">项目详情 <i class="glyphicon glyphicon-ok"></i></a>
                     </div>
                   </div>
                 </td>
-                <td><p class="mt30">2013-12-25</p></td>
+                <td><p class="mt30">{date('Y-m-d ',$r[inputtime])}</p></td>
               </tr>
-                
-              <tr>
-                <td>
-                  <div class="row">
-                    <div class="col-md-3"><a href="#" class="pull-left"><img src="images/logo2.png" width="110px" height="90px" class="img-thumbnail" alt=""></a></div>
-                    <div class="col-md-6">
-                      <span>
-                        <a href="#" style="color:#fa8904">hhhhh </a><a href="#" class="btn btn-success btn-xs">在线</a>
-                      </span>
-                      <p class="mt10 lh150">
-                        餐饮业（catering）是通过即时加工制作、商业销售和服务性劳动于一体，向消费
-                        者专门提供各种酒水、食品，消费场所和设施的食品生产经营行业。
-                      </p>
-                    </div>
-                    <div class="col-md-3 pt10">
-                      <a href="#" class="btn btn-warning btn-sm">快捷留言 <i class="glyphicon glyphicon-envelope"></i></a>
-                      <a href="#" class="btn btn-warning btn-sm mt10">项目详情 <i class="glyphicon glyphicon-ok"></i></a>
-                    </div>
-                  </div>
-                </td>
-                <td><p class="mt30">2013-12-25</p></td>
-              </tr>
-                
-              <tr>
-                <td>
-                  <div class="row">
-                    <div class="col-md-3"><a href="#" class="pull-left"><img src="images/logo2.png" width="110px" height="90px" class="img-thumbnail" alt=""></a></div>
-                    <div class="col-md-6">
-                      <span>
-                        <a href="#" style="color:#fa8904">hhhhh </a><a href="#" class="btn btn-success btn-xs">在线</a>
-                      </span>
-                      <p class="mt10 lh150">
-                        餐饮业（catering）是通过即时加工制作、商业销售和服务性劳动于一体，向消费
-                        者专门提供各种酒水、食品，消费场所和设施的食品生产经营行业。
-                      </p>
-                    </div>
-                    <div class="col-md-3 pt10">
-                      <a href="#" class="btn btn-warning btn-sm">快捷留言 <i class="glyphicon glyphicon-envelope"></i></a>
-                      <a href="#" class="btn btn-warning btn-sm mt10">项目详情 <i class="glyphicon glyphicon-ok"></i></a>
-                    </div>
-                  </div>
-                </td>
-                <td><p class="mt30">2013-12-25</p></td>
-              </tr>
+              {/loop}
+               
+             
                 
             </tbody>
+            <tr>
+              <td  align="center">{$pages}
+                {/pc}</td>
+            </tr>
           </table>
         </div>
         <div class="pull-right pt10" style="width:350px">
@@ -257,41 +117,6 @@
     
   </div>
   
-  <div class="footer">
-    <ul class="list-inline text-center">
-      <li>首页</li>
-      <li>-</li>
-      <li>项目首页</li>
-      <li>-</li>
-      <li>服装鞋帽项目</li>
-      <li>-</li>
-      <li>餐饮娱乐项目</li>
-      <li>-</li>
-      <li>美容饰品项</li>
-      <li>-</li>
-      <li>教育网络项目</li>
-      <li>-</li>
-      <li>家居建材项目</li>
-      <li>-</li>
-      <li>机械环保项目</li>
-      <li>-</li>
-      <li>资金首页</li>
-      <li>-</li>
-      <li>服务首页</li>
-    </ul>
-  </div>
   
-  <script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
-  <script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
-  <script src="js/custom.js"></script>
-  <script type="text/javascript">
-  $(function() {
-    $('.btnTooltip').tooltip({
-      selector: "[data-toggle=tooltip]",
-      container: "body"
-    })
-  })
-  </script>
   
-</body>
-</html>
+  {template "content","footer"}
