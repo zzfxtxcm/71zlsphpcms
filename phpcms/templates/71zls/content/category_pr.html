@@ -2,10 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>{if isset($SEO['title']) && !empty($SEO['title'])}{$SEO['title']}{/if}{$SEO['site_title']}</title>
+<title>
+  {if isset($SEO['title']) && !empty($SEO['title'])}{$SEO['title']}{/if}
+  {$SEO['site_title']}
+</title>
 <meta name="keywords" content="{$SEO['keyword']}">
 <meta name="description" content="{$SEO['description']}">
- <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/custom.css">
   <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/base.css">
   <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/common.css">
@@ -41,8 +44,23 @@
       <div class="tbfilter oh">
         <div class="pull-left">
           <a href="#" class="btn btn-link cBlack">综合</a>
-          <a href="#" class="btn btn-link cBlack" style="border-left: 1px solid #e3e3e3; border-right: 1px solid #e3e3e3">人气<i class="glyphicon glyphicon-arrow-down"></i></a>
-          <a href="" class="btn btn-link cBlack">最新<i class="glyphicon glyphicon-arrow-up"></i></a>
+          <!-- <a href="#" class="btn btn-link cBlack" style="border-left: 1px solid #e3e3e3; border-right: 1px solid #e3e3e3">人气<i class="glyphicon glyphicon-arrow-down"></i></a> -->
+          <?php
+            $sort = $_GET["sort"];
+            $url = get_url();
+            if(!$sort || $sort=="down") {
+              $url = str_replace("&sort=down", "", $url);
+              $sort = "up";
+              $url .= "&sort=".$sort;
+              echo "<a href='$url' class='btn btn-link cBlack'>最新<i class='glyphicon glyphicon-arrow-down'></i></a>";
+            } else {
+              $url = str_replace("&sort=up", "", $url);
+              $sort = "down";
+              $url .= "&sort=".$sort;
+              echo "<a href='$url' class='btn btn-link cBlack'>最新<i class='glyphicon glyphicon-arrow-up'></i></a>";
+            }
+          ?>
+
           
         </div>
         <div class="pull-right">
@@ -71,7 +89,19 @@
               </tr>
             </thead>
             <tbody>
-              {pc:content action="lists" catid="$catid" num="5" order="id DESC" page="$page"}
+              <?php
+                $sort = $_GET["sort"];
+                if (!$sort || $sort=="down") {
+              ?>
+                  {pc:content action="lists" catid="$catid" num="5" order="id DESC" page="$page"}
+              <?php
+                } else {
+              ?>
+                  {pc:content action="lists" catid="$catid" num="5" order="id ASC" page="$page"}
+              <?php
+                }
+              ?>
+                
                 {loop $data $r}
                 <tr>
                   <td>
