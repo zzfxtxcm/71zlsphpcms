@@ -104,6 +104,46 @@ function structure_filters_sql($modelid,$cityid='') {
 }
 
 /**
+ * 构造筛选时候的sql语句
+ */
+function structure_filters_sql1($modelid,$cityid='') {
+	$sql = $fieldname = $min = $max = '';
+	$fieldvalue = array();
+	$modelid = intval($modelid);
+	$model =  getcache('model','commons');
+	$fields = getcache('model_field_'.$modelid,'model');
+	$fields_key = array_keys($fields);
+	//TODO
+
+	$sql = '`status` = \'99\'';
+	if(intval($cityid)!=0)  $sql .= ' AND `city`=\''.$cityid.'\'';
+	foreach ($_GET as $k=>$r) {
+		if(in_array($k,$fields_key) && intval($r)!=0 && ($fields[$k]['filtertype'] || $fields[$k]['rangetype'])) {
+			if($fields[$k]['formtype'] == 'linkage') {
+				$datas = getcache($fields[$k]['linkageid'],'linkage');
+				$infos = $datas['data'];
+				if($infos[$r]['arrchildid']) {
+					$sql .=  ' AND `'.$k.'` in('.$infos[$r]['arrchildid'].')';	
+				}	
+			} elseif($fields[$k]['rangetype']) {
+				if(is_numeric($r)) {
+					$sql .=" AND `$k` = '$r'";
+				} else {
+					$fieldvalue = explode('_',$r);
+					$min = intval($fieldvalue[0]);
+					$max = $fieldvalue[1] ? intval($fieldvalue[1]) : 999999;				
+					$sql .=" AND `$k` >= '$min' AND  `$k` < '$max'";
+				}
+			} else {	
+				$sql .=" AND `$k` = '$r'";
+			}
+		}
+	}
+	
+	$sql .=" AND `catid` = '$_GET[catid]'";
+	return $sql;
+}
+/**
  * 生成分类信息中的筛选菜单
  * @param $field   字段名称
  * @param $modelid  模型ID
@@ -142,7 +182,8 @@ function show_linkage($keyid, $linkageid = 0, $toppatentid = '', $modelid = '', 
 	$keyid = intval($keyid);
 	$linkageid = intval($linkageid);
 	$urlrule = structure_filters_url($fieldname,$array,1,$modelid);
-	if($keyid == 0 || $linkageid == 0) return false;
+	//if($keyid == 0 || $linkageid == 0) return false;
+	//修改
 	$datas = getcache($keyid,'linkage');
 	$infos = $datas['data'];
 	$linkageid_tmp = $infos[$linkageid]['child'] ? $linkageid : $infos[$linkageid]['parentid'];
