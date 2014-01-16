@@ -34,8 +34,36 @@
           <h3 class="panel-title">查找的条件</h3>
         </div>
         <div class="panel-body">
-          <p class="f14"><strong>服务类别：</strong><a href="#" style="color:#000">全部</a> <a href="#" class="text-muted">工商注册</a> <a href="#" class="text-muted">财务会计</a></p>
-          <p class="f14"><strong>所在区域：</strong><a href="#" style="color:#000">不限</a> <a href="#" class="text-muted">厦门</a></p>
+           <p class="f14">
+            <strong>品牌区域：</strong>
+           {php $zone = intval($_GET['zone'])}
+      {php $sub_zone = show_linkage(1,$zone,$zone,$modelid)}
+           
+        
+        {loop $sub_zone $area}
+          {if $zone == $area['linkageid']}
+            <em>{$area['name']}</em>
+          {else}
+            <a href="{$area['url']}">{$area['name']}</a>        
+          {/if}
+        {/loop}</dd>
+           
+           </p>
+            <p class="f14">
+            <strong>投资金额：</strong>
+            {php $price_rang = array('5万以下|1_50000','5万-20万|50000_200000','20万-50万|200000_500000','50万以上|500000_99999999')}
+            {loop filters('price',$modelid,$price_rang) $r}
+           {$r[menu]}
+           {/loop}
+           </p>
+          <p class="f14">
+            <strong>经营方式：</strong>
+              {loop filters('manage',$modelid) $r}
+              {$r[menu]}
+              {/loop}
+              
+          
+           </p>
         </div>
       </div>
     </div>
@@ -89,19 +117,24 @@
               </tr>
             </thead>
             <tbody>
+
+              {php $urlrule = makeurlrule()}
+              {php $cachetime = getinfocache('info_cachetime')}
+              {php $sql = structure_filters_sql($modelid,$zone)}
+              
               <?php
                 $sort = $_GET["sort"];
                 if (!$sort || $sort=="down") {
               ?>
-                  {pc:content action="lists" catid="$catid" num="5" order="id DESC" page="$page"}
+                  {pc:content action="lists" catid="$catid" where="$sql"  num="15" order="listorder DESC,inputtime DESC" page="$page" moreinfo="1" cache="$cachetime" urlrule="$urlrule"}
+                  
               <?php
                 } else {
               ?>
-                  {pc:content action="lists" catid="$catid" num="5" order="id ASC" page="$page"}
+                  {pc:content action="lists" catid="$catid" where="$sql"  num="15" order="listorder ASC,inputtime ASC" page="$page" moreinfo="1" cache="$cachetime" urlrule="$urlrule"}
               <?php
                 }
               ?>
-                
                 {loop $data $r}
                 <tr>
                   <td>
