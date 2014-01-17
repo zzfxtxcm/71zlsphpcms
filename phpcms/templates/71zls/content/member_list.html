@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>同城在线</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="{$SEO['keyword']}">
+  <meta name="description" content="{$SEO['description']}">
+  <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/custom.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/base.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/common.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/font-awesome.min.css">
+  <!--[if IE 7]>
+    <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheet/font-awesome-ie7.min.css">
+  <![endif]-->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="{APP_PATH}statics/71zls/js/responese.js"></script>
+    <![endif]-->
+</head>
+<body>
+  {template "content","header_new_page"}
+  
+  <div class="container mb50">
+    
+    <div class="mt20">
+      <div class="tbfilter oh">
+        <div class="pull-left">
+          <a href="#" class="btn btn-link cBlack">综合</a>
+          <a href="#" class="btn btn-link cBlack" style="border-left: 1px solid #e3e3e3; border-right: 1px solid #e3e3e3">人气<i class="glyphicon glyphicon-arrow-down"></i></a>
+          <a href="#" class="btn btn-link cBlack">最新<i class="glyphicon glyphicon-arrow-up"></i></a>
+        </div>
+        <div class="pull-right">
+          <a href="#" class="btn btn-link" style="color:#a7a7a7; border-left: 1px solid #e3e3e3; border-right: 1px solid #e3e3e3; background: #fff"><i class="glyphicon glyphicon-th-list"></i></a>
+          <a href="#" class="btn btn-link" style="color:#ff6804"><i class="glyphicon glyphicon-th-large"></i></a>
+        </div>
+      </div>
+      
+      <div class="pt10">
+        
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">想创业的他们&nbsp;&nbsp;&nbsp;&nbsp;<small>他们的执着，他们的勤恳，他们的努力……</small></h3>
+          </div>
+          <div class="panel-body">
+            {pc:get sql="SELECT * FROM zls_member a, zls_member_detail b WHERE a.userid=b.userid And b.venture=1 ORDER BY RAND()" num="15" return="data"}
+            {loop $data $r}
+
+            <dl class="onlineContent pull-left">
+              <dt class="pull-left"><img src='{php echo get_memberavatar($r[userid],1,45)}' width="70px" height="70px" onerror="this.src='statics/images/member/nophoto.gif'"/></dt>
+              <dd class="pull-right">
+                昵称：{$r[nickname]}
+                <br>
+                所在地区：{$r[area]}
+                <br>
+                意向/从事行业：{$r[intent]}
+                <br>
+                QQ：
+                <a target=blank href=tencent://message/?uin={$r[qq]}&Site={$r[nickname]}&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:{$r[qq]}:1 alt="点击这里给我发消息"></a>
+              </dd>
+            </dl>
+            {/loop}
+            
+            {/pc}
+            
+          </div>
+        </div>
+        
+        <div class="panel panel-warning">
+          <div class="panel-heading">
+            <h3 class="panel-title">帮您创业的他们&nbsp;&nbsp;&nbsp;&nbsp;<small>他们友好，他们热情，他们是你们坚强的后盾……</small></h3>
+          </div>
+          <div class="panel-body">
+            {pc:get sql="SELECT * FROM zls_member a, zls_member_detail b WHERE a.userid=b.userid And b.venture=0 ORDER BY RAND()" num="15" return="data"}
+            {loop $data $r}
+
+            <dl class="onlineContent pull-left">
+              <dt class="pull-left"><img src='{php echo get_memberavatar($r[userid],1,45)}' width="70px" height="70px" onerror="this.src='statics/images/member/nophoto.gif'"/></dt>
+              <dd class="pull-right">
+                昵称：{$r[nickname]}
+                <br>
+                所在地区：{$r[area]}
+                <br>
+                意向/从事行业：{$r[intent]}
+                <br>
+                QQ：
+                <a target=blank href=tencent://message/?uin={$r[qq]}&Site={$r[nickname]}&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:{$r[qq]}:1 alt="点击这里给我发消息"></a>
+              </dd>
+            </dl>
+            {/loop}
+            
+            {/pc}
+            
+          </div>
+        </div>
+          
+      </div>
+      
+    </div>
+    
+  </div>
+  
+  <div class="footer">
+    <ul class="list-inline text-center">
+      <li>首页</li>
+      <li>-</li>
+      <li>项目首页</li>
+      <li>-</li>
+      <li>服装鞋帽项目</li>
+      <li>-</li>
+      <li>餐饮娱乐项目</li>
+      <li>-</li>
+      <li>美容饰品项</li>
+      <li>-</li>
+      <li>教育网络项目</li>
+      <li>-</li>
+      <li>家居建材项目</li>
+      <li>-</li>
+      <li>机械环保项目</li>
+      <li>-</li>
+      <li>资金首页</li>
+      <li>-</li>
+      <li>服务首页</li>
+    </ul>
+  </div>
+  
+  <script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+  <script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+  <script src="js/custom.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    $('.btnTooltip').tooltip({
+      selector: "[data-toggle=tooltip]",
+      container: "body"
+    })
+  })
+  </script>
+  
+</body>
+</html>
