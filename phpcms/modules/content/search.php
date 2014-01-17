@@ -20,7 +20,7 @@ class search {
 			if ($_groupid==8) showmessage(L('guest_not_allowsearch')); 
 			else showmessage('');
 		}
-
+print_r( $_GET);
 		if(!isset($_GET['catid'])) showmessage(L('missing_part_parameters'));
 		$catid = intval($_GET['catid']);
 		$siteids = getcache('category_content','commons');
