@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{if isset($SEO['title']) && !empty($SEO['title'])}{$SEO['title']}{/if}{$SEO['site_title']}</title>
+<meta name="keywords" content="{$SEO['keyword']}">
+<meta name="description" content="{$SEO['description']}">
+ <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/custom.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/base.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/common.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/font-awesome.min.css">
+  <!--[if IE 7]>
+    <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheet/font-awesome-ie7.min.css">
+  <![endif]-->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="{APP_PATH}statics/71zls/js/responese.js"></script>
+    <![endif]-->
+  
+</head>
+<body>
+
+{template "content","header_new_page"}
+ <div class="container mb50">
+    
+    <div class="row">
+      <div class="col-md-8 contentLeft">
+        <div class="row">
+          <div class="col-md-6">
+            <h2>{str_cut($r[title],70,'...')}</h2>
+            <p><a href="http://wpa.qq.com/msgrd?V=1&Uin={$qq}&Site=在路上创业网&Menu=yes" target="_blank"><img src="http://wpa.qq.com/pa?p=1:{$qq}:13" alt="点击这里给我发送消息" border="0"></a></p>
+            <p><strong class="f14">行业类别：</strong>{catpos1($catid)}</p>
+            <p><strong class="f14">品牌区域：</strong>
+            		{loop $zone $r}
+					<a href="{structure_filters_url('zone',array('zone'=>$r[linkageid],'catid'=>$catid,'city'=>$city),0,$modelid)}" class="blue">{$r[name]}</a>
+					{/loop} </p>
+            <p><strong class="f14">服务类别：</strong>{$servers}</p>
+            
+
+              <a href="#" class="btn btn-success">免费留言咨询</a>
+              &nbsp;&nbsp; 
+             
+              <a href="javascript:;" onclick="add_favorite('{$title}');" class="btn btn-success"> <span id='favorite'>收藏该项目</span></a>
+          		
+            </p>
+          </div>
+          <div class="col-md-6 text-right pt20">
+            <p>发布日期：{$inputtime}&nbsp;&nbsp;浏览次数：<span id="hits"></span></p>
+            <div>
+
+             <img src=" {$thumb}" class="img-thumbnail" style="width:350px; height:350px" alt="">
+              {loop $photos $r}
+               <img src="{$r[url]}" class="img-thumbnail" style="width:350px; height:350px" alt="">
+				
+             {/loop}
+            </div>
+          </div>
+        </div>
+        
+        <div class="page-header">
+          <h4><i class=""></i>详情介绍</h2>
+        </div>
+        <p>
+         {$info}
+        </p>
+      
+        
+        <div class="well">
+          <h5 style="color:#ff832f">如果您对项目感兴趣，并希望获得详细对项目。</h6>
+          <p>请留下您的联系方式，品牌商将第一时间与您联系！</p>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-4" style="padding-right:0">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">电话回呼</h3>
+              </div>
+              <div class="panel-body">
+                1
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" style="padding-right:0">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">留言内容</h3>
+              </div>
+              <div class="panel-body">
+                <form role="form">
+  				<div class="form-group">
+    				<label for="exampleInputEmail1">姓名</label>
+    				<input type="phone" class="form-control" id="phone" placeholder="方便联系的姓名">
+  				</div>
+                <div class="form-group">
+    				<label for="exampleInputEmail1">联系手机</label>
+    				<input type="phone" class="form-control" id="phone" placeholder="联系手机">
+  				</div>
+ 				 <div class="form-group">
+    				<label for="exampleInputEmail1">留言内容</label>
+    				<textarea class="form-control" rows="3"></textarea>
+  				</div>
+  
+  					<button type="submit" class="btn btn-default">Submit</button>
+				</form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">请您填写留言或选择下列快捷留言</h3>
+              </div>
+              <div class="panel-body">
+                3
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <p class="f14 ">
+          <i class="icon-hand-left">&nbsp;&nbsp;</i><strong>上一篇：</strong><a href="{$previous_page[url]}">{$previous_page[title]}</a><br />
+          <i class="icon-hand-right">&nbsp;&nbsp;</i><strong>下一篇：</strong><a href="{$next_page[url]}">{$next_page[title]}</a>
+        </p>
+        
+      </div>
+      <div class="col-md-4 contentRight ">
+        <h4>您还可以</h4>
+        <h5><i class="icon-search f20" style="color:#e9762a"></i>&nbsp;&nbsp;查看相识项目</h5>
+        <h5>分享到</h5>
+        <div class="Article-Tool well">
+          <img src="http://v.t.qq.com/share/images/s/weiboicon16.png" style="padding-bottom:3px;" onclick="postToWb();" class="cu" title="分享到腾讯微博"/><script type="text/javascript">
+	function postToWb(){
+		var _t = encodeURI(document.title);
+		var _url = encodeURIComponent(document.location);
+		var _appkey = encodeURI("cba3558104094dbaa4148d8caa436a0b");
+		var _pic = encodeURI('{$thumb}');
+		var _site = '';
+		var _u = 'http://v.t.qq.com/share/share.php?url='+_url+'&appkey='+_appkey+'&site='+_site+'&pic='+_pic+'&title='+_t;
+		window.open( _u,'', 'width=700, height=680, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no' );
+	}
+</script>
+          <script type="text/javascript">document.write('<a href="http://v.t.sina.com.cn/share/share.php?url='+encodeURIComponent(location.href)+'&appkey=3172366919&title='+encodeURIComponent('{new_addslashes($title)}')+'" title="分享到新浪微博" class="t1" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');</script>
+		  <script type="text/javascript">document.write('<a href="http://www.douban.com/recommend/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent('{new_addslashes($title)}')+'" title="分享到豆瓣" class="t2" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');</script>
+		  <script type="text/javascript">document.write('<a href="http://share.renren.com/share/buttonshare.do?link='+encodeURIComponent(location.href)+'&title='+encodeURIComponent('{new_addslashes($title)}')+'" title="分享到人人" class="t3" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');</script>
+		  <script type="text/javascript">document.write('<a href="http://www.kaixin001.com/repaste/share.php?rtitle='+encodeURIComponent('{new_addslashes($title)}')+'&rurl='+encodeURIComponent(location.href)+'&rcontent=" title="分享到开心网" class="t4" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');</script>
+		  <script type="text/javascript">document.write('<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+encodeURIComponent(location.href)+'" title="分享到QQ空间" class="t5" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');</script>
+        </div>
+        <p>
+          <a href="http://127.0.0.1/71zlsphpcms/index.php?m=member&c=content&a=publish" class="btn btn-default">我要发布需求</a>
+        </p>
+        <p>
+          <img src="" width="359px" height="359px" alt="">
+        </p>
+      </div>
+    </div>
+    
+  </div>
+  <script type="text/javascript">
+<!--
+	function show_ajax(obj) {
+		var keywords = $(obj).text();
+		var offset = $(obj).offset();
+		var jsonitem = '';
+		$.getJSON("{APP_PATH}index.php?m=content&c=index&a=json_list&type=keyword&modelid={$modelid}&id={$id}&keywords="+encodeURIComponent(keywords),
+				function(data){
+				var j = 1;
+				var string = "<div class='point key-float'><div style='position:relative'><div class='arro'></div>";
+				string += "<a href='JavaScript:;' onclick='$(this).parent().parent().remove();' hidefocus='true' class='close'><span>关闭</span></a><div class='contents f12'>";
+				if(data!=0) {
+				  $.each(data, function(i,item){
+					j = i+1;
+					jsonitem += "<a href='"+item.url+"' target='_blank'>"+j+"、"+item.title+"</a><BR>";
+					
+				  });
+					string += jsonitem;
+				} else {
+					string += '没有找到相关的信息！';
+				}
+					string += "</div><span class='o1'></span><span class='o2'></span><span class='o3'></span><span class='o4'></span></div></div>";		
+					$(obj).after(string);
+					$('.key-float').mouseover(
+						function (){
+							$(this).siblings().css({"z-index":0})
+							$(this).css({"z-index":1001});
+						}
+					)
+					$(obj).next().css({ "left": +offset.left-100, "top": +offset.top+$(obj).height()+12});
+				});
+	}
+
+	function add_favorite(title) {
+		$.getJSON('{APP_PATH}api.php?op=add_favorite&title='+encodeURIComponent(title)+'&url='+encodeURIComponent(location.href)+'&'+Math.random()+'&callback=?', function(data){
+			if(data.status==1)	{
+				$("#favorite").html('收藏成功');
+			} else {
+				alert('请登录');
+			}
+		});
+	}
+
+//-->
+</script>
+
+<script language="JavaScript" src="{APP_PATH}api.php?op=count&id={$id}&modelid={$modelid}"></script>
+{template "content","footer"}
+
+</body>
+</html>
