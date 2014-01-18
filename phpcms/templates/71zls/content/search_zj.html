@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{if isset($SEO['title']) && !empty($SEO['title'])}{$SEO['title']}{/if}{$SEO['site_title']}</title>
+<meta name="keywords" content="{$SEO['keyword']}">
+<meta name="description" content="{$SEO['description']}">
+ <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/custom.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/base.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/common.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/font-awesome.min.css">
+  <!--[if IE 7]>
+    <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheet/font-awesome-ie7.min.css">
+  <![endif]-->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="{APP_PATH}statics/71zls/js/responese.js"></script>
+    <![endif]-->
+  
+</head>
+<body>
+
+{template "content","header_new_page"}
+
+  <div class="container mb50">
+    
+    <div class="well">
+      <div class="panel panel-success"  style="margin:0">
+        <div class="panel-heading">
+          <h3 class="panel-title">查找的条件</h3>
+        </div>
+        <div class="panel-body">
+          <p class="f14">
+            <strong>品牌区域：</strong>
+           {php $zone = intval($_GET['zone'])}
+      {php $sub_zone = show_linkage(1,$zone,$zone,$modelid)}
+           
+        
+        {loop $sub_zone $area}
+          {if $zone == $area['linkageid']}
+            <em>{$area['name']}</em>
+          {else}
+            <a href="{$area['url']}">{$area['name']}</a>        
+          {/if}
+        {/loop}</dd>
+           
+           </p>
+            <p class="f14">
+            <strong>融资额度：</strong>
+            {php $price_rang = array('5万以下|1_50000','5万-20万|50000_200000','20万-50万|200000_500000','50万以上|500000_99999999')}
+            {loop filters('price',$modelid,$price_rang) $r}
+           {$r[menu]}
+           {/loop}
+           </p>
+          <p class="f14">
+            <strong>资金用途：</strong>
+              {loop filters('use',$modelid) $r}
+              {$r[menu]}
+              {/loop}
+           </p>
+            <p class="f14">
+            <strong>要求期限：</strong>
+              {loop filters('tlimit',$modelid) $r}
+              {$r[menu]}
+              {/loop}
+
+           </p>
+            <p class="f14">
+              <strong>收入要求：</strong>
+              {loop filters('income',$modelid) $r}
+              {$r[menu]}
+              {/loop}
+           </p>
+           <p class="f14">
+              <strong>抵押类型：</strong>
+              {loop filters('pledge',$modelid) $r}
+              {$r[menu]}
+              {/loop}
+           </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="mt20">
+      <div class="tbfilter oh">
+        <div class="pull-left">
+          <a href="#" class="btn btn-link cBlack">综合</a>
+          <a href="#" class="btn btn-link cBlack" style="border-left: 1px solid #e3e3e3; border-right: 1px solid #e3e3e3">人气<i class="glyphicon glyphicon-arrow-down"></i></a>
+          <a href="#" class="btn btn-link cBlack">最新<i class="glyphicon glyphicon-arrow-up"></i></a>
+        </div>
+        <div class="pull-right">
+          <a href="#" class="btn btn-link" style="color:#a7a7a7; border-left: 1px solid #e3e3e3; border-right: 1px solid #e3e3e3; background: #fff"><i class="glyphicon glyphicon-th-list"></i></a>
+          <a href="#" class="btn btn-link" style="color:#ff6804"><i class="glyphicon glyphicon-th-large"></i></a>
+        </div>
+      </div>
+      
+      <div class="">
+        
+        <div class="pull-left" style="width:780px; border-left:1px solid #e3e3e3; border-right:1px solid #e3e3e3; border-bottom:1px solid #e3e3e3">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>
+                  <form action="" role="form">
+                    <label class="checkbox-inline">
+                      <input type="checkbox" id="inlineCheckbox1" value="option1"> 只看有图
+                    </label>
+                    <label class="checkbox-inline">
+                      <input type="checkbox" id="inlineCheckbox2" value="option2"> 在线商家
+                    </label>
+                  </form>
+                </th>
+                <th style="width:100px">发布日期</th>
+              </tr>
+            </thead>
+            <tbody>
+              {php $urlrule = makeurlrule()}
+              {php $cachetime = getinfocache('info_cachetime')}
+                {php $sql = structure_filters_sql1($modelid,$zone)}
+                 
+              
+                {loop $datas $r}
+              <tr>
+                <td>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <a href="{$r[url]}" class="pull-left">
+                        {if $r[thumb]}
+                      <img src="{$r[thumb]}" width="110px" height="90px" class="img-thumbnail" alt="">
+                        {else}
+                         <img src="{APP_PATH}statics/71zls/images/logo2.png" width="110px" height="90px" class="img-thumbnail" alt="">
+                        {/if}
+                    </a></div>
+                    <div class="col-md-6">
+                      <span>
+                        <a href="{$r[url]}" style="color:#fa8904">{str_cut($r[title],70,'...')} </a><a href="#" class="btn btn-success btn-xs">在线</a>
+                      </span>
+                      <p class="mt10 lh150">
+                        
+                        {str_cut($r[info],230,'...')}
+                      </p>
+                    </div>
+                    <div class="col-md-3 pt10">
+                      <a href="#" class="btn btn-warning btn-sm">快捷留言 <i class="glyphicon glyphicon-envelope"></i></a>
+                      <a href="{$r[url]}" class="btn btn-warning btn-sm mt10">项目详情 <i class="glyphicon glyphicon-ok"></i></a>
+                    </div>
+                  </div>
+                </td>
+                <td><p class="mt30">{date('Y-m-d ',$r[inputtime])}</p></td>
+              </tr>
+              {/loop}
+               
+             
+                
+            </tbody>
+            <tr>
+              <td  align="center">{$pages}
+               </td>
+            </tr>
+          </table>
+        </div>
+        <div class="pull-right pt10" style="width:350px">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">智能推广</h3>
+            </div>
+            <div class="panel-body">
+              1
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">热度排行</h3>
+            </div>
+            <div class="panel-body">
+              1
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+    </div>
+    
+  </div>
+  
+  
+  
+  {template "content","footer"}
+  
+</body>
+</html>

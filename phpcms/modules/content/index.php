@@ -279,10 +279,6 @@ class index {
 		}
 	}
 	
-	public function searchpr(){
-
-		print_r($_GET);
-	} 
 	//JSON 输出
 	public function json_list() {
 		if($_GET['type']=='keyword' && $_GET['modelid'] && $_GET['keywords']) {
