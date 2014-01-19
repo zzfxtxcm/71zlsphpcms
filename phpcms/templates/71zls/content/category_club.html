@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{if isset($SEO['title']) && !empty($SEO['title'])}{$SEO['title']}{/if}{$SEO['site_title']}</title>
+<meta name="keywords" content="{$SEO['keyword']}">
+<meta name="description" content="{$SEO['description']}">
+ <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/custom.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/base.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/common.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/font-awesome.min.css">
+  <!--[if IE 7]>
+    <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheet/font-awesome-ie7.min.css">
+  <![endif]-->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="{APP_PATH}statics/71zls/js/responese.js"></script>
+    <![endif]-->
+  
+</head>
+<body>
+
+{template "content","header_new_page"}
+ <div class="container mb50">
+     
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+         {pc:content  action="ads" spaceid="11" order="listorder ASC" num="5"}
+            {php $i=0 }
+            {loop $data $r}
+        <li data-target="#carousel-example-generic" data-slide-to="{$i}" {if $i==0}class="active"{/if}></li>
+            {php $i++ }
+            {/loop}
+        {/pc}
+      </ol>
+
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner">
+        
+        {pc:content  action="ads" spaceid="11" order="listorder ASC" num="5"}
+        {php $i=0 }
+        {loop $data $r}
+        <div {if $i==0}class="item active"{else}class="item"{/if}>
+         <a  href="{$r['url']}" title="{str_cut($r['title'],30)}"> <img src="{thumb($r['thumb'],1170,400)}" alt="..."  style="width:1170px; height:400px;"></a>
+          <div class="carousel-caption">
+            {str_cut($r['title'],30)}
+          </div>
+        </div>
+         {php $i++ }
+        {/loop}
+        {/pc}
+      </div>
+
+      <!-- Controls -->
+      <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </a>
+    </div>
+    
+    <div class="row mt20">
+      <div class="col-md-4">
+        <div class="service">
+          <i class="icon-group service-icon"></i>
+          <div class="desc">
+            <h4>俱乐部公告</h4>
+            <p>最新俱乐部公告</p>
+          </div>
+        </div>  
+      </div>
+      <div class="col-md-4">
+        <div class="service">
+          <i class="icon-money service-icon"></i>
+          <div class="desc">
+            <h4>创业小贴士</h4>
+            <p>创业小贴士</p>
+          </div>
+        </div>  
+      </div>
+      <div class="col-md-4">
+        <div class="service">
+          <i class="icon-coffee service-icon"></i>
+          <div class="desc">
+            <h4>创业分享</h4>
+            <p>创业分享</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+{template "content","footer"}
+</body>
+</html>

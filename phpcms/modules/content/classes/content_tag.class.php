@@ -262,6 +262,31 @@ class content_tag {
 		}
 		return $array;
 	}
+	     /**
+	     *广告标题：title
+         *广告图片：thumb
+		 *广告图片描述：alt
+		 *广告链接地址：url
+         * 广告
+         * @param $data
+         */
+    public function ads($data) {
+         $this->dbads = pc_base::load_model('poster_model');
+         $where = '1';
+         $spaceid = $data['spaceid'] ? intval($data['spaceid']) :"";
+         if ($spaceid) $where .= " AND `spaceid`='".$spaceid."' AND disabled='0'" ;
+         $return= $this->dbads->select($where, '*', $data['limit'], $data['order']);
+         $result=array();
+         foreach ($return AS $value){
+                        $result[$value['id']]['title']=$value['name'];
+                        //字符串转换为数组
+                        $temp=string2array($value['setting']);
+                        $result[$value['id']]['alt']=$temp['1']['alt'];
+                        $result[$value['id']]['thumb']=$temp['1']['imageurl'];
+                        $result[$value['id']]['url']=$temp['1']['linkurl'];
+                }
+                return $result;
+        }
 	/**
 	 * 可视化标签
 	 */
