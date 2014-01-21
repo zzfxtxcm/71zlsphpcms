@@ -2,7 +2,7 @@
   'name' => '创业在路上',
   'author' => '71zls TEAM',
   'dirname' => '71zls',
-  'homepage' => 'http://www.71zls.com/',
+  'homepage' => 'http://71zls.com/',
   'version' => '1.0',
   'disable' => 0,
   'file_explan' => 
