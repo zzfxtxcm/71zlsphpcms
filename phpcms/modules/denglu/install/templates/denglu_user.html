@@ -1,0 +1,242 @@
+{template 'member', 'header'}
+<div id="memberArea">
+{template 'denglu', 'denglu_user_left'}
+<div class="col-auto">
+
+  <!---------------------------------------->
+  	<link type="text/css" href="phpcms/modules/denglu/style.css" rel="stylesheet" />
+	<div class="st_main">
+			<!--<p {if $op=='set'} class="active" {/if} ><a href="denglu.php?act=dl_user&op=set">{L('syn_setting')}</a></p>-->		
+	    {if $op=='set'}
+		<script type='text/javascript'>
+		function ID(id){
+			return document.getElementById(id);
+		}
+		function toggle_check(mediaID){
+			if(ID('all_check_'+mediaID).checked == 1){
+					ID('thread_syn_'+mediaID).checked = "checked";
+					ID('log_syn_'+mediaID).checked = "checked";
+			}else{
+				ID('thread_syn_'+mediaID).checked = "";
+				ID('log_syn_'+mediaID).checked = "";
+		    }
+			
+	       }
+	    
+	    </script>
+	    <form method='POST' action='denglu.php?act=dl_user&op=save'>
+		    <div class="st_text">
+			<p>{L('media_syn_setting')}</p>
+			<ul class="st_list">
+			{loop $bindusers $v}
+				<li>
+				<p class="st_relate"><span class="st_type" style="background:url(denglu/images/denglu_second_icon_{$v[mediaID]}.png) no-repeat;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>{$v[mediaName]}</span>{L('syn_content')}</p>
+				<p class="st_check">
+			 
+					<input id="thread_syn_{$v[mediaID]}" name="thread_syn_{$v[mediaUserID]}" type="checkbox" {if $v[thread_syn]}checked="checked"{/if} value='1'/><label for="bbs_check_renren">{L('forum_thread')}</label>
+					<input id="log_syn_{$v[mediaID]}" name="log_syn_{$v[mediaUserID]}" type="checkbox" {if $v[log_syn]}checked="checked"{/if} value='1'/><label for="blog_check_renren">{L('user_log')}</label>
+					<input type="hidden" name="mediaUserID[]" value="{$v[mediaUserID]}">
+					{if $v[mediaID] == 7}
+					<span style="margin-left:20px;">{L('renren_auth_tip')}
+						<a style="color:#ff6000" target="_blank" href="http://app.renren.com/apps/authorize.do?api_key={$renren_appid}&next=&ext_perm=publish_feed&display=noad">{L('click_here')}</a>
+						{L('auth_over')}
+					</span>
+					{/if}
+				</p>
+			    </li>
+			{/loop} 
+			</ul>
+			{if $bind_users && $bind_users[0][tag]==1}
+			<div class="st_save"><p class="st_btn"><button type="submit" name="doshare" value="true" class="pn pnc" /><strong>{L('save')}</strong></button></p></div>
+			{/if}
+			</div>
+	    </form>
+	    {/if}
+	    {if $op==false}
+	    <script type='text/javascript'>
+		function unbind(muid){
+			if(confirm('{L('unbind_not_return')}')){
+				gounbind(muid);
+			}
+	    }
+	    function gounbind(muid){
+			document.getElementById('mediaUserID').value=muid;
+			document.getElementById('unbind_form').submit();
+	    }
+	    </script>
+	    <form method='POST' id="unbind_form" action='index.php?m=denglu&c=user&a=unbind'>
+		    <div class="st_text" >
+			<p>{L('you_can_bind_here')}</p>
+				<input type="hidden" name="mediaUserID" value="" id="mediaUserID"/>
+				<input type="hidden" name="unbind" value="true"/>
+				<ul class="st_list">
+					{loop $bind_users $v}
+					<li>
+					<p><span class="st_type" style="background:url(phpcms/modules/denglu/images/denglu_second_icon_{$v[mediaID]}.png) no-repeat;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span></span>{L('account')}<span>{str_cut($v[screenName],16,'')}</span></p>
+					{if $v['tag']==1}
+						<p class="st_state"><span class="st_state_icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{L('binding')}</p>
+						<p class="st_btn"><a href="javascript:unbind({$v[mediaUserID]});">{L('unbind')}</a></p>
+					{else}
+						<p class="st_state"><span class="st_state_icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{L('no_bind')}</p>
+						<p class="st_btn"><a href="index.php?m=denglu&c=user&a=olbind_have&t=3" >{L('do_bind_account')}</a></p>
+					{/if}
+				    </li>
+				    {/loop}
+				</ul>
+			</form>
+			{if $check_media}
+			<div class="st_more">
+				<p>{L('the_others_you_can_bind')}</p>
+			    <ul class="layout">
+			    {loop $check_media $ret}
+				<li>
+					<span class="st_type" style="background:url(phpcms/modules/denglu/images/denglu_second_icon_{$ret[mediaID]}.png) no-repeat;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					<a href="index.php?m=denglu&c=user&a=olbind&mid={$ret[mediaNameEn]}" >{$ret[mediaName]}</a><span class="st_margin">|</span>
+				</li>
+			    {/loop}
+			    </ul>
+			</div>
+			{/if}
+		    </div>
+	    </form>
+		{/if}
+
+		<!---------------------------------------------------------------------------->
+		{if $op=='olbind_have' || $op=='olbind_haveno'}
+		<script type="text/javascript" src="{JS_PATH}member_common.js"></script>
+<script type="text/javascript" src="{JS_PATH}formvalidator.js" charset="UTF-8"></script>
+<script type="text/javascript" src="{JS_PATH}formvalidatorregex.js" charset="UTF-8"></script>
+<script type="text/javascript" src="{JS_PATH}dialog.js"></script>
+{if CHARSET=='utf-8'}
+{template 'denglu','js_utf'}
+{else}
+{template 'denglu','js_gbk'}
+{/if}
+	<script language="JavaScript">
+	<!--
+	$(function(){
+		$.formValidator.initConfig({autotip:true,formid:"myform0",onerror:function(msg){}});
+		$("#username0").formValidator({onshow:"{L('empty_username_tip')}",onfocus:"{L('twety_byte')}"}).inputValidator({min:2,max:20,onerror:"{L('twety_byte')}"}).regexValidator({regexp:"ps_username",datatype:"enum",onerror:"{L('username_error_tip')}"});
+		$("#password0").formValidator({onshow:"{L('empty_password_tip')}",onfocus:"{L('short_password_tip')}"}).inputValidator({min:6,max:20,onerror:"{L('short_password_tip')}"});
+	
+	});
+	//-->
+	</script>
+<div class="dl_main" style="border:none;margin:0px;padding-top:0px;">
+{if $op=='olbind_have'}
+	<div class="dl_text" id='bind_have'>
+    	<div class="dl_tab layout">
+			<p><a href="index.php?m=denglu&c=user&a=olbind_have&op=olbind_haveno&t=3">{L('have_no_account')}</a></p>
+			<p class="active"><a href="index.php?m=denglu&c=user&a=olbind_have&op=olbind_have&t=3">{L('have_account')}</a></p>
+        </div>
+        <form method='post' action='index.php?m=denglu&c=user&a=olbind_do_have' id='myform0'>
+			<input type="hidden" name="olbind" value="bind" />
+			<input type='hidden' value='olbind' name='action'>
+	        <div class="dl_inform">
+	            <div class="dl_form layout">
+					<p>{L('username')}</p>
+	                <p><input id="username0" type="text" value="" name='username'/></p>
+	                <p class="dl_wrong"></p>
+	                <p class="dl_wrong"></p>
+	            </div>
+	            <div class="dl_form layout">
+					<p>{L('password','','denglu')}</p>
+	                <p><input type="password" value="" name='password' id="password0"/></p>
+	                <p class="dl_wrong"></p>
+	                <p class="dl_point"></p>
+	            </div>
+	        </div>
+	        <div class="dl_btn layout">
+				<p>
+				<input type="submit" value="  {L('bind_it')}  " id="registerform" name="dosubmit" class="button_style">
+				<!--<button tabindex="1" value="true" name="bind" type="submit" class="pn pnc"><span>{L('bind_it')}</span></button>--></p>
+				
+	        </div>
+        </form>
+	<script language="javascript">
+	function havedisplay(hide, show){
+		 document.getElementById(hide).style.display = 'none';
+		 document.getElementById(show).style.display = 'block';
+		 var username = show + "_user";
+		 init(username);
+	}
+	function init(username){
+		var ctrl = document.getElementById(username);
+		ctrl.focus();
+	}
+	init("bind_have_user");
+	</script>
+	</div>
+	{/if}
+{if $op=='olbind_haveno'}
+	<div class="dl_text" id='bind_haveno'>
+    	<div class="dl_tab layout">
+        	<p class="active"><a href="index.php?m=denglu&c=user&a=olbind_have&op=olbind_haveno&t=3">{L('have_no_account')}</a></p>
+			<p><a href="index.php?m=denglu&c=user&a=olbind_have&op=olbind_have&t=3">{L('have_account')}</a></p>
+        </div>
+        <form method='post' action="index.php?m=denglu&c=user&a=olbind_do_haveno" id='myform' name='myform'>
+        <input type='hidden' value='olbind' name='action'>
+		        <div class="dl_inform">
+	            <div class="dl_form layout">
+	                <p>{L('dl_username')}</p>
+					<p><input type="text"  maxlength="20" size="20" value="{$userinfo[screenName]}" id="username" name="username" class="input_blur">  </p>
+
+	            </div>
+	            <div class="dl_form layout">
+	                <p>{L('password','','denglu')}</p>
+	                <p><input type="password" maxlength="16" size="20" id="password"  name="password" class="input_blur">  </p>
+	                
+	            </div>
+	            <div class="dl_form layout">
+	                <p>{L('repeat_password')}</p>
+	                <p><input type="password" maxlength="20" size="20" id="pwdconfirm"  name="pwdconfirm" class="input_blur">  </p>
+	                
+	            </div>
+	            <div class="dl_form layout">
+	                <p>{L('email','','denglu')}</p>
+	                <p><input type="text" size="30" id="email"  style="ime-mode:disabled" name="email" class="input_blur">  </p>
+					
+	            </div>
+	        </div>
+	        <div class="dl_btn layout">
+	        	<p>
+	        	<input type="submit" value="  {L('confirm')}  " id="registerform" name="dosubmit" class="button_style">
+	        	</p>
+	            
+	        </div>
+        </form>
+	</div>
+	{/if}
+</div>
+
+{/if}
+{if $op=='photo'}
+	<div class="st_text" >
+		<p>{L('myphoto_tip')}</p>
+		<form method="POST" action='index.php?m=denglu&c=user&a=do_photo'>
+			<ul class="st_piclist layout">
+			{loop $myphoto $ret}
+				<li>
+				<div class="st_picradio"><input type="radio" value="{$ret['mediaUserID']}" name="muid"/></div>
+				<div class="st_picsearch"><img src="phpcms/modules/denglu/avatar/{$ret[mediaUserID]}_middle.jpg" width="50" height="50" /><img class="st_picicon" src="{DENGLU_ROOT}images/denglu_second_icon_{$ret[mediaID]}.png" /></div>
+				 </li>
+				
+			{/loop}
+
+			</ul>
+			<div class="st_save"><p class="st_btn">
+			{if $myphoto!=false}<input type="submit" value="  {L('save')}  " id="registerform" name="photoset" class="button_style">{/if}
+			<!--<button type="submit" name="photoset" value="true" class="pn pnc" /><strong>{L('save')}</strong></button>--></p></div>
+		
+		</form>
+	</div>
+{/if}
+		<!------------------------------------------------------------------>
+
+	</div>
+  <!---------------------------------------------->
+
+</div>
+</div>
+<div class="clear"></div>
+{template 'member', 'footer'}

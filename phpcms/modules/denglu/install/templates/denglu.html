@@ -1,0 +1,169 @@
+{template 'content','header'}
+<link type="text/css" href="phpcms/modules/denglu/style.css" rel="stylesheet" />
+<script type="text/javascript" src="{JS_PATH}member_common.js"></script>
+<script type="text/javascript" src="{JS_PATH}formvalidator.js" charset="UTF-8"></script>
+<script type="text/javascript" src="{JS_PATH}formvalidatorregex.js" charset="UTF-8"></script>
+<script type="text/javascript" src="{JS_PATH}dialog.js"></script>
+{if CHARSET=='utf-8'}
+{template 'denglu','js_utf'}
+<script type='text/javascript'>
+	function startmarquee(){
+		return;
+	}
+</script>
+{else}
+{template 'denglu','js_gbk'}
+{/if}
+<div class="dl_main">
+	<div class="dl_top layout">
+		<div class="dl_logo">
+			<img src="phpcms/modules/denglu/images/denglu_second_{$userinfo[mediaID]}.png">
+        </div>
+
+        <div class="dl_notes">
+        	<p class="h3">{L('use')}<span>{$mediaName}</span>{L('account_login')}<span>{L('our_website')}</span>{L('success')}</p>
+			<p>{L('discuz_tip0')}{$mediaName}{L('discuz_tip1')}</p>
+        </div>
+    </div>
+			{if $userinfo[mediaID] ==7}<p style="margin-top:15px;font-weight:bold;">
+			
+				{L('renren_auth_tip')}<a style="color:#ff6000" target="_blank" href="http://app.renren.com/apps/authorize.do?api_key={$renren_appid}&next=&ext_perm=publish_feed&display=noad">{L('click_here')}</a>
+				{L('auth_over')}
+				</p>{/if}
+	{if $act=='quick_login'}
+	<script type='text/javascript'>
+	$(function(){document.getElementById('username').focus();
+	document.getElementById('username').blur();
+	});
+	function quick_register(){
+		if(document.getElementById('usernameTip').className=='onCorrect'){
+			document.getElementById('myform').submit();
+		}
+	}
+	function gotobind(){
+		document.getElementById('act').value='bind_have';
+		document.getElementById('myform').submit();
+	}
+	</script>
+	<div class="dl_text" id='quick_login'><span id='loader' style='display:none'></span>
+		<form method='post' action='index.php?m=denglu&c=index&a=init' id='myform' >
+			<div class="dl_form layout">
+				<p>{L('dl_username')}</p>
+				<p><input type="text" id='username' value="{$userinfo[screenName]}" name='username' id="username"/></p>
+				<p class="dl_wrong" id='username_notice'></p>
+        	</div>
+      	  	 <div class="dl_btn layout">
+      	  	 	<input type='hidden' name='dosubmit' value='1'>
+      	  	 	<input type='hidden' name='act' value='do_quick_login' id='act'>
+      	  	 	<input type='hidden' name='userbak' value='{$userbak}'>
+      	  	 	<input type=submit name='dosubmit' value='1' id='dosubmit' style='display:none;'>
+				 <p style='background:url(phpcms/modules/denglu/images/btn_back.gif);width:75px;'><a href='javascript:quick_register()'>{L('quick_login')}</a></p>
+             	<p style='background:url(phpcms/modules/denglu/images/btn_back.gif);width:75px;'><a href='javascript:gotobind()' >{L('account_bindding')}</a></p>
+			 </div>
+		</form>
+        <div class="dl_warnning">
+			<p class="dl_wrong">{L('denglu_tip0')}{$mediaName}{L('denglu_tip1')}</p>
+        </div>
+	</div>
+	{/if}
+	{if $act=='bind_have'}
+	<script type='text/javascript'>
+	function denglu_switch(){
+		document.getElementById('act').value='bind_haveno';
+		document.getElementById('myform0').submit();
+	}
+	
+	</script>
+	<script language="JavaScript">
+	<!--
+	$(function(){
+		$.formValidator.initConfig({autotip:true,formid:"myform0",onerror:function(msg){}});
+		$("#username").formValidator({onshow:"{L('empty_username_tip')}",onfocus:"{L('twety_byte')}"}).inputValidator({min:2,max:20,onerror:"{L('twety_byte')}"}).regexValidator({regexp:"ps_username",datatype:"enum",onerror:"{L('username_error_tip')}"});
+		$("#password").formValidator({onshow:"{L('empty_password_tip')}",onfocus:"{L('short_password_tip')}"}).inputValidator({min:6,max:20,onerror:"{L('short_password_tip')}"});
+	
+	});
+	//-->
+	</script>
+	<div class="dl_text" id='bind_have'  >
+    	<div class="dl_tab layout">
+			<p><a href="javascript: denglu_switch();">{L('have_no_account')}</a></p>
+			<p class="active"><a href="javascript:;">{L('have_account')}</a></p>
+        </div>
+        <form method='post' action='index.php?m=denglu' id='myform0'>
+			<input type='hidden' name='userbak' value='{$userbak}'>
+				<input type='hidden' name='act' value='do_bind_have' id='act'>
+	        <div class="dl_inform">
+	            <div class="dl_form layout">
+					<p>{L('dl_username')}</p>
+	                <p><input type="text" value="" name='username' id='username'/></p>
+	                <p class="dl_wrong"></p>
+	                <p class="dl_wrong"></p>
+	            </div>
+	            <div class="dl_form layout">
+					<p>{L('password')}</p>
+	                <p><input type="password" value="" name='password' id='password'/></p>
+	                <p class="dl_wrong"></p>
+	                <p class="dl_point"></p>
+	            </div>
+	        </div>
+	        <div class="dl_btn layout">
+	        	<div class='reg'>
+				<div class='submit'>
+				<input type="submit" value="  {L('bind_it')}  " id="registerform" name="dosubmit" class="button_style">
+				<!--<button tabindex="1" value="true" name="bind" type="submit" class="pn pnc"><span>{L('bind_it')}</span></button>--></div>
+				</div>
+	        </div>
+        </form>
+	</div>
+	{/if}
+	{if $act==bind_haveno}
+	<script type='text/javascript'>
+	function denglu_switch(){
+		document.getElementById('act').value='bind_have';
+		document.getElementById('myform').submit();
+	}
+	</script>
+	<div class="dl_text" id='bind_haveno'>
+    	<div class="dl_tab layout">
+        	<p class="active"><a href="javascript:;">{L('have_no_account')}</a></p>
+			<p><a href="javascript: denglu_switch();">{L('have_account')}</a></p>
+        </div>
+        <form method='post' action="index.php?m=denglu" id='myform' name='myform'>
+        	<input type='hidden' name='userbak' value='{$userbak}'>
+        		<input type='hidden' name='act' value='do_bind_haveno' id='act'>
+	        <div class="dl_inform">
+	            <div class="dl_form layout">
+	                <p>{L('dl_username')}</p>
+					<p><input type="text"  maxlength="20" size="20" value="{$userinfo[screenName]}"  name="username" class="input_blur" id="username">  </p>
+
+	            </div>
+	            <div class="dl_form layout">
+	                <p>{L('password')}</p>
+	                <p><input type="password" maxlength="16" size="20" name="password" class="input_blur" id="password">  </p>
+	                
+	            </div>
+	            <div class="dl_form layout">
+	                <p>{L('repeat_password')}</p>
+	                <p><input type="password" maxlength="20" size="20" id="pwdconfirm" msg="{L('password_error')}" to="memberinfo[password]" datatype="repeat" require="true" name="pwdconfirm" class="input_blur">  </p>
+	                
+	            </div>
+	            <div class="dl_form layout">
+	                <p>{L('email')}</p>
+	                <p><input type="text" size="30" id="email"  style="ime-mode:disabled" name="email" class="input_blur">  </p>
+					
+	            </div>
+	        </div>
+	        <div class="dl_btn layout">
+	        	<div class='reg'>
+	        	<div class='submit'><input type="submit" value="  {L('confirm')}  " id="registerform" name="dosubmit" class="button_style"></div>
+	        	<!--<button tabindex="1" value="true" name="reg" type="submit" class="pn pnc"><span>{L('confirm')}</span></button>-->
+	            </div>
+	        </div>
+        </form>
+	</div>
+	{/if}
+
+</div>
+
+
+{template 'content','footer'}
