@@ -12,4 +12,7 @@ Desktop.ini
 /caches/
 /html/
 /uploadfile/
-/phpsso_server/
+/phpsso_server
+
+# shell
+upload.sh
