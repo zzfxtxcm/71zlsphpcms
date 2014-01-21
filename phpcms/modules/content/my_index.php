@@ -280,7 +280,7 @@ class my_index extends index{
 	}
 	//搜索 项目
 	public function searchpr(){
-          echo $_GET;
+          print_r($_GET);
 		/*
 		$grouplist = getcache('grouplist','member');
 		$_groupid = param::get_cookie('_groupid');
