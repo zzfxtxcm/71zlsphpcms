@@ -77,6 +77,14 @@ class index extends foreground {
 			$userinfo['siteid'] = $siteid;
 			$userinfo['connectid'] = isset($_SESSION['connectid']) ? $_SESSION['connectid'] : '';
 			$userinfo['from'] = isset($_SESSION['from']) ? $_SESSION['from'] : '';
+			//通过模型获取会员信息					
+						require_once CACHE_MODEL_PATH.'member_input.class.php';
+				        require_once CACHE_MODEL_PATH.'member_update.class.php';
+						$member_input = new member_input($userinfo['modelid']);
+						
+						$_POST['info'] = array_map('new_html_special_chars',$_POST['info']);
+						$user_model_info = $member_input->get($_POST['info']);
+						
 			//手机强制验证
 			
 			if($member_setting[mobile_checktype]=='1'){
@@ -137,13 +145,6 @@ class index extends foreground {
 					$userinfo['password'] = password($userinfo['password'], $userinfo['encrypt']);
 					$userid = $this->db->insert($userinfo, 1);
 					if($member_setting['choosemodel']) {	//如果开启选择模型
-						//通过模型获取会员信息					
-						require_once CACHE_MODEL_PATH.'member_input.class.php';
-				        require_once CACHE_MODEL_PATH.'member_update.class.php';
-						$member_input = new member_input($userinfo['modelid']);
-						
-						$_POST['info'] = array_map('new_html_special_chars',$_POST['info']);
-						$user_model_info = $member_input->get($_POST['info']);
 						$user_model_info['userid'] = $userid;
 	
 						//插入会员模型数据

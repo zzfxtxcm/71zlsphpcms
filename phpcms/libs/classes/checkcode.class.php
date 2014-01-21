@@ -22,7 +22,7 @@ class checkcode {
 	public $font_color;
 	
 	//设置随机生成因子
-	public $charset = 'abcdefghkmnprstuvwyzABCDEFGHKLMNPRSTUVWYZ23456789';
+	public $charset = '0123456789';
 	
 	//设置背景色
 	public $background = '#EDF7FF';
