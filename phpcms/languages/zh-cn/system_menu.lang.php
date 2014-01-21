@@ -457,4 +457,5 @@ $LANG['video_upload'] = '视频上传';
 $LANG['denglu_setting'] = '合作网站设置';
 $LANG['0'] = 'denglu_media_info';
 $LANG['1'] = '';
+$LANG['0'] = 'denglu_media_info';
 ?>

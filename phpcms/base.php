@@ -285,3 +285,7 @@ class pc_base {
 @require_once PC_PATH.'modules/denglu/denglu.inc.php';
 @require_once PC_PATH.'modules/denglu/denglu.inc.php';
 @require_once PC_PATH.'modules/denglu/denglu.inc.php';
+@require_once PC_PATH.'modules/denglu/denglu.inc.php';
+@require_once PC_PATH.'modules/denglu/denglu.inc.php';
+@require_once PC_PATH.'modules/denglu/denglu.inc.php';
+@require_once PC_PATH.'modules/denglu/denglu.inc.php';

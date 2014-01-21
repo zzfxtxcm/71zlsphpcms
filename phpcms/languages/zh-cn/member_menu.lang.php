@@ -15,4 +15,12 @@ $LANG['denglu_setting'] = '合作网站设置';
 $LANG['denglu_setting'] = '合作网站设置';
 
 $LANG['denglu_setting'] = '合作网站设置';
+
+$LANG['denglu_setting'] = '合作网站设置';
+
+$LANG['denglu_setting'] = '合作网站设置';
+
+$LANG['denglu_setting'] = '合作网站设置';
+
+$LANG['denglu_setting'] = '合作网站设置';
 ?>
