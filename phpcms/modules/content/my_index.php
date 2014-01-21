@@ -280,7 +280,8 @@ class my_index extends index{
 	}
 	//搜索 项目
 	public function searchpr(){
-
+          echo $_GET;
+		/*
 		$grouplist = getcache('grouplist','member');
 		$_groupid = param::get_cookie('_groupid');
 		if(!$_groupid) $_groupid = 8;
@@ -301,77 +302,7 @@ class my_index extends index{
 		}
 		$modelid = $this->categorys[$catid]['modelid'];
 		$modelid = intval($modelid);
-		if(!$modelid) showmessage(L('illegal_parameters'));
-		//搜索间隔
-		/*$minrefreshtime = getcache('common','commons');
-		$minrefreshtime = intval($minrefreshtime['minrefreshtime']);
-		$minrefreshtime = $minrefreshtime ? $minrefreshtime : 5;
-		if(param::get_cookie('search_cookie') && param::get_cookie('search_cookie')>SYS_TIME-2) {
-			//showmessage(L('search_minrefreshtime',array('min'=>$minrefreshtime)),'index.php?m=content&c=index&a=searchpr&catid='.$catid,$minrefreshtime*1280);
-		} else {
-			param::set_cookie('search_cookie',SYS_TIME+2);
-		}
-		*/
-		//搜索间隔
-		
-		$CATEGORYS = $this->categorys;
-		//产生表单
-		pc_base::load_sys_class('form','',0);
-		$fields = getcache('model_field_'.$modelid,'model');
-		$forminfos = array();
-		foreach ($fields as $field=>$r) {
-			if($r['issearch']) {
-				if($r['formtype']=='catid') {
-					$r['form'] = form::select_category('',$_GET['info']['catid'],'name="info[catid]"',L('please_select_category'),$modelid,0,1);
-				} elseif($r['formtype']=='number') {
-					$r['form'] = "<input type='text' name='{$field}_start' id='{$field}_start' value='' size=5 class='input-text'/> - <input type='text' name='{$field}_end' id='{$field}_start' value='' size=5 class='input-text'/>";
-				} elseif($r['formtype']=='datetime') {
-					$r['form'] = form::date("info[$field]");
-				} elseif($r['formtype']=='box') {
-					$options = explode("\n",$r['options']);
-					foreach($options as $_k) {
-						$v = explode("|",$_k);
-						$option[$v[1]] = $v[0];
-					}
-					switch($r['boxtype']) {
-						case 'radio':
-							$string = form::radio($option,$value,"name='info[$field]' id='$field'");
-						break;
-			
-						case 'checkbox':
-							$string = form::radio($option,$value,"name='info[$field]' id='$field'");
-						break;
-			
-						case 'select':
-							$string = form::select($option,$value,"name='info[$field]' id='$field'");
-						break;
-			
-						case 'multiple':
-							$string = form::select($option,$value,"name='info[$field]' id='$field'");
-						break;
-					}
-					$r['form'] = $string;
-				} elseif($r['formtype']=='typeid') {
-					$types = getcache('type_content','commons');
-					$types_array = array(L('no_limit'));
-					foreach ($types as $_k=>$_v) {
-						if($modelid == $_v['modelid']) $types_array[$_k] = $_v['name'];
-					}
-					$r['form'] = form::select($types_array,0,"name='info[$field]' id='$field'");
-				} elseif($r['formtype']=='linkage') {
-					$setting = string2array($r['setting']);
-					$value = $_GET['info'][$field];
-					$r['form'] = menu_linkage($setting['linkageid'],$field,$value);
-				} elseif(in_array($r['formtype'], array('text','keyword','textarea','editor','title','author','omnipotent'))) {
-					$value = safe_replace($_GET['info'][$field]);
-					$r['form'] = "<input type='text' name='info[$field]' id='$field' value='".$value."' class='input-text search-text'/>";
-				} else {
-					continue;
-				}
-				$forminfos[$field] = $r;
-			}
-		}
-		//-----------
+		if(!$modelid) showmessage(L('illegal_parameters'));	
 		if(isset($_GET['dosubmit'])) {
 			$siteid = $this->categorys[$catid]['siteid'];
 			$siteurl = siteurl($siteid);
@@ -419,7 +350,8 @@ class my_index extends index{
 				$pages = '';
 			}
 		}
-		include template('content','search_pr');
+include template('content','search_pr');
+*/
 	} 
 	//搜索资金
 	public function searchzj(){
