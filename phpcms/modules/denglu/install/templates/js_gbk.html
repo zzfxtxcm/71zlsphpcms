@@ -1,0 +1,52 @@
+<link href="{CSS_PATH}dialog_simp.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+<!--
+$(function(){
+	$.formValidator.initConfig({autotip:true,formid:"myform",onerror:function(msg){}});
+
+	$("#username").formValidator({onshow:"请输入用户名",onfocus:"用户名应该为2-20位之间"}).inputValidator({min:2,max:20,onerror:"用户名应该为2-20位之间"}).regexValidator({regexp:"ps_username",datatype:"enum",onerror:"用户名格式错误"}).ajaxValidator({
+	    type : "get",
+		url : "",
+		data :"m=member&c=index&a=public_checkname_ajax",
+		datatype : "html",
+		async:'false',
+		success : function(data){
+            if( data == "1" ) {
+                return true;
+			} else {
+                return false;
+			}
+		},
+		buttons: $("#dosubmit"),
+		onerror : "禁止注册或用户已存在。",
+		onwait : "请稍候..."
+	});
+	{if $act!='quick_login'}
+	$("#password").formValidator({onshow:"请输入密码",onfocus:"密码应该为6-20位之间"}).inputValidator({min:6,max:20,onerror:"密码应该为6-20位之间"});
+	$("#pwdconfirm").formValidator({onshow:"请输入确认密码",onfocus:"请输入两次密码不同。",oncorrect:"密码输入一致"}).compareValidator({desid:"password",operateor:"=",onerror:"请输入两次密码不同。"});
+	$("#email").formValidator({onshow:"请输入邮箱",onfocus:"邮箱格式错误",oncorrect:"邮箱格式正确"}).inputValidator({min:2,max:32,onerror:"邮箱应该为2-32位之间"}).regexValidator({regexp:"email",datatype:"enum",onerror:"邮箱格式错误"}).ajaxValidator({
+	    type : "get",
+		url : "",
+		data :"m=member&c=index&a=public_checkemail_ajax",
+		datatype : "html",
+		async:'false',
+		success : function(data){	
+            if( data == "1" ) {
+                return true;
+			} else {
+                return false;
+			}
+		},
+		buttons: $("#dosubmit"),
+		onerror : "禁止注册或邮箱已存在",
+		onwait : "请稍候..."
+	});
+	{/if}
+	
+	});
+
+
+
+//-->
+</script>
+<link href="{CSS_PATH}table_form.css" rel="stylesheet" type="text/css" />
