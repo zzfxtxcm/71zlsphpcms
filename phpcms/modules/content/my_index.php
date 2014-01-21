@@ -281,7 +281,6 @@ class my_index extends index{
 	//搜索 项目
 	public function searchpr(){
 
-		
 		$grouplist = getcache('grouplist','member');
 		$_groupid = param::get_cookie('_groupid');
 		if(!$_groupid) $_groupid = 8;
@@ -304,7 +303,7 @@ class my_index extends index{
 		$modelid = intval($modelid);
 		if(!$modelid) showmessage(L('illegal_parameters'));
 		//搜索间隔
-		$minrefreshtime = getcache('common','commons');
+		/*$minrefreshtime = getcache('common','commons');
 		$minrefreshtime = intval($minrefreshtime['minrefreshtime']);
 		$minrefreshtime = $minrefreshtime ? $minrefreshtime : 5;
 		if(param::get_cookie('search_cookie') && param::get_cookie('search_cookie')>SYS_TIME-2) {
@@ -312,6 +311,7 @@ class my_index extends index{
 		} else {
 			param::set_cookie('search_cookie',SYS_TIME+2);
 		}
+		*/
 		//搜索间隔
 		
 		$CATEGORYS = $this->categorys;
@@ -419,7 +419,7 @@ class my_index extends index{
 				$pages = '';
 			}
 		}
-include template('content','search_pr');
+		include template('content','search_pr');
 	} 
 	//搜索资金
 	public function searchzj(){
