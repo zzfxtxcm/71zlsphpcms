@@ -31,7 +31,7 @@
         </ul>
               
         <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
+          <li class="dropdown" style="display:none">
             <a href="#" class="dropdown-toggle f14" data-toggle="dropdown">
               最近浏览 <b class="caret"></b>
             </a>
@@ -45,7 +45,7 @@
             </ul>
           </li>
           {if $_username}
-            <li class="f14">
+            <li class="f14" style="display:none">
               <a href="{APP_PATH}index.php?m=member&c=index&a=favorite&t=2">
                 我的收藏
               </a>
@@ -63,7 +63,7 @@
               </a>
             </li>
             {else}
-            <li class="f14">
+            <li class="f14" style="display:none">
               <a href="{APP_PATH}index.php?m=member&c=index&a=login&forward={urlencode($_GET['forward'])}&siteid={$siteid}">
                 我的收藏
               </a>
