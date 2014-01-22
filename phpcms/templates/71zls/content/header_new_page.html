@@ -32,7 +32,7 @@
         </ul>
       
         <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
+          <li class="dropdown" style="display:none">
             <a href="#" class="dropdown-toggle f16" data-toggle="dropdown">
               最近浏览
               <b class="caret"></b>
@@ -46,7 +46,7 @@
             </ul>
           </li>
           {if $_username}
-            <li class="f14">
+            <li class="f14" style="display:none">
               <a href="{APP_PATH}index.php?m=member&c=index&a=favorite&t=2">
                 我的收藏
               </a>
@@ -64,7 +64,7 @@
               </a>
             </li>
             {else}
-            <li class="f14">
+            <li class="f14" style="display:none">
               <a href="{APP_PATH}index.php?m=member&c=index&a=login&forward={urlencode($_GET['forward'])}&siteid={$siteid}">
                 我的收藏
               </a>
@@ -92,8 +92,8 @@
       <div class="projectSearch pull-left ml20">
         <ul id="myTab" class="nav nav-tabs">
           <li class="active f14"><a href="#project" data-toggle="tab">找项目</a></li>
-          <li class="f14"><a href="#bonuses" data-toggle="tab">找奖金</a></li>
-          <li class="f14"><a href="#service" data-toggle="tab">找服务</a></li>
+          <li class="f14"><a href="{APP_PATH}index.php?m=content&c=index&a=lists&catid=16">找资金</a></li>
+          <li class="f14"><a href="{APP_PATH}index.php?m=content&c=index&a=lists&catid=22">找服务</a></li>
           <li class="f14"><a href="{APP_PATH}index.php?m=city&c=index&a=mylist">同城在线</a></li>
           <li class="f14"><a href="{APP_PATH}index.php?m=content&c=index&a=lists&catid=6">创业者俱乐部</a></li>
         </ul>
@@ -134,7 +134,7 @@
                 <input type="hidden" name="dosubmit" value="1">
 
           </form>
-            <ul class="list-inline mt20 pull-left">
+            <ul class="list-inline mt20 pull-left" style="display:none">
               <li class="text-success">热门关键词:</li>
               <li>1</li>
               <li>2</li>

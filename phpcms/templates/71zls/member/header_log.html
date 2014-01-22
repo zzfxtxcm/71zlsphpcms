@@ -28,7 +28,7 @@
           </ul>
       
           <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
+            <li class="dropdown" style="display:none">
               <a href="#" class="dropdown-toggle f14" data-toggle="dropdown">
                 最近浏览 <b class="caret"></b>
               </a>
@@ -42,7 +42,7 @@
               </ul>
             </li>
             {if $_username}
-              <li class="f14">
+              <li class="f14" style="display:none">
                 <a href="{APP_PATH}index.php?m=member&c=index&a=favorite&t=2">
                   我的收藏
                 </a>
@@ -60,7 +60,7 @@
                 </a>
               </li>
               {else}
-              <li class="f14">
+              <li class="f14" style="display:none">
                 <a href="{APP_PATH}index.php?m=member&c=index&a=login&forward={urlencode($_GET['forward'])}&siteid={$siteid}">
                   我的收藏
                 </a>
@@ -85,7 +85,7 @@
       </div>
       <div class="container">
         <h1 class="pull-left">
-          <img src="{APP_PATH}statics/71zls/images/logo2.png" class="pull-left" alt="">
+          <a href="/"><img src="{APP_PATH}statics/71zls/images/logo2.png" class="pull-left" alt=""></a>
           <div class="pull-left ml10 p15" style="border-left:1px solid #ccc"><small>用户登入</small></div>
         </h1>
       
