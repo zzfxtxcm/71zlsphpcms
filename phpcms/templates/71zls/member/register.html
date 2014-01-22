@@ -80,6 +80,8 @@
         onerror : "{L('already_exist').L('already_exist')}",
         onwait : "{L('connecting_please_wait')}"
       });
+      
+      
 
       $(":checkbox[name='protocol']").formValidator({tipid:"protocoltip",onshow:"{L('read_protocol')}",onfocus:"{L('read_protocol')}"}).inputValidator({min:1,onerror:"{L('read_protocol')}"});
 	
@@ -118,6 +120,11 @@
       art.dialog({lock:false,title:'{L('register_protocol')}',id:'protocoliframe', iframe:'?m=member&c=index&a=register&protocol=1',width:'500',height:'310',yesText:'{L('agree')}'}, function(){
         $("#protocol").attr("checked",true);
       });
+    }
+    
+    function autoyahoo() {
+      // two input content
+      document.getElementById("nickname").value = document.getElementById("email").value;
     }
 
     //-->
@@ -260,24 +267,39 @@
           <div class="input"><label>{L('username')}：</label><input type="text" id="username" name="username" size="36" class="input-text"></div>
           <div class="input"><label>{L('password')}：</label><input type="password" id="password" name="password" size="36" class="input-text"></div>
           <div class="input"><label>{L('cofirmpwd')}：</label><input type="password" name="pwdconfirm" id="pwdconfirm" size="36" class="input-text"></div>
-          <div class="input"><label>{L('email')}：</label><input type="text" id="email" name="email" size="36" class="input-text"></div>
+          <div class="input"><label>{L('email')}：</label><input type="text" id="email" name="email" size="36" class="input-text" onkeyup="autoyahoo()"></div>
           <div class="input"><label>{L('nickname')}：</label><input type="text" id="nickname" name="nickname" size="36" class="input-text"></div>
-          {if $member_setting['choosemodel']}
-          <!--是否开启选择会员模型选项-->
-          <script language="JavaScript">
-          <!--
-          function changemodel(modelid) {
-            redirect('{APP_PATH}index.php?m=member&c=index&a=register&modelid='+modelid+'&siteid={$siteid}');
-          }
-          //-->
-          </script>
+          
+          <div class="panel-group mr50" id="accordion">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title text-center">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#more" class="collapsed">
+                    可选更多
+                  </a>
+                </h4>
+              </div>
+              <div id="more" class="panel-collapse collapse" style="height: 0px;">
+                <div class="panel-body">
+                  {if $member_setting['choosemodel']}
+                  <!--是否开启选择会员模型选项-->
+                  <script language="JavaScript">
+                  <!--
+                  function changemodel(modelid) {
+                    redirect('{APP_PATH}index.php?m=member&c=index&a=register&modelid='+modelid+'&siteid={$siteid}');
+                  }
+                  //-->
+                  </script>
+                  {loop $forminfos $k $v}
+                  <div class="input"><label>{if $v['isbase']}<font color=red>*</font>{/if} {$v['name']}：{if $v['tips']}<br />({$v['tips']}){/if}</label><div class="form" style="width:400px">{$v['form']}</div></div>
+                  {/loop}
+                  {/if}
+                </div>
+              </div>
+            </div>
+          </div>
+          
 
-          {loop $forminfos $k $v}
-          <div class="input"><label>{if $v['isbase']}<font color=red>*</font>{/if} {$v['name']}：{if $v['tips']}<br />({$v['tips']}){/if}</label><div class="form">{$v['form']}</div></div>
-          {/loop}
-          {/if}
-		
-		
           {if $sms_setting['sms_enable']=='1'}
           <div class="input"><label>{L('checkcode')}：</label><input type="text" id="code" name="code" size="10" class="input-text">{form::checkcode('code_img', '5', '14', 120, 26)}</div>
 
