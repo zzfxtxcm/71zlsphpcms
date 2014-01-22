@@ -1,20 +1,39 @@
-{template "content","header_page"}
-<div id="content">
-	<div class="col-left left-nav">
-    	<h1>关于我们</h1>
-    	<ul class="content">
-        	{loop $arrchild_arr $cid}
-                <li{if $catid==$cid} class="cur"{/if}><a href="{$CATEGORYS[$cid][url]}">{$CATEGORYS[$cid][catname]}</a></li>
-			{/loop}
-        </ul>
-        <div class="bottom"></div>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset={CHARSET}" />
+  <title><?php if(isset($SEO['title']) && !empty($SEO['title'])) { ?><?php echo $SEO['title'];?><?php } ?><?php echo $SEO['site_title'];?></title>
+  <script type="text/javascript" src="{JS_PATH}jquery.min.js"></script>
+  <script type="text/javascript" src="{JS_PATH}member_common.js"></script>
+  <script type="text/javascript" src="{JS_PATH}formvalidator.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="{JS_PATH}formvalidatorregex.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="{JS_PATH}dialog.js"></script>
+  <link href="{CSS_PATH}reset.css" rel="stylesheet" type="text/css" />
+  <link href="{CSS_PATH}dialog_simp.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/custom.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/base.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/common.css">
+  <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/font-awesome.min.css">
+  <!--[if IE 7]>
+    <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheet/font-awesome-ie7.min.css">
+  <![endif]-->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="{APP_PATH}statics/71zls/js/responese.js"></script>
+  <![endif]-->
+  </head>
+  <body>
+
+{template "member","header_page2"}
+<div class="container mb10">
+
+    <h1 class="title">{$title}</h1>
+    <div class="content">
+      {$content}
     </div>
-  <div class="col-auto">
-    	<img src="{IMG_PATH}v9/about_ad.png" width="659" height="171" />
-    	<h1 class="title">{$title}</h1>
-        <div class="content">
-        	    {$content}
-        </div>
-    </div>
- </div>
-{template "content","footer"}
+
+</div>
+{template "member","footer_re"}
+</body>
+</html>
