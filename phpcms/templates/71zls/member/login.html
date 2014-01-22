@@ -4,6 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>创业在路上www.71zls.com - {L('member','','member').L('manage_center')}</title>
   <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
+<link href="{CSS_PATH}dialog_simp.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/custom.css">
   <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/base.css">
   <link rel="stylesheet" href="{APP_PATH}statics/71zls/stylesheets/common.css">
@@ -38,6 +39,14 @@
       //-->
       </script>
     </head>
+    <style type="text/css">
+
+.login-list li{ float:left;height:26px; margin-bottom:14px;width:123px;background:url({IMG_PATH}member/mbg.png) no-repeat;list-style-type:none}
+.login-list li a{ display:block;background-repeat:no-repeat; background-position:6px 5px;height:26px; padding-left:36px; line-height:26px}
+.login-list li a:hover{text-decoration: none;}
+
+
+</style>
     <body>
 
       {template "member","header_log"}
@@ -101,8 +110,27 @@
                 </form>
                 <div class="page-header mt5"></div>
                 <span>使用以下合作网站账号登录：</span>
-                <ul class="list-inline">
-                 
+                <ul class="item login-list clear blue">
+                 {if $setting['connect_enable']}
+       
+                        {if $setting['snda_akey'] || $setting['snda_skey']}
+                          <li style="margin-right:14px;"><a href="javascript:;" onclick="show_login('snda');return false;" style="background-image:url({IMG_PATH}member/logo/snda_16_16.png)">盛大通行证</a></li>
+                        {/if}
+                        {if $setting['sina_akey'] || $setting['sina_skey']}
+                            <li><a href="javascript:;" onclick="show_login('sina');return false;" style="background-image:url({IMG_PATH}member/logo/sina_16_16.png)">新浪微博登录</a></li>
+                        {/if}
+
+            {if $setting['qq_akey'] || $setting['qq_skey']}
+                          <li style="margin-right:14px;"><a href="javascript:;" onclick="show_login('qq');return false;" style="background-image:url({IMG_PATH}member/logo/qq_16_16.png)">腾讯微博登录</a></li>
+            {/if}
+            {if $setting['qq_appkey'] || $setting['qq_appid']}
+                          <li style="margin-right:14px;"><a href="{APP_PATH}index.php?m=member&c=index&a=public_qq_loginnew" target="_blank" style="background-image:url({IMG_PATH}member/logo/qq_16_16.png)">腾讯QQ登录</a></li>
+            {/if}
+                       
+                  
+                  
+     
+      {/if}
                 </ul>
               </div>
             </div>
