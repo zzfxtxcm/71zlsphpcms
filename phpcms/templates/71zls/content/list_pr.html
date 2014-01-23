@@ -31,6 +31,20 @@
           <h3 class="panel-title">查找的条件</h3>
         </div>
         <div class="panel-body">
+           <p class="f14">
+            <strong>项目类别：</strong>
+           {pc:content action="category" catid="$top_parentid" num="15" siteid="$siteid" order="listorder ASC"}
+      {loop $data $r}
+       {if $r[catid]==$_GET[catid]}
+      {$r[catname]}
+       {else}
+      <a href="{$r[url]}" class="btn btn-link">{$r[catname]}</a>
+      {/if}
+      {/loop}
+        {/pc}
+              
+          
+          </p>
           <p class="f14">
             <strong>品牌区域：</strong>
            {php $zone = intval($_GET['zone'])}
