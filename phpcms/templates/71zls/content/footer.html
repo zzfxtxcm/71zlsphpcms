@@ -50,3 +50,41 @@
     })
   })
   </script>
+<a class="bshareDiv" href="http://www.bshare.cn/share">分享按钮</a><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#uuid=&amp;style=3&amp;fs=4&amp;textcolor=#fff&amp;bgcolor=#9C3&amp;text=分享到"></script>
+<script src="{JS_PATH}cookie.js" type="text/javascript"></script>
+<script type="text/javascript">
+//历史记录
+$(document).ready(function(){
+    var title = document.title;
+    var url = document.URL;
+    var ob = '';
+    var his = getcookie('history');
+    if(his) {
+        if(his.split(',').length > '8') his = his.substring(his.indexOf(',')+1);
+        if(his.indexOf(title) == '-1') setcookie('history',his + ',' + title + '<#>' + url,'7');
+        his = his.split(',');
+        for(var i in his) {
+            var tit = his[i].split(/<#>/);
+            ob += '<li><a href="'+ tit[1] +'" target="_blank">'+ tit[0] +'</a></li>';
+        }
+        var obj='';
+        obj += '<li class="divider"></li>';
+        obj = ob +obj+ '<li><a href="javascript:delhistory();">清除</a></li>';
+        $(".bbbccc").append(obj);
+    } else {
+        setcookie('history',title + '<#>' + url,'7');
+    }
+});
+function delhistory() {
+    setcookie('history','');
+    location.reload(true);
+}
+$(function(){
+  $(".picbig").each(function(i){
+    var cur = $(this).find('.img-wrap').eq(0);
+    var w = cur.width();
+    var h = cur.height();
+     $(this).find('.img-wrap img').LoadImage(true, w, h,'{IMG_PATH}msg_img/loading.gif');
+  });
+})
+</script>
