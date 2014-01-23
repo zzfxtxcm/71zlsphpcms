@@ -98,31 +98,31 @@
               </div>
               <div class="panel-body">
                 <form name="myform" action="{APP_PATH}index.php?m=message&c=index&a=send" method="post" id="myform" role="form">
-                <table width="100%" cellspacing="0">
+                  <table width="100%" cellspacing="0">
                     <tr class="h50 hidden">
-                       <th>收信人：</th>
-                       <td><input name="info[send_to_id]" type="text" id="username" size="30" value="{$username}" style="width:200px" class="form-control"/></td>
-                     </tr>
-                     <tr class="h50">
-                       <th>标 题：</th>
-                       <td><input name="info[subject]" type="text" id="subject" size="30" value="" style="width:200px" class="form-control"/></td>
-                     </tr>  
-                     <tr>
-                       <th>内 容：</th>
-                       <td><textarea name="info[content]"  id="con" rows="5" cols="50" style="width:350px" class="form-control" onmouseover="menuControl()"></textarea></td>
-                     </tr>
-                     <tr class="h50">
-                       <th>验证码：</th>
-                       <td><input name="code" type="text" id="code" size="10" style="width:100px" class="form-control pull-left"/> {form::checkcode('code_img','4','14',110,30)}</td>
-                     </tr>
-                     <tr>
-                       <td></td>
-                       <td colspan="2"><label>
-                         <input type="submit" name="dosubmit" id="dosubmit" value="确 定" class="button"/>
-                         </label></td>
-                     </tr>
-                   </table>
-                   </form>
+                      <th>收信人：</th>
+                      <td><input name="info[send_to_id]" type="text" id="username" size="30" value="{$username}" style="width:200px" class="form-control"/></td>
+                    </tr>
+                    <tr class="h50">
+                      <th>标 题：</th>
+                      <td><input name="info[subject]" type="text" id="subject" size="30" value="" style="width:200px" class="form-control"/></td>
+                    </tr>  
+                    <tr>
+                      <th>内 容：</th>
+                      <td><textarea name="info[content]"  id="con" rows="5" cols="50" style="width:350px" class="form-control" onmouseover="menuControl()"></textarea></td>
+                    </tr>
+                    <tr class="h50">
+                      <th>验证码：</th>
+                      <td><input name="code" type="text" id="code" size="10" style="width:100px" class="form-control pull-left"/> {form::checkcode('code_img','4','14',110,30)}</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td colspan="2"><label>
+                        <input type="submit" name="dosubmit" id="dosubmit" value="确 定" class="button"/>
+                      </label></td>
+                    </tr>
+                  </table>
+                </form>
                 
                 <div class="p_kj_dxm">
                   

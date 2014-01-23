@@ -76,51 +76,80 @@
         </div>
         
         <div class="row">
-          <div class="col-xs-4" style="padding-right:0">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">电话回呼</h3>
-              </div>
-              <div class="panel-body">
-                1
-              </div>
-            </div>
-          </div>
-          <div class="col-xs-4" style="padding-right:0">
+          
+          <div class="col-xs-12" style="padding-right:0">
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h3 class="panel-title">留言内容</h3>
               </div>
               <div class="panel-body">
-                <form role="form">
-  				<div class="form-group">
-    				<label for="exampleInputEmail1">姓名</label>
-    				<input type="phone" class="form-control" id="phone" placeholder="方便联系的姓名">
-  				</div>
-                <div class="form-group">
-    				<label for="exampleInputEmail1">联系手机</label>
-    				<input type="phone" class="form-control" id="phone" placeholder="联系手机">
-  				</div>
- 				 <div class="form-group">
-    				<label for="exampleInputEmail1">留言内容</label>
-    				<textarea class="form-control" rows="3"></textarea>
-  				</div>
-  
-  					<button type="submit" class="btn btn-default">Submit</button>
-				</form>
+                
+                <form name="myform" action="{APP_PATH}index.php?m=message&c=index&a=send" method="post" id="myform" role="form">
+                  <table width="100%" cellspacing="0">
+                    <tr class="h50 hidden">
+                      <th>收信人：</th>
+                      <td><input name="info[send_to_id]" type="text" id="username" size="30" value="{$username}" style="width:200px" class="form-control"/></td>
+                    </tr>
+                    <tr class="h50">
+                      <th>标 题：</th>
+                      <td><input name="info[subject]" type="text" id="subject" size="30" value="" style="width:200px" class="form-control"/></td>
+                    </tr>  
+                    <tr>
+                      <th>内 容：</th>
+                      <td><textarea name="info[content]"  id="con" rows="5" cols="50" style="width:350px" class="form-control" onmouseover="menuControl()"></textarea></td>
+                    </tr>
+                    <tr class="h50">
+                      <th>验证码：</th>
+                      <td><input name="code" type="text" id="code" size="10" style="width:100px" class="form-control pull-left"/> {form::checkcode('code_img','4','14',110,30)}</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td colspan="2"><label>
+                        <input type="submit" name="dosubmit" id="dosubmit" value="确 定" class="button"/>
+                      </label></td>
+                    </tr>
+                  </table>
+                </form>
+                
+                <div class="p_kj_dxm">
+                  
+                  <div id="k-menu_1" class="info_off">
+                    <p>请填写留言或根据意向选择下列快捷留言</p>
+                    <ul class="list-unstyled">
+                      <li><a class="no" target="_self" href="javascript:sel('请问我这个地方有加盟商了吗？')">请问我这个地方有加盟商了吗？ </a></li>
+                      <li><a class="no" target="_self" href="javascript:sel('我想加盟，请来电话告诉我具体细节。')">我想加盟，请来电话告诉我具体细节。 </a></li>
+                      <li><a class="no" target="_self" href="javascript:sel('想了解加盟细节，请尽快寄一份资料。')">想了解加盟细节，请尽快寄一份资料。</a></li>
+                      <li><a class="no" target="_self" href="javascript:sel('给您们发过留言，未收到资料，请给我来电。')">给您留过言，未收到资料，请给我来电。</a></li>
+                      <li><a class="no" target="_self" href="javascript:sel('很感兴趣，想知道加盟细节。')">很感兴趣，想知道加盟细节。</a></li>
+                    </ul>
+                  </div>
+                  <div id="k-menu_2" class="info_on">
+                    <p>请填写留言或根据意向选择下列快捷留言</p>
+                    <ul class="list-unstyled">
+                      <li><a class="no" target="_self" href="javascript:sel('项目很好，现在就想加盟，请给我预留名额。')">给您留过言，未收到资料，请给我来电。</a></li>
+                      <li><a class="no" target="_self" href="javascript:sel('请问贵公司哪里有样板店或直营店？')">请问贵公司哪里有样板店或直营店？</a></li>
+                      <li><a class="no" target="_self" href="javascript:sel('请给我打电话，并寄加盟资料。')">请给我打电话，并寄加盟资料。</a></li>
+                      <li><a class="no" target="_self" href="javascript:sel('很想合作，来电话细谈吧。')">很想合作，来电话细谈吧。</a></li>
+                      <li><a class="no" target="_self" href="javascript:sel('对这个项目很感兴趣，请尽快寄资料。')">对这个项目很感兴趣，请尽快寄资料。</a></li>
+                    </ul>
+                  </div>
+                  <div id="k-menu_3" class="info_off">
+                    <p>请填写留言或根据意向选择下列快捷留言</p>
+                    <ul class="list-unstyled">
+                      <li><a class="no" target="_self" href="javascript:sel('我加盟后，您们还会提供哪些服务？')">我加盟后，您们还会提供哪些服务？</a></li>
+                      <li><a class="no" target="_self" href="javascript:sel('有兴趣开一个店，请寄资料或给我打电话。')">有兴趣开一个店，请寄资料或给我打电话。</a></li>
+                      <li><a class="no" target="_self" href="javascript:sel('请问我这个地方有加盟商了吗？')">请问我这个地方有加盟商了吗？</a></li>
+                      <li><a class="no" target="_self" href="javascript:sel('请将详细投资方案和资料寄给本人。')">请将详细投资方案和资料寄给本人。</a></li>
+                      <li><a class="no" target="_self" href="javascript:sel('初步打算加盟贵公司，请寄资料。')">初步打算加盟贵公司，请寄资料。</a></li>
+                    </ul>
+                  </div>
+                  
+                </div>
+                
               </div>
             </div>
           </div>
-          <div class="col-xs-4">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">请您填写留言或选择下列快捷留言</h3>
-              </div>
-              <div class="panel-body">
-                3
-              </div>
-            </div>
-          </div>
+          
         </div>
         
         <p class="f14 ">
@@ -203,6 +232,24 @@
 			}
 		});
 	}
+
+  function menuControl() {
+      var numID = Math.floor(Math.random() * 3) + 1;
+      showOneSpan(numID);
+      $('.p_kj_dxm').show();
+  }
+  function menuControlHide() {
+    $('.p_kj_dxm').hide();
+  }
+  
+  function showOneSpan(obj) {
+      var s = "k-menu_" + obj;
+      document.getElementById(s).className = "info_on";
+  }
+  
+  function sel(val) {
+      document.getElementById("con").value += val + "\n";
+  }
 
 //-->
 </script>
