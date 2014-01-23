@@ -97,24 +97,33 @@
                 <h3 class="panel-title">留言内容</h3>
               </div>
               <div class="panel-body">
-                <form role="form">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">姓名</label>
-                    <input type="phone" class="form-control" id="name" style="width:200px" placeholder="方便联系的姓名">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">联系手机</label>
-                    <input type="phone" class="form-control" id="phone" style="width:200px" placeholder="联系手机">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">留言内容</label>
-                    
-                      <textarea class="form-control" rows="8" style="width:450px" id="content" name="content" onmouseover="menuControl()" placeholder="注册可留言"></textarea>
-                    
-                  </div>
-  
-                  <button type="submit" class="btn btn-success">提交</button>
+                <form name="myform" action="{APP_PATH}index.php?m=message&c=index&a=send" method="post" id="myform" role="form">
+                  <table width="100%" cellspacing="0">
+                    <tr class="h50 hidden">
+                      <th>收信人：</th>
+                      <td><input name="info[send_to_id]" type="text" id="username" size="30" value="{$username}" style="width:200px" class="form-control"/></td>
+                    </tr>
+                    <tr class="h50">
+                      <th>标 题：</th>
+                      <td><input name="info[subject]" type="text" id="subject" size="30" value="" style="width:200px" class="form-control"/></td>
+                    </tr>  
+                    <tr>
+                      <th>内 容：</th>
+                      <td><textarea name="info[content]"  id="con" rows="5" cols="50" style="width:350px" class="form-control" onmouseover="menuControl()"></textarea></td>
+                    </tr>
+                    <tr class="h50">
+                      <th>验证码：</th>
+                      <td><input name="code" type="text" id="code" size="10" style="width:100px" class="form-control pull-left"/> {form::checkcode('code_img','4','14',110,30)}</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td colspan="2"><label>
+                        <input type="submit" name="dosubmit" id="dosubmit" value="确 定" class="button"/>
+                      </label></td>
+                    </tr>
+                  </table>
                 </form>
+                
                 <div class="p_kj_dxm">
                   
                   <div id="k-menu_1" class="info_off">
@@ -251,7 +260,7 @@
   }
   
   function sel(val) {
-      document.getElementById("content").value += val + "\n";
+      document.getElementById("con").value += val + "\n";
   }
   
   //-->
