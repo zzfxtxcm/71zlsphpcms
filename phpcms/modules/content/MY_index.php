@@ -57,8 +57,9 @@ class MY_index extends index{
 		
 		$tablename = $this->db->table_name = $this->db->db_tablepre.$MODEL[$modelid]['tablename'];
 		$r = $this->db->get_one(array('id'=>$id));
-		if(!$r || $r['status'] != 99) showmessage(L('info_does_not_exists'),'blank');
-		
+		//审核中，预览修改
+		//if(!$r || $r['status'] != 99) showmessage(L('info_does_not_exists'),'blank');
+		if(!$r || $r['username'] != $_username and $r['status'] != 99) showmessage(L('info_does_not_exists'),'blank');
 		$this->db->table_name = $tablename.'_data';
 		$r2 = $this->db->get_one(array('id'=>$id));
 		$rs = $r2 ? array_merge($r,$r2) : $r;
