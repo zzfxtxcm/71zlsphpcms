@@ -240,44 +240,49 @@
       </div>
       
       <div class="clearfix"></div>
-      <div class="navbar navbar-default" role="navigation">
-        {pc:content action="category" catid="0" num="25" siteid="$siteid" order="listorder ASC"}
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-9">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a href="{siteurl($siteid)}" class="navbar-brand">首页</a>
-          </div>
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
-            <ul class="nav navbar-nav">
-              {loop $data $k $v}
-                <li class="<?php if ($r[catid]==$_GET[catid]) echo active; ?> f14 dropdown">
-                  <a href="{$v[catname]}" class="dropdown-toggle" data-toggle="dropdown">
-                    {$v[catname]}
-                    <b class="caret"></b>
-                  </a>
-                  {pc:content action="category" catid="$k" num="25" siteid="$siteid" order="listorder ASC"}
+      <div class="row">
+        <div class="col-xs-12">
+          
+          <div class="navbar navbar-default mt10" role="navigation" >
+            {pc:content action="category" catid="0" num="25" siteid="$siteid" order="listorder ASC"}
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-9">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a href="{siteurl($siteid)}" class="navbar-brand">首页</a>
+              </div>
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
+                <ul class="nav navbar-nav">
+                  {loop $data $k $v}
+                    <li class="<?php if ($r[catid]==$_GET[catid]) echo active; ?> f14 dropdown">
+                      <a href="{$v[catname]}" class="dropdown-toggle" data-toggle="dropdown">
+                        {$v[catname]}
+                        <b class="caret"></b>
+                      </a>
+                      {pc:content action="category" catid="$k" num="25" siteid="$siteid" order="listorder ASC"}
                   
-                    <ul class="dropdown-menu">
-                      {loop $data $n}
-                      <li><a href="{$n[url]}">{$n[catname]}</a></li>
-                      {/loop}
-                    </ul>
+                        <ul class="dropdown-menu">
+                          {loop $data $n}
+                          <li><a href="{$n[url]}">{$n[catname]}</a></li>
+                          {/loop}
+                        </ul>
                   
-                  {/pc}
-                </li>
-              {/loop}
-                <li class="<?php if ($_GET[a]=='mylist') echo active; ?> f14"><a href="http://71zls.com/index.php?m=city&c=index&a=mylist">同城在线</a></li>
-                <li class="<?php if (6==$_GET[catid]) echo active; ?> f14"><a href="http://71zls.com/index.php?m=content&c=index&a=lists&catid=6">创业俱乐部</a></li>
-            </ul>
+                      {/pc}
+                    </li>
+                  {/loop}
+                    <li class="<?php if ($_GET[a]=='mylist') echo active; ?> f14"><a href="http://71zls.com/index.php?m=city&c=index&a=mylist">同城在线</a></li>
+                    <li class="<?php if (6==$_GET[catid]) echo active; ?> f14"><a href="http://71zls.com/index.php?m=content&c=index&a=lists&catid=6">创业俱乐部</a></li>
+                </ul>
+              </div>
+            {/pc}
+            {php echo runhook('glogal_menu')}
           </div>
-        {/pc}
-        {php echo runhook('glogal_menu')}
+          
+        </div>
       </div>
-      
       
     </div>
     
