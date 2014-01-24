@@ -16,7 +16,7 @@
 </head>
 <body>
 <div id="header">
-	<div class="logo"><a href="{$siteinfo['domain']}"><img src="{APP_PATH}statics/71zls/images/logo2.png" height="60" /></a><h3>{L('member_center')}</h3></div>
+	<div class="logo"><a href="/"><img src="{APP_PATH}statics/71zls/images/logo3.png" height="60" /></a><h3>{L('member_center')}</h3></div>
 	{php $siteinfo = siteinfo($this->memberinfo['siteid']);}
 	{php $this->menu_db = pc_base::load_model('member_menu_model');}
 	{php $menu = $this->menu_db->select(array('display'=>1, 'parentid'=>0), '*', 20 , 'listorder');}
