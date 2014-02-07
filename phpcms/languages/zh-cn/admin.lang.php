@@ -6,9 +6,9 @@ translation save at the array:$LANG
 */
 
 //index
-$LANG['admin_site_title'] = 'PHPCMS - 后台管理中心';
+$LANG['admin_site_title'] = '创业在路上 - 后台管理中心';
 $LANG['expand_or_contract'] = '展开与收缩';
-$LANG['phpcms_title'] = 'PHPCMS内容管理系统';
+$LANG['phpcms_title'] = '创业在路上内容管理系统';
 $LANG['official_site'] = '官方网站';
 $LANG['authorization'] = '授权';
 $LANG['igenus_for_postfix'] = '支持论坛';
@@ -520,8 +520,8 @@ $LANG['release_point_configuration'] = '发布点配置';
 $LANG['template_style_configuration'] = '模板风格配置';
 $LANG['style_name'] = '风格名';
 $LANG['site_dirname_err_msg'] = '只能包括数字、字母、下划线三种类型。';
-$LANG['site_domain_ex'] = '请填写域名，格式为：http://www.phpcms.cn/';
-$LANG['site_domain_ex2'] = '格式应该为http://www.phpcms.cn/，请以‘/’结束';
+$LANG['site_domain_ex'] = '请填写域名，格式为：http://www.71zls.com/';
+$LANG['site_domain_ex2'] = '格式应该为http://www.71zls.com/，请以‘/’结束';
 $LANG['style_name_point'] = '请选择风格（至少选一个）';
 $LANG['select_at_least_1'] = '至少选择1个';
 $LANG['please_select_a_style'] = '请选择模板风格。';

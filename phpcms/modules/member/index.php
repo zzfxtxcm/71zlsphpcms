@@ -1332,7 +1332,8 @@ class index extends foreground {
 								if(CHARSET != 'utf-8') {//转编码
 									$connect_username = iconv('utf-8', CHARSET, $user['nickname']); 
 								} else {
-									 $connect_username = $user['nickname']; 
+									 $connect_username = $user; 
+
 								}
  								include template('member', 'connect');
 						}
