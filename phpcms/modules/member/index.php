@@ -1113,7 +1113,7 @@ class index extends foreground {
                         //获取用户信息
                         $me = $c->get_uid();
                         $me=$c->show_user_by_id($me['uid']);
-                        //print_r($me);
+                        print_r($me);
                         
                         if(CHARSET != 'utf-8') {
                                 $me['name'] = iconv('utf-8', CHARSET, $me['name']);
