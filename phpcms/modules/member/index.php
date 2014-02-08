@@ -1864,7 +1864,7 @@ class index extends foreground {
                                 } else {
                                 //如果不需要邮箱认证、直接登录其他应用
                                 $synloginstr = $this->client->ps_member_synlogin($userinfo['phpssouid']);
-                                showmessage(L('operation_success').$synloginstr, APP_PATH.'index.php?m=member&c=index&a=init');
+                                //showmessage(L('operation_success').$synloginstr, APP_PATH.'index.php?m=member&c=index&a=init');
                                 }
                                 
                         }
