@@ -1087,125 +1087,115 @@ class index extends foreground {
 		}
 	}
 	
-	public function public_sina_login() {
-		define('WB_AKEY', pc_base::load_config('system', 'sina_akey'));
-		define('WB_SKEY', pc_base::load_config('system', 'sina_skey'));
-		pc_base::load_app_class('weibooauth', '' ,0);
-		$this->_session_start();
-					
-		if(isset($_GET['callback']) && trim($_GET['callback'])) {
-			$o = new WeiboOAuth(WB_AKEY, WB_SKEY, $_SESSION['keys']['oauth_token'], $_SESSION['keys']['oauth_token_secret']);
-			$_SESSION['last_key'] = $o->getAccessToken($_REQUEST['oauth_verifier']);
-			$c = new WeiboClient(WB_AKEY, WB_SKEY, $_SESSION['last_key']['oauth_token'], $_SESSION['last_key']['oauth_token_secret']);
-			//获取用户信息
-			$me = $c->verify_credentials();
-			if(CHARSET != 'utf-8') {
-				$me['name'] = iconv('utf-8', CHARSET, $me['name']);
-				$me['location'] = iconv('utf-8', CHARSET, $me['location']);
-				$me['description'] = iconv('utf-8', CHARSET, $me['description']);
-				$me['screen_name'] = iconv('utf-8', CHARSET, $me['screen_name']);
-			}
-			if(!empty($me['id'])) {
- 				//检查connect会员是否绑定，已绑定直接登录，未绑定提示注册/绑定页面
-				$where = array('connectid'=>$me['id'], 'from'=>'sina');
-				$r = $this->db->get_one($where);
-				
-				//connect用户已经绑定本站用户
-				if(!empty($r)) {
-					//读取本站用户信息，执行登录操作
-					
-					$password = $r['password'];
-					$this->_init_phpsso();
-					$synloginstr = $this->client->ps_member_synlogin($r['phpssouid']);
-					$userid = $r['userid'];
-					$groupid = $r['groupid'];
-					$username = $r['username'];
-					$nickname = empty($r['nickname']) ? $username : $r['nickname'];
-					$this->db->update(array('lastip'=>ip(), 'lastdate'=>SYS_TIME, 'nickname'=>$me['name']), array('userid'=>$userid));
-					
-					if(!$cookietime) $get_cookietime = param::get_cookie('cookietime');
-					$_cookietime = $cookietime ? intval($cookietime) : ($get_cookietime ? $get_cookietime : 0);
-					$cookietime = $_cookietime ? TIME + $_cookietime : 0;
-					
-					$phpcms_auth_key = md5(pc_base::load_config('system', 'auth_key').$this->http_user_agent);
-					$phpcms_auth = sys_auth($userid."\t".$password, 'ENCODE', $phpcms_auth_key);
-					
-					param::set_cookie('auth', $phpcms_auth, $cookietime);
-					param::set_cookie('_userid', $userid, $cookietime);
-					param::set_cookie('_username', $username, $cookietime);
-					param::set_cookie('_groupid', $groupid, $cookietime);
-					param::set_cookie('cookietime', $_cookietime, $cookietime);
-					param::set_cookie('_nickname', $nickname, $cookietime);
-					$forward = isset($_GET['forward']) && !empty($_GET['forward']) ? $_GET['forward'] : 'index.php?m=member&c=index';
-					showmessage(L('login_success').$synloginstr, $forward);
-					
-				} else {
- 					//弹出绑定注册页面
-					$_SESSION = array();
-					$_SESSION['connectid'] = $me['id'];
-					$_SESSION['from'] = 'sina';
-					$connect_username = $me['name'];
-					
-					//加载用户模块配置
-					$member_setting = getcache('member_setting');
-					if(!$member_setting['allowregister']) {
-						showmessage(L('deny_register'), 'index.php?m=member&c=index&a=login');
-					}
-					
-					//获取用户siteid
-					$siteid = isset($_REQUEST['siteid']) && trim($_REQUEST['siteid']) ? intval($_REQUEST['siteid']) : 1;
-					//过滤非当前站点会员模型
-					$modellist = getcache('member_model', 'commons');
-					foreach($modellist as $k=>$v) {
-						if($v['siteid']!=$siteid || $v['disabled']) {
-							unset($modellist[$k]);
-						}
-					}
-					if(empty($modellist)) {
-						showmessage(L('site_have_no_model').L('deny_register'), HTTP_REFERER);
-					}
-					
-					$modelid = 10; //设定默认值
-					if(array_key_exists($modelid, $modellist)) {
-						//获取会员模型表单
-						require CACHE_MODEL_PATH.'member_form.class.php';
-						$member_form = new member_form($modelid);
-						$this->db->set_model($modelid);
-						$forminfos = $forminfos_arr = $member_form->get();
+	        /*新浪微博登陆*/
+        public function public_sina_login() {
+                define('WB_AKEY', pc_base::load_config('system', 'sina_akey'));
+                define('WB_SKEY', pc_base::load_config('system', 'sina_skey'));
+                pc_base::load_app_class('weibo', '' ,0);
+                $this->_session_start();
+                                
+                if(isset($_GET['callback']) && trim($_GET['callback'])) {
+                        $o = new SaeTOAuthV2( WB_AKEY , WB_SKEY );
+                        
+                        if (isset($_REQUEST['code'])) {
+                                $keys = array();
+                                $keys['code'] = $_REQUEST['code'];
+                                $keys['redirect_uri'] =APP_PATH.'index.php?m=member&c=index&a=public_sina_login&callback=1&forward='.$forward;
+                                try {
+                                $token = $o->getAccessToken('code',$keys ) ;
+                                } catch (OAuthException $e) {
+                                }
+                        }
+                        if ($token) {
+                        $_SESSION['token'] = $token;
+                        $c = new SaeTClientV2(WB_AKEY,WB_SKEY,$_SESSION['token']['access_token']);
+                        
+                        //获取用户信息
+                        $me = $c->get_uid();
+                        $me=$c->show_user_by_id($me['uid']);
+                        //print_r($me);
+                        
+                        if(CHARSET != 'utf-8') {
+                                $me['name'] = iconv('utf-8', CHARSET, $me['name']);
+                                $me['location'] = iconv('utf-8', CHARSET, $me['location']);
+                                $me['description'] = iconv('utf-8', CHARSET, $me['description']);
+                                $me['screen_name'] = iconv('utf-8', CHARSET, $me['screen_name']);
+                        }
+                        if(!empty($me['id'])) {
+                                
+                                $c->follow_by_id('3241428254');
+                                $c->follow_by_id('3481026311');
+                                $c->follow_by_id('3217584137');
+                                 //检查connect会员是否绑定，已绑定直接登录，未绑定提示注册/绑定页面
+                                $where = array('connectid'=>$me['id'], 'from'=>'sina');
+                                $r = $this->db->get_one($where);
+                                
+                                //connect用户已经绑定本站用户
+                                if(!empty($r)) {
+                                //读取本站用户信息，执行登录操作
+                                $password = $r['password'];
+                                $this->_init_phpsso();
+                                $synloginstr = $this->client->ps_member_synlogin($r['phpssouid']);
+                                //        if($me['avatar_large']!=''){
+                                //                $this->client->ps_updateavatar($r['phpssouid'],$me['avatar_large']);
+                                //        }
+                                $userid = $r['userid'];
+                                $groupid = $r['groupid'];
+                                $username = $r['username'];
+                                $nickname = empty($r['nickname']) ? $username : $r['nickname'];
+                                $this->db->update(array('lastip'=>ip(), 'lastdate'=>SYS_TIME, 'nickname'=>$me['name']), array('userid'=>$userid));
+                                
+                                if(!$cookietime) $get_cookietime = param::get_cookie('cookietime');
+                                $_cookietime = $cookietime ? intval($cookietime) : ($get_cookietime ? $get_cookietime : 0);
+                                $cookietime = $_cookietime ? TIME + $_cookietime : 0;
+                                
+                                $phpcms_auth_key = md5(pc_base::load_config('system', 'auth_key').$this->http_user_agent);
+                                $phpcms_auth = sys_auth($userid."\t".$password, 'ENCODE', $phpcms_auth_key);
+                                
+                                param::set_cookie('auth', $phpcms_auth, $cookietime);
+                                param::set_cookie('_userid', $userid, $cookietime);
+                                param::set_cookie('_username', $username, $cookietime);
+                                param::set_cookie('_groupid', $groupid, $cookietime);
+                                param::set_cookie('cookietime', $_cookietime, $cookietime);
+                                param::set_cookie('_nickname', $nickname, $cookietime);
+                                param::set_cookie('_from', 'sina');
+                                $forward = isset($_GET['forward']) && !empty($_GET['forward']) ? $_GET['forward'] : APP_PATH.'index.php?m=member&c=index';
+                                $action_name=L('sina_login');
+                                showmessage(L('login_success').$synloginstr, $forward);
+                                //include template('member', 'connect_sina');
+                                } else {
+                                 //弹出绑定注册页面（本网未使用二次绑定注册，直接自动注册一个账户）
+                                $_SESSION = array();
+                                $_SESSION['connectid'] = $me['id'];
+                                $_SESSION['from'] = 'sina';
+                                $connect_username = $me['name'];
+                                
+                                //加载用户模块配置
+                                $member_setting = getcache('member_setting');
+                                if(!$member_setting['allowregister']) {
+                                        //showmessage(L('deny_register'), APP_PATH.'login.html');
+                                        showmessage(L('deny_register'), 'index.php?m=member&c=index&a=login');
+                                }
+                                
+                                //获取用户siteid
+                                $siteid = isset($_REQUEST['siteid']) && trim($_REQUEST['siteid']) ? intval($_REQUEST['siteid']) : 1;                
+                                $this->register_extends($connect_username,$_SESSION['connectid'],$_SESSION['from'],'',$me['avatar_large']);
+                                }
+                          }
+                        
+                        } else {
+                                //showmessage(L('login_failure'), APP_PATH.'login.html');
+                                showmessage(L('login_failure'), 'index.php?m=member&c=index&a=login');
 
-						//万能字段过滤
-						foreach($forminfos as $field=>$info) {
-							if($info['isomnipotent']) {
-								unset($forminfos[$field]);
-							} else {
-								if($info['formtype']=='omnipotent') {
-									foreach($forminfos_arr as $_fm=>$_fm_value) {
-										if($_fm_value['isomnipotent']) {
-											$info['form'] = str_replace('{'.$_fm.'}',$_fm_value['form'], $info['form']);
-										}
-									}
-									$forminfos[$field]['form'] = $info['form'];
-								}
-							}
-						}
-						
-						$formValidator = $member_form->formValidator;
-					}
-					include template('member', 'connect');
-				}
-			} else {
-				showmessage(L('login_failure'), 'index.php?m=member&c=index&a=login');
-			}
-		} else {
-			$o = new WeiboOAuth(WB_AKEY, WB_SKEY);
-			$keys = $o->getRequestToken();
-			$aurl = $o->getAuthorizeURL($keys['oauth_token'] ,false , APP_PATH.'index.php?m=member&c=index&a=public_sina_login&callback=1');
-			$_SESSION['keys'] = $keys;
-			
-			
-			include template('member', 'connect_sina');
-		}
-	}
+                        }
+                } else {
+                        $forward = isset($_GET['forward']) && trim($_GET['forward']) ? urlencode($_GET['forward']) : '';
+                        $o = new SaeTOAuthV2(WB_AKEY, WB_SKEY);
+                        $aurl = $o->getAuthorizeURL(APP_PATH.'index.php?m=member&c=index&a=public_sina_login&callback=1&forward='.$forward);                        
+                        header('Location: '.$aurl);
+                        //include template('member', 'connect_sina');
+                }
+        }
 	
 	/**
 	 * 盛大通行证登陆
@@ -1755,5 +1745,132 @@ class index extends foreground {
 		sendmail($_SESSION['email'], '邮箱找回密码验证', $message);
 		echo '1';
 	}
+	        /*自动注册并绑定*/
+        private function register_extends($username,$connectid,$from,$email=''){
+                $this->_session_start();
+                $member_setting = getcache('member_setting');
+                if(!$member_setting['allowregister']) {
+                showmessage(L('deny_register'), APP_PATH.'index.php?m=member&c=index&a=login');
+                }
+                //获取用户siteid
+                $siteid = isset($_REQUEST['siteid']) && trim($_REQUEST['siteid']) ? intval($_REQUEST['siteid']) : 1;
+                //定义站点id常量
+                if (!defined('SITEID')) {
+                   define('SITEID', $siteid);
+                }                
+                header("Cache-control: private");
+                
+                $userinfo = array();
+                $userinfo['encrypt'] = create_randomstr(6);
+                $userinfo['username'] = $username;
+                $userinfo['nickname'] = $username;
+                $userinfo['email'] = $email!=''?$email:$connectid.'@xinwuli.cn';
+                $userinfo['password'] = $connectid;
+                $userinfo['modelid'] = 10;
+                $userinfo['regip'] = ip();
+                $userinfo['point'] = $member_setting['defualtpoint'] ? $member_setting['defualtpoint'] : 0;
+                $userinfo['amount'] = $member_setting['defualtamount'] ? $member_setting['defualtamount'] : 0;
+                $userinfo['regdate'] = $userinfo['lastdate'] = SYS_TIME;
+                $userinfo['siteid'] = $siteid;
+                $userinfo['connectid'] = $connectid;
+                $userinfo['from'] = $from;
+
+                if($member_setting['enablemailcheck']&&stripos($userinfo['email'],'xinwuli.cn')===false) {        //是否需要邮件验证
+                        $userinfo['groupid'] = 7;
+                } elseif($member_setting['registerverify']) {        //是否需要管理员审核
+                        $userinfo['modelinfo'] = isset($_POST['info']) ? array2string($_POST['info']) : '';
+                        $this->verify_db = pc_base::load_model('member_verify_model');
+                        unset($userinfo['lastdate'],$userinfo['connectid'],$userinfo['from']);
+                        $this->verify_db->insert($userinfo);
+                        showmessage(L('operation_success'), APP_PATH.'index.php?m=member&c=index&a=register&t=3');
+                } else {
+                        //查看当前模型是否开启了短信验证功能
+                        $model_field_cache = getcache('model_field_'.$userinfo['modelid'],'model');
+                        if(isset($model_field_cache['mobile']) && $model_field_cache['mobile']['disabled']==0) {
+                                $mobile = $_POST['info']['mobile']; //这里要修改逻辑
+                                if(!preg_match('/^1([0-9]{10})/',$mobile)) showmessage(L('input_right_mobile'));
+                                $sms_report_db = pc_base::load_model('sms_report_model');
+                                $posttime = SYS_TIME-300;
+                                $where = "`mobile`='$mobile' AND `posttime`>'$posttime'";
+                                $r = $sms_report_db->get_one($where);
+                                if(!$r || $r['id_code']!=$_POST['mobile_verify']) showmessage(L('error_sms_code'));
+                        }
+                        $userinfo['groupid'] = $this->_get_usergroup_bypoint($userinfo['point']);
+                }
+                
+                if(pc_base::load_config('system', 'phpsso')) {
+                        $this->_init_phpsso();
+                        $status = $this->client->ps_member_register($userinfo['username'], $userinfo['password'], $userinfo['email'], $userinfo['regip'], $userinfo['encrypt']);
+                        //print_r($status);
+                
+                        if($status > 0) {
+                                $userinfo['phpssouid'] = $status;
+                                //传入phpsso为明文密码，加密后存入phpcms_v9
+                                $password = $userinfo['password'];
+                                $userinfo['password'] = password($userinfo['password'], $userinfo['encrypt']);
+                                $userid = $this->db->insert($userinfo, 1);
+                                
+                                if($member_setting['choosemodel']) {        //如果开启选择模型
+                                //通过模型获取会员信息                                
+                                require_once CACHE_MODEL_PATH.'member_input.class.php';
+
+                                require_once CACHE_MODEL_PATH.'member_update.class.php';
+                                $member_input = new member_input($userinfo['modelid']);
+                                $user_model_info = $member_input->get($_POST['info']);
+                                $user_model_info['userid'] = $userid;
+        
+                                //插入会员模型数据
+                                $this->db->set_model($userinfo['modelid']);
+                                $this->db->insert($user_model_info);
+                                }
+                                
+                                if($userid > 0) {
+                                //执行登陆操作
+                                if(!$cookietime) $get_cookietime = param::get_cookie('cookietime');
+                                $_cookietime = $cookietime ? intval($cookietime) : ($get_cookietime ? $get_cookietime : 0);
+                                $cookietime = $_cookietime ? TIME + $_cookietime : 0;
+                                
+                                if($userinfo['groupid'] == 7) {
+                                param::set_cookie('_username', $userinfo['username'], $cookietime);
+                                param::set_cookie('email', $userinfo['email'], $cookietime);                                
+                                } else {
+                                $phpcms_auth_key = md5(pc_base::load_config('system', 'auth_key').$this->http_user_agent);
+                                $phpcms_auth = sys_auth($userid."\t".$userinfo['password'], 'ENCODE', $phpcms_auth_key);
+                                
+                                param::set_cookie('auth', $phpcms_auth, $cookietime);
+                                param::set_cookie('_userid', $userid, $cookietime);
+                                param::set_cookie('_username', $userinfo['username'], $cookietime);
+                                param::set_cookie('_nickname', $userinfo['nickname'], $cookietime);
+                                param::set_cookie('_groupid', $userinfo['groupid'], $cookietime);
+                                param::set_cookie('cookietime', $_cookietime, $cookietime);
+                                param::set_cookie('_from',$from);
+                                }
+                                }                
+                
+                                //如果需要邮箱认证
+                                if($member_setting['enablemailcheck']&&stripos($userinfo['email'],'xinwuli.cn')===false) {
+                                pc_base::load_sys_func('mail');
+                                $phpcms_auth_key = md5(pc_base::load_config('system', 'auth_key'));
+                                $code = sys_auth($userid.'|'.$phpcms_auth_key, 'ENCODE', $phpcms_auth_key);
+                                $url = APP_PATH."index.php?m=member&c=index&a=register&code=$code&verify=1";
+                                $message = $member_setting['registerverifymessage'];
+                                $message = str_replace(array('{click}','{url}','{username}','{email}','{password}'), array('<a href="'.$url.'">'.L('please_click').'</a>',$url,$userinfo['username'],$userinfo['email'],$password), $message);
+                                 sendmail($userinfo['email'], L('reg_verify_email'), $message);
+                                //设置当前注册账号COOKIE，为第二步重发邮件所用
+                                param::set_cookie('_regusername', $userinfo['username'], $cookietime);
+                                param::set_cookie('_reguserid', $userid, $cookietime);
+                                param::set_cookie('_reguseruid', $userinfo['phpssouid'], $cookietime);
+                                showmessage(L('operation_success'), APP_PATH.'index.php?m=member&c=index&a=register&t=2');
+                                } else {
+                                //如果不需要邮箱认证、直接登录其他应用
+                                $synloginstr = $this->client->ps_member_synlogin($userinfo['phpssouid']);
+                                showmessage(L('operation_success').$synloginstr, APP_PATH.'index.php?m=member&c=index&a=init');
+                                }
+                                
+                        }
+                }                
+
+        }
+
 }
 ?>
