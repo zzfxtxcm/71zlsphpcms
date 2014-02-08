@@ -1113,7 +1113,7 @@ class index extends foreground {
                         //获取用户信息
                         $me = $c->get_uid();
                         $me=$c->show_user_by_id($me['uid']);
-                        print_r($me);
+                        //print_r($me);
                         
                         if(CHARSET != 'utf-8') {
                                 $me['name'] = iconv('utf-8', CHARSET, $me['name']);
@@ -1764,7 +1764,7 @@ class index extends foreground {
                 $userinfo['encrypt'] = create_randomstr(6);
                 $userinfo['username'] = $username;
                 $userinfo['nickname'] = $username;
-                $userinfo['email'] = $email!=''?$email:$connectid.'@xinwuli.cn';
+                $userinfo['email'] = $email!=''?$email:$connectid.'@weibo.cn';
                 $userinfo['password'] = $connectid;
                 $userinfo['modelid'] = 10;
                 $userinfo['regip'] = ip();
@@ -1775,7 +1775,7 @@ class index extends foreground {
                 $userinfo['connectid'] = $connectid;
                 $userinfo['from'] = $from;
 
-                if($member_setting['enablemailcheck']&&stripos($userinfo['email'],'xinwuli.cn')===false) {        //是否需要邮件验证
+                if($member_setting['enablemailcheck']&&stripos($userinfo['email'],'weibo.cn')===false) {        //是否需要邮件验证
                         $userinfo['groupid'] = 7;
                 } elseif($member_setting['registerverify']) {        //是否需要管理员审核
                         $userinfo['modelinfo'] = isset($_POST['info']) ? array2string($_POST['info']) : '';
