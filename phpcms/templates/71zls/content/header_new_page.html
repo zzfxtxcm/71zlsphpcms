@@ -261,15 +261,27 @@
                         {$v[catname]}
                         <b class="caret"></b>
                       </a>
+                      {if $k==22}
+                      
+                       <ul class="dropdown-menu">
+                          {loop headerfilters('servers',15) $r}
+                          <li>{$r[menu]}</li>
+                          {/loop}
+                        </ul>
+                             
+                      {else}
+                     
                       {pc:content action="category" catid="$k" num="25" siteid="$siteid" order="listorder ASC"}
                   
                         <ul class="dropdown-menu">
+                          <li><a href="index.php?m=content&c=index&a=lists&catid={$k}">全部</a></li>
                           {loop $data $n}
                           <li><a href="{$n[url]}">{$n[catname]}</a></li>
                           {/loop}
                         </ul>
                   
                       {/pc}
+                      {/if}
                     </li>
                   {/loop}
                     <li class="<?php if ($_GET[a]=='mylist') echo active; ?> f14"><a href="http://71zls.com/index.php?m=city&c=index&a=mylist">同城在线</a></li>

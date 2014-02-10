@@ -265,10 +265,10 @@
           {/loop}
           {/if}
 
-          <div class="input"><label>{L('username')}：</label><input type="text" id="username" name="username" size="36" class="input-text"></div>
+          <div class="input"><label>{L('username')}：</label><input type="text" id="username" name="username" size="36" class="input-text" onkeyup="autoyahoo()"></div>
           <div class="input"><label>{L('password')}：</label><input type="password" id="password" name="password" size="36" class="input-text"></div>
           <div class="input"><label>{L('cofirmpwd')}：</label><input type="password" name="pwdconfirm" id="pwdconfirm" size="36" class="input-text"></div>
-          <div class="input"><label>{L('email')}：</label><input type="text" id="email" name="email" size="36" class="input-text" onkeyup="autoyahoo()"></div>
+          <div class="input"><label>{L('email')}：</label><input type="text" id="email" name="email" size="36" class="input-text" ></div>
           
           {if $sms_setting['sms_enable']=='1'}
           <div class="input"><label>{L('checkcode')}：</label><input type="text" id="code" name="code" size="10" class="input-text">{form::checkcode('code_img', '5', '14', 120, 26)}</div>
