@@ -167,6 +167,33 @@ function filters($field,$modelid,$diyarr = array()) {
 	array_unshift($option,$all);	
 	return $option;
 }
+/**
+ * 生成分类信息中的筛选菜单
+ * @param $field   字段名称
+ * @param $modelid  模型ID
+ */
+function headerfilters($field,$modelid,$diyarr = array()) {
+	$fields = getcache('model_field_'.$modelid,'model');
+	$options = empty($diyarr) ?  explode("\n",$fields[$field]['options']) : $diyarr;
+
+	$field_value = intval($_GET[$field]);
+	foreach($options as $_k) {
+		$v = explode("|",$_k);
+		$k = trim($v[1]);
+		$option[$k]['name'] = $v[0];
+		$option[$k]['value'] = $k;
+
+		$option[$k]['url'] = structure_filters_url($field,array($field=>$k),2,$modelid);
+		$url='index.php?m=content&c=index&a=lists&catid=22&servers='.$k;
+		$option[$k]['menu'] =  '<a href='.$url.' >'.$v[0].'</a>' ;
+	}
+	$all['name'] = '全部';
+	$all['url'] =$url='index.php?m=content&c=index&a=lists&catid=22';
+	$all['menu'] = '<a href='.$all['url'].'>'.$all['name'].'</a>';
+
+	array_unshift($option,$all);	
+	return $option;
+}
 
 /**
  * 通过指定keyid形式显示所有联动菜单
