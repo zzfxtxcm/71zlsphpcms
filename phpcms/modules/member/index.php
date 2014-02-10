@@ -1325,7 +1325,8 @@ class index extends foreground {
 									 $connect_username = $user; 
 
 								}
- 								include template('member', 'connect');
+								 $this->qqregister_extends($connect_username,$_SESSION['connectid'],$_SESSION['from'],'','');
+ 								//include template('member', 'connect');
 						}
 					}
                 }
@@ -1776,6 +1777,132 @@ class index extends foreground {
                 $userinfo['from'] = $from;
 
                 if($member_setting['enablemailcheck']&&stripos($userinfo['email'],'weibo.cn')===false) {        //是否需要邮件验证
+                        $userinfo['groupid'] = 7;
+                } elseif($member_setting['registerverify']) {        //是否需要管理员审核
+                        $userinfo['modelinfo'] = isset($_POST['info']) ? array2string($_POST['info']) : '';
+                        $this->verify_db = pc_base::load_model('member_verify_model');
+                        unset($userinfo['lastdate'],$userinfo['connectid'],$userinfo['from']);
+                        $this->verify_db->insert($userinfo);
+                        showmessage(L('operation_success'), APP_PATH.'index.php?m=member&c=index&a=register&t=3');
+                } else {
+                        //查看当前模型是否开启了短信验证功能
+                        $model_field_cache = getcache('model_field_'.$userinfo['modelid'],'model');
+                        if(isset($model_field_cache['mobile']) && $model_field_cache['mobile']['disabled']==0) {
+                                $mobile = $_POST['info']['mobile']; //这里要修改逻辑
+                                if(!preg_match('/^1([0-9]{10})/',$mobile)) showmessage(L('input_right_mobile'));
+                                $sms_report_db = pc_base::load_model('sms_report_model');
+                                $posttime = SYS_TIME-300;
+                                $where = "`mobile`='$mobile' AND `posttime`>'$posttime'";
+                                $r = $sms_report_db->get_one($where);
+                                if(!$r || $r['id_code']!=$_POST['mobile_verify']) showmessage(L('error_sms_code'));
+                        }
+                        $userinfo['groupid'] = $this->_get_usergroup_bypoint($userinfo['point']);
+                }
+                
+                if(pc_base::load_config('system', 'phpsso')) {
+                        $this->_init_phpsso();
+                        $status = $this->client->ps_member_register($userinfo['username'], $userinfo['password'], $userinfo['email'], $userinfo['regip'], $userinfo['encrypt']);
+                        //print_r($status);
+                
+                        if($status > 0) {
+                                $userinfo['phpssouid'] = $status;
+                                //传入phpsso为明文密码，加密后存入phpcms_v9
+                                $password = $userinfo['password'];
+                                $userinfo['password'] = password($userinfo['password'], $userinfo['encrypt']);
+                                $userid = $this->db->insert($userinfo, 1);
+                                
+                                if($member_setting['choosemodel']) {        //如果开启选择模型
+                                //通过模型获取会员信息                                
+                                require_once CACHE_MODEL_PATH.'member_input.class.php';
+
+                                require_once CACHE_MODEL_PATH.'member_update.class.php';
+                                $member_input = new member_input($userinfo['modelid']);
+                                $user_model_info = $member_input->get($_POST['info']);
+                                $user_model_info['userid'] = $userid;
+        
+                                //插入会员模型数据
+                                $this->db->set_model($userinfo['modelid']);
+                                $this->db->insert($user_model_info);
+                                }
+                                
+                                if($userid > 0) {
+                                //执行登陆操作
+                                if(!$cookietime) $get_cookietime = param::get_cookie('cookietime');
+                                $_cookietime = $cookietime ? intval($cookietime) : ($get_cookietime ? $get_cookietime : 0);
+                                $cookietime = $_cookietime ? TIME + $_cookietime : 0;
+                                
+                                if($userinfo['groupid'] == 7) {
+                                param::set_cookie('_username', $userinfo['username'], $cookietime);
+                                param::set_cookie('email', $userinfo['email'], $cookietime);                                
+                                } else {
+                                $phpcms_auth_key = md5(pc_base::load_config('system', 'auth_key').$this->http_user_agent);
+                                $phpcms_auth = sys_auth($userid."\t".$userinfo['password'], 'ENCODE', $phpcms_auth_key);
+                                
+                                param::set_cookie('auth', $phpcms_auth, $cookietime);
+                                param::set_cookie('_userid', $userid, $cookietime);
+                                param::set_cookie('_username', $userinfo['username'], $cookietime);
+                                param::set_cookie('_nickname', $userinfo['nickname'], $cookietime);
+                                param::set_cookie('_groupid', $userinfo['groupid'], $cookietime);
+                                param::set_cookie('cookietime', $_cookietime, $cookietime);
+                                param::set_cookie('_from',$from);
+                                }
+                                }                
+                
+                                //如果需要邮箱认证
+                                if($member_setting['enablemailcheck']&&stripos($userinfo['email'],'xinwuli.cn')===false) {
+                                pc_base::load_sys_func('mail');
+                                $phpcms_auth_key = md5(pc_base::load_config('system', 'auth_key'));
+                                $code = sys_auth($userid.'|'.$phpcms_auth_key, 'ENCODE', $phpcms_auth_key);
+                                $url = APP_PATH."index.php?m=member&c=index&a=register&code=$code&verify=1";
+                                $message = $member_setting['registerverifymessage'];
+                                $message = str_replace(array('{click}','{url}','{username}','{email}','{password}'), array('<a href="'.$url.'">'.L('please_click').'</a>',$url,$userinfo['username'],$userinfo['email'],$password), $message);
+                                 sendmail($userinfo['email'], L('reg_verify_email'), $message);
+                                //设置当前注册账号COOKIE，为第二步重发邮件所用
+                                param::set_cookie('_regusername', $userinfo['username'], $cookietime);
+                                param::set_cookie('_reguserid', $userid, $cookietime);
+                                param::set_cookie('_reguseruid', $userinfo['phpssouid'], $cookietime);
+                                showmessage(L('operation_success'), APP_PATH.'index.php?m=member&c=index&a=register&t=2');
+                                } else {
+                                //如果不需要邮箱认证、直接登录其他应用
+                                $synloginstr = $this->client->ps_member_synlogin($userinfo['phpssouid']);
+                                showmessage(L('operation_success').$synloginstr, APP_PATH.'index.php?m=member&c=index&a=init');
+                                }
+                                
+                        }
+                }                
+
+        }
+         /*自动注册并绑定*/
+        private function qqregister_extends($username,$connectid,$from,$email=''){
+                $this->_session_start();
+                $member_setting = getcache('member_setting');
+                if(!$member_setting['allowregister']) {
+                showmessage(L('deny_register'), APP_PATH.'index.php?m=member&c=index&a=login');
+                }
+                //获取用户siteid
+                $siteid = isset($_REQUEST['siteid']) && trim($_REQUEST['siteid']) ? intval($_REQUEST['siteid']) : 1;
+                //定义站点id常量
+                if (!defined('SITEID')) {
+                   define('SITEID', $siteid);
+                }                
+                header("Cache-control: private");
+                
+                $userinfo = array();
+                $userinfo['encrypt'] = create_randomstr(6);
+                $userinfo['username'] = $username;
+                $userinfo['nickname'] = $username;
+                $userinfo['email'] = $email!=''?$email:$connectid.'@qq.cn';
+                $userinfo['password'] = $connectid;
+                $userinfo['modelid'] = 10;
+                $userinfo['regip'] = ip();
+                $userinfo['point'] = $member_setting['defualtpoint'] ? $member_setting['defualtpoint'] : 0;
+                $userinfo['amount'] = $member_setting['defualtamount'] ? $member_setting['defualtamount'] : 0;
+                $userinfo['regdate'] = $userinfo['lastdate'] = SYS_TIME;
+                $userinfo['siteid'] = $siteid;
+                $userinfo['connectid'] = $connectid;
+                $userinfo['from'] = $from;
+
+                if($member_setting['enablemailcheck']&&stripos($userinfo['email'],'qq.cn')===false) {        //是否需要邮件验证
                         $userinfo['groupid'] = 7;
                 } elseif($member_setting['registerverify']) {        //是否需要管理员审核
                         $userinfo['modelinfo'] = isset($_POST['info']) ? array2string($_POST['info']) : '';
