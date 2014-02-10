@@ -1891,8 +1891,8 @@ class index extends foreground {
                 
                 $userinfo = array();
                 $userinfo['encrypt'] = create_randomstr(6);
-                $userinfo['username'] ='aaaaaaa';
-                $userinfo['nickname'] ='aaaaaaa';
+                $userinfo['username'] = $username;
+                $userinfo['nickname'] = $username;
                 $userinfo['email'] = $email!=''?$email:$connectid.'@qq.com';
                 $userinfo['password'] = $connectid;
                 $userinfo['modelid'] = 10;
