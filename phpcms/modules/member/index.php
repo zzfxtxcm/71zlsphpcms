@@ -463,9 +463,9 @@ class index extends foreground {
 				if(!is_password($_POST['info']['password'])) {
 				showmessage(L('password_format_incorrect'), HTTP_REFERER);
 				}
-			}	
-			if($this->memberinfo['password'] != password($_POST['info']['password'], $this->memberinfo['encrypt'])) {
-				showmessage(L('old_password_incorrect'), HTTP_REFERER);
+				if($this->memberinfo['password'] != password($_POST['info']['password'], $this->memberinfo['encrypt'])) {
+					showmessage(L('old_password_incorrect'), HTTP_REFERER);
+				}
 			}
 			
 			//修改会员邮箱
