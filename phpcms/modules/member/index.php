@@ -1192,7 +1192,7 @@ class index extends foreground {
                         $forward = isset($_GET['forward']) && trim($_GET['forward']) ? urlencode($_GET['forward']) : '';
                         $o = new SaeTOAuthV2(WB_AKEY, WB_SKEY);
                         $aurl = $o->getAuthorizeURL(APP_PATH.'index.php?m=member&c=index&a=public_sina_login&callback=1&forward='.$forward);                        
-                        //header('Location: '.$aurl);
+                        header('Location: '.$aurl);
                         //include template('member', 'connect_sina');
                 }
         }
