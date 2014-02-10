@@ -459,9 +459,11 @@ class index extends foreground {
 	public function account_manage_password() {
 		if(isset($_POST['dosubmit'])) {
 			$updateinfo = array();
-			if(!is_password($_POST['info']['password'])) {
+			if($this->memberinfo['password']){
+				if(!is_password($_POST['info']['password'])) {
 				showmessage(L('password_format_incorrect'), HTTP_REFERER);
-			}
+				}
+			}	
 			if($this->memberinfo['password'] != password($_POST['info']['password'], $this->memberinfo['encrypt'])) {
 				showmessage(L('old_password_incorrect'), HTTP_REFERER);
 			}
