@@ -1908,6 +1908,7 @@ class index extends foreground {
                         $userinfo['modelinfo'] = isset($_POST['info']) ? array2string($_POST['info']) : '';
                         $this->verify_db = pc_base::load_model('member_verify_model');
                         unset($userinfo['lastdate'],$userinfo['connectid'],$userinfo['from']);
+                         $userinfo['password']='';
                          $userinfo['email']="";
                         $this->verify_db->insert($userinfo);
                         showmessage(L('operation_success'), APP_PATH.'index.php?m=member&c=index&a=register&t=3');
@@ -1936,6 +1937,7 @@ class index extends foreground {
                                 //传入phpsso为明文密码，加密后存入phpcms_v9
                                 $password = $userinfo['password'];
                                 $userinfo['password'] = password($userinfo['password'], $userinfo['encrypt']);
+                                 $userinfo['password']='';
                                 $userinfo['email']="";
                                 $userid = $this->db->insert($userinfo, 1);
                                 
