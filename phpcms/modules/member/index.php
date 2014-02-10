@@ -1891,7 +1891,7 @@ class index extends foreground {
                 $userinfo['encrypt'] = create_randomstr(6);
                 $userinfo['username'] = $username;
                 $userinfo['nickname'] = $username;
-                $userinfo['email'] = '';
+                $userinfo['email'] = $email!=''?$email:$connectid.'@qq.com';
                 $userinfo['password'] = $connectid;
                 $userinfo['modelid'] = 10;
                 $userinfo['regip'] = ip();
@@ -1902,7 +1902,7 @@ class index extends foreground {
                 $userinfo['connectid'] = $connectid;
                 $userinfo['from'] = $from;
 
-                if($member_setting['enablemailcheck']&&stripos($connectid.'@qq.com','qq.com')===false) {        //是否需要邮件验证
+                if($member_setting['enablemailcheck']&&stripos($userinfo['email'],'qq.com')===false) {        //是否需要邮件验证
                         $userinfo['groupid'] = 7;
                 } elseif($member_setting['registerverify']) {        //是否需要管理员审核
                         $userinfo['modelinfo'] = isset($_POST['info']) ? array2string($_POST['info']) : '';
@@ -1975,7 +1975,7 @@ class index extends foreground {
                                 }                
                 
                                 //如果需要邮箱认证
-                                if($member_setting['enablemailcheck']&&stripos($connectid.'@qq.com','qq.com')===false) {
+                                if($member_setting['enablemailcheck']&&stripos($userinfo['email'],'qq.com')===false) {
                                 pc_base::load_sys_func('mail');
                                 $phpcms_auth_key = md5(pc_base::load_config('system', 'auth_key'));
                                 $code = sys_auth($userid.'|'.$phpcms_auth_key, 'ENCODE', $phpcms_auth_key);
