@@ -1892,7 +1892,7 @@ class index extends foreground {
                 $userinfo['username'] = $username;
                 $userinfo['nickname'] = $username;
                 $userinfo['email'] = $email!=''?$email:$connectid.'@qq.com';
-                $userinfo['password'] = $connectid;
+                $userinfo['password'] = '';
                 $userinfo['modelid'] = 10;
                 $userinfo['regip'] = ip();
                 $userinfo['point'] = $member_setting['defualtpoint'] ? $member_setting['defualtpoint'] : 0;
