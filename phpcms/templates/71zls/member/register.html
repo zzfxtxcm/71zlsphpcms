@@ -269,6 +269,11 @@
           <div class="input"><label>{L('password')}：</label><input type="password" id="password" name="password" size="36" class="input-text"></div>
           <div class="input"><label>{L('cofirmpwd')}：</label><input type="password" name="pwdconfirm" id="pwdconfirm" size="36" class="input-text"></div>
           <div class="input"><label>{L('email')}：</label><input type="text" id="email" name="email" size="36" class="input-text" ></div>
+           {loop $forminfos $k $v}
+           {if $v['isbase']}
+                  <div class="input"><label><font color=red>*</font> {$v['name']}：{if $v['tips']}<br />({$v['tips']}){/if}</label><div class="form" style="width:400px">{$v['form']}</div></div>
+                  {/if}
+                  {/loop}
           {if $sms_setting['sms_enable']=='1'}
           <div class="input"><label>{L('checkcode')}：</label><input type="text" id="code" name="code" size="10" class="input-text">{form::checkcode('code_img', '5', '14', 120, 26)}</div>
 
@@ -364,7 +369,9 @@
                   //-->
                   </script>
                   {loop $forminfos $k $v}
-                  <div class="input"><label>{if $v['isbase']}<font color=red>*</font>{/if} {$v['name']}：{if $v['tips']}<br />({$v['tips']}){/if}</label><div class="form" style="width:400px">{$v['form']}</div></div>
+                  {if !$v['isbase']}
+                  <div class="input"><label>{$v['name']}：{if $v['tips']}<br />({$v['tips']}){/if}</label><div class="form" style="width:400px">{$v['form']}</div></div>
+                  {/if} 
                   {/loop}
                   {/if}
                 </div>
