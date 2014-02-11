@@ -207,6 +207,9 @@
     }
 
     #mobile_div input{*margin-bottom:12px;*_padding:0px 0px 6px 0px}
+    .login-list li{ float:left;height:26px; margin-bottom:14px;width:123px;background:url({IMG_PATH}member/mbg.png) no-repeat;list-style-type:none}
+.login-list li a{ display:block;background-repeat:no-repeat; background-position:6px 5px;height:26px; padding-left:36px; line-height:26px}
+.login-list li a:hover{text-decoration: none;}
     </style>
   </head>
   <body>
@@ -415,7 +418,28 @@
             <p class="f14">
               {L('already_have_account')}
             </p>
-            <div class="submit"><input type="submit" name="dosubmit" value="{L('login')}" onclick="redirect('{APP_PATH}index.php?m=member&c=index&a=login')"></div>
+            <div class="submit"><input type="submit" name="dosubmit" value="{L('login')}" onclick="redirect('{APP_PATH}index.php?m=member&c=index&a=login')">
+
+
+             
+            </div>
+                 <p class="f14">
+             用第三方平台，免注册，直接登录
+            </p>
+ <ul class="item login-list clear blue">
+               
+                           <li><a href="index.php?m=member&c=index&a=public_sina_login" style="background-image:url({IMG_PATH}member/logo/sina_16_16.png)">新浪微博登录</a></li>
+                        
+           
+                          <li style="margin-right:14px;"><a href="{APP_PATH}index.php?m=member&c=index&a=public_qq_loginnew" target="_blank" style="background-image:url({IMG_PATH}member/logo/qq_16_16.png)">腾讯QQ登录</a></li>
+        
+                       
+                  
+                  
+     
+                </ul>
+
+
           </div>
         </div>
         <div style=" height:300px;"></div>
