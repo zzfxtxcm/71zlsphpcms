@@ -62,17 +62,25 @@
         <span class="glyphicon glyphicon-chevron-right"></span>
       </a>
     </div>
-    
+
+
+   
+              
+                
     <div class="row mt20">
+      {pc:announce  action="lists" siteid="$siteid" num="1"}
       <div class="col-xs-4">
         <div class="service">
           <i class="icon-group service-icon"></i>
-          <div class="desc">
-            <h4>俱乐部公告</h4>
-            <p>最新俱乐部公告</p>
+          <div class="desc ">
+            <h4 > 俱乐部公告</h4>
+              <div class=" btnTooltip">
+                <p data-toggle="tooltip" data-placement="top"  {loop $data $r} title="{$r['title']}" {/loop}>最新俱乐部公告</p>
+              </div>
           </div>
         </div>  
       </div>
+      {/pc}
       <div class="col-xs-4">
         <div class="service">
           <i class="icon-money service-icon"></i>
