@@ -48,7 +48,7 @@ class attachments {
 		$grouplist = getcache('grouplist','member');			
 		if(isset($_POST['dosubmit'])){
 			//判断是否登录
-			if(empty($this->userid)){
+			 if(empty($_POST['userid'])){
 				exit('0');
 			} 
 		
