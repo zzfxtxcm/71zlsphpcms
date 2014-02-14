@@ -90,10 +90,8 @@
 
 /* 同城在线 */
 
+.onlineContent { margin-left: 3px; }
 
-.onlineContent li { width: 195px; margin-left: 25px;  }
-.onlineContent_img { width: 70px; height: 70px; }
-.onlineContent_content { width: 114px; }
 /*分享*/
 
 .Article-Tool a{width:16px;height:16px;line-height:17px;background: url(../../images/v9/icon.png) no-repeat; margin-left:6px;}
