@@ -54,11 +54,45 @@
             <p>发布日期：{$inputtime}&nbsp;&nbsp;浏览次数：<span id="hits"></span></p>
             <div>
 
-             <img src=" {$thumb}" class="img-thumbnail" style="width:350px; height:350px" alt="">
-              {loop $photos $r}
-               <img src="{$r[url]}" class="img-thumbnail" style="width:350px; height:350px" alt="">
-				
-             {/loop}
+             <!--start轮播-->
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+              <!-- Indicators -->
+              <ol class="carousel-indicators">
+                 
+                    {php $i=0 }
+                    {loop $photos $r}
+                <li data-target="#carousel-example-generic" data-slide-to="{$i}" {if $i==0}class="active"{/if}></li>
+                    {php $i++ }
+                    {/loop}
+                
+              </ol>
+
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner">
+                
+               
+                {php $i=0 }
+                {loop $photos $r}
+                  <div {if $i==0}class="item active"{else}class="item"{/if}>
+                     <img src="{$r[url]}" class="img-thumbnail" style="width:350px; height:350px" alt="">
+                    <div class="carousel-caption">
+                      {str_cut($r['title'],30)}
+                    </div>
+                  </div>
+                {php $i++ }
+                {/loop}
+                
+              </div>
+
+              <!-- Controls -->
+              <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+              </a>
+              <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+              </a>
+            </div>
+             <!--end轮播-->
             </div>
           </div>
         </div>
