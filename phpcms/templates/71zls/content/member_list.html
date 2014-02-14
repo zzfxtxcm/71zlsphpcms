@@ -45,25 +45,31 @@
             <h3 class="panel-title">想创业的他们&nbsp;&nbsp;&nbsp;&nbsp;<small>他们的执着，他们的勤恳，他们的努力……</small></h3>
           </div>
           <div class="panel-body">
-            {pc:get sql="SELECT * FROM zls_member a, zls_member_detail b WHERE a.userid=b.userid And b.venture=1 ORDER BY RAND()" num="15" return="data"}
-            {loop $data $r}
 
-            <dl class="onlineContent pull-left">
-              <dt class="pull-left"><img src='{php echo get_memberavatar($r[userid],1,45)}' width="70px" height="70px" onerror="this.src='statics/images/member/nophoto.gif'"/></dt>
-              <dd class="pull-right">
-                昵称：{$r[nickname]}
-                <br>
-                所在地区：{$r[area]}
-                <br>
-                意向/从事行业：{$r[intent]}
-                <br>
-                QQ：
-                <a target=blank href=tencent://message/?uin={$r[qq]}&Site={$r[nickname]}&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:{$r[qq]}:1 alt="点击这里给我发消息"></a>
-              </dd>
-            </dl>
-            {/loop}
+            <ul class="onlineContent list-inline oh">
+              
+              {pc:get sql="SELECT * FROM zls_member a, zls_member_detail b WHERE a.userid=b.userid And b.venture=1 ORDER BY RAND()" num="15" return="data"}
+              {loop $data $r}
+
+              <dl class="onlineContent pull-left">
+                <dt class="pull-left"><img src='{php echo get_memberavatar($r[userid],1,45)}' width="70px" height="70px" onerror="this.src='statics/images/member/nophoto.gif'"/></dt>
+                <dd class="pull-right">
+                  昵称：{$r[nickname]}
+                  <br>
+                  所在地区：{$r[area]}
+                  <br>
+                  意向/从事行业：{$r[intent]}
+                  <br>
+                  QQ：
+                  <a target=blank href=tencent://message/?uin={$r[qq]}&Site={$r[nickname]}&Menu=yes><img border="0" width="74px" height="23px" SRC=http://wpa.qq.com/pa?p=1:{$r[qq]}:1 alt="点击这里给我发消息"></a>
+                </dd>
+              </dl>
+              
+              {/loop}
             
-            {/pc}
+              {/pc}
+              
+            </ul>
             
           </div>
         </div>
@@ -86,7 +92,7 @@
                 意向/从事行业：{$r[intent]}
                 <br>
                 QQ：
-                <a target=blank href=tencent://message/?uin={$r[qq]}&Site={$r[nickname]}&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:{$r[qq]}:1 alt="点击这里给我发消息"></a>
+                <a target=blank href=tencent://message/?uin={$r[qq]}&Site={$r[nickname]}&Menu=yes><img border="0" width="74px" height="23px" SRC=http://wpa.qq.com/pa?p=1:{$r[qq]}:1 alt="点击这里给我发消息"></a>
               </dd>
             </dl>
             {/loop}
