@@ -158,11 +158,11 @@ function filters($field,$modelid,$diyarr = array()) {
 		$option[$k]['name'] = $v[0];
 		$option[$k]['value'] = $k;
 		$option[$k]['url'] = structure_filters_url($field,array($field=>$k),2,$modelid);
-		$option[$k]['menu'] = $field_value == $k ? '<em>'.$v[0].'</em>' : '<a href='.$option[$k]['url'].' class="btn btn-link">'.$v[0].'</a>' ;
+		$option[$k]['menu'] = $field_value == $k ? '<pan class="btn">'.$v[0].'</pan>' : '<a href='.$option[$k]['url'].' class="btn btn-link">'.$v[0].'</a>' ;
 	}
 	$all['name'] = '全部';
 	$all['url'] = structure_filters_url($field,array($field=>''),2,$modelid);
-	$all['menu'] = $field_value == '' ? '<em>'.$all['name'].'</em>' : '<a href='.$all['url'].'>'.$all['name'].'</a>';
+	$all['menu'] = $field_value == '' ? ''.$all['name'].'' : '<a href='.$all['url'].'>'.$all['name'].'</a>';
 
 	array_unshift($option,$all);	
 	return $option;

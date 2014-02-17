@@ -32,7 +32,7 @@
           <h3 class="panel-title">查找的条件</h3>
         </div>
         <div class="panel-body">
-          <p class="f14">
+          <p class="f14" style=" margin:0" >
             <strong>品牌区域：</strong>
            {php $zone = intval($_GET['zone'])}
       {php $sub_zone = show_linkage(1,$zone,$zone,$modelid)}
@@ -40,40 +40,40 @@
         
         {loop $sub_zone $area}
           {if $zone == $area['linkageid']}
-            <em>{$area['name']}</em>
+           {$area['name']}
           {else}
             <a href="{$area['url']}" class="btn btn-link">{$area['name']}</a>    
           {/if}
         {/loop}</dd>
            
            </p>
-            <p class="f14">
+            <p class="f14" style=" margin:0" >
             <strong>融资额度：</strong>
             {php $price_rang = array('5万以下|1_50000','5万-20万|50000_200000','20万-50万|200000_500000','50万以上|500000_99999999')}
             {loop filters('price',$modelid,$price_rang) $r}
            {$r[menu]}
            {/loop}
            </p>
-          <p class="f14">
+          <p class="f14" style=" margin:0" >
             <strong>资金用途：</strong>
               {loop filters('use',$modelid) $r}
               {$r[menu]}
               {/loop}
            </p>
-            <p class="f14">
+            <p class="f14" style=" margin:0" >
             <strong>要求期限：</strong>
               {loop filters('tlimit',$modelid) $r}
               {$r[menu]}
               {/loop}
 
            </p>
-            <p class="f14">
+            <p class="f14" style=" margin:0" >
               <strong>收入要求：</strong>
               {loop filters('income',$modelid) $r}
               {$r[menu]}
               {/loop}
            </p>
-           <p class="f14">
+           <p class="f14" style=" margin:0" >
               <strong>抵押类型：</strong>
               {loop filters('pledge',$modelid) $r}
               {$r[menu]}
