@@ -40,7 +40,7 @@
         
         {loop $sub_zone $area}
           {if $zone == $area['linkageid']}
-            <em>{$area['name']}</em>
+            {$area['name']}
           {else}
             <a href="{$area['url']}" class="btn btn-link">{$area['name']}</a>    
           {/if}
