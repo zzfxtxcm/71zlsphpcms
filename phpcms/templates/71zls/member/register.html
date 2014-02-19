@@ -261,7 +261,7 @@
                   <div class="input"><label><font color=red>*</font> {$v['name']}：{if $v['tips']}<br />({$v['tips']}){/if}</label><div class="form" style="width:400px">{$v['form']}</div></div>
                   {/if}
                   {/loop}
-          {if $sms_setting['sms_enable']=='1'}
+          {if $sms_setting['sms_enable']=='2'}
           <div class="input"><label>{L('checkcode')}：</label><input type="text" id="code" name="code" size="10" class="input-text">{form::checkcode('code_img', '5', '14', 120, 26)}</div>
 
           <div class="input"><label> 手机号码：</label><div class="form"><div id="mobile_div"><input type="text" name="mobile" id="mobile" value="" size="15" class="input-text" title="此服务免费,验证码将以短信免费发送到您的手机"> 
@@ -369,7 +369,7 @@
 
           
 		
-          {if $member_setting['enablcodecheck']=='1' && $sms_setting['sms_enable']!='1'}
+          {if $member_setting['enablcodecheck']=='1' }
           <div class="input"><label>{L('checkcode')}：</label><input type="text" id="code" name="code" size="10" class="input-text">{form::checkcode('code_img', '5', '14', 120, 26)}</div>
           {/if}
 		

@@ -25,7 +25,7 @@ function sendmail($toemail, $subject, $message, $from='',$cfg = array(), $sitena
 		$siteinfo = siteinfo($siteid);
 		$sitename = $siteinfo['site_title'];
 	}
-	 $sitename='【创业在路上】';
+	 $sitename='创业在路上';
 	 
 	if($cfg && is_array($cfg)) {
 		$from = $cfg['from'];

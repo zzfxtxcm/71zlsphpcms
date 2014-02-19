@@ -212,6 +212,7 @@ class index extends foreground {
 				$userid = is_numeric($userid) ? $userid : showmessage(L('operation_failure'), 'index.php?m=member&c=index');
 
 				$this->db->update(array('groupid'=>$this->_get_usergroup_bypoint()), array('userid'=>$userid));
+				echo $userid;
 				showmessage(L('operation_success'), 'index.php?m=member&c=index');
 			} elseif(!empty($_GET['protocol'])) {
 
@@ -264,7 +265,9 @@ class index extends foreground {
 			}
 		}
 	}
- 	
+ 	public function login1() {
+ 		echo "aaaaa ";
+ 	}
 	
 	/*
 	 * 测试邮件配置
