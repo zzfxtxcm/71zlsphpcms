@@ -71,7 +71,7 @@
       <div id="myTabContent" class="tab-content pt10 pb10 text-center">
         <div class="tab-pane fade active in" id="project" >
           <form action="{APP_PATH}index.php" class="form-inline" role="form" name="myform" method="get">
-            <select name="catid" id="catid" class="form-control">
+            <select name="catid" id="catid" class="form-control" style=" height:34px;width:107px;">
               <option  value='9'>项目类别</option>
               {pc:content action="category" catid="9" num="15" order="listorder ASC"}
               {loop $data $r}
@@ -80,21 +80,21 @@
               {/pc}
 
             </select>
-            <select name="price" id="price" class="form-control">
+            <select name="price" id="price" class="form-control" style=" height:34px;width:107px;">
               <option value=''>投资额度</option>
               <option value='1'>5万以下</option>
               <option value='2'>5万-20万</option>
               <option value='3'>20万-50万</option>
               <option value='4'>50万以上</option>
             </select>
-            <select name="city" id="city" class="form-control">
+            <select name="city" id="city" class="form-control" style=" height:34px;width:107px;">
               <option value=''>所在区域</option>
               {php $sub_zone = show_linkage(1,'','',$modelid)} 
               {loop $sub_zone $area} 
               <option value="{$area['linkageid']}">{$area['name']}</option>   
               {/loop}
             </select>
-            <div class="form-group">
+            <div class="form-group" style=" height:34px;width:168px;" >
               <input type="text" class="form-control" name="keyword"
                      id="keyword" placeholder="请输入关键字">
             </div>
