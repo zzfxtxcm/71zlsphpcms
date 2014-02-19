@@ -1,89 +1,126 @@
-    <div class="header">
-      <div class="navbar navbar-default" role="navigation">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
+ <div class="header">
+    <div class="navbar navbar-default" role="navigation">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                              data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
   
-          <a href="#" onclick="addFavorite()" title="创业在路上" rel="sidebar" class="navbar-brand">
-            <span class="glyphicon glyphicon-star"></span>
-            &nbsp;收藏本站
-          </a>
-        </div>
-    
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav btnTooltip">
-            <li class="f14">
-              <a href="{APP_PATH}/index.php?m=formguide&c=index&a=show&formid=19&siteid=1&pc_hash=AKdqWH">
-                <span style="color:#0099CC"><strong>给我提建议</strong></span>
-              </a>
-            </li>
-          </ul>
-      
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown" style="display:none">
-              <a href="#" class="dropdown-toggle f14" data-toggle="dropdown">
-                最近浏览 <b class="caret"></b>
-              </a>
-            
-              <ul class="dropdown-menu">
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li class="divider"></li>
-                <li><a href="#">更多&hellip;</a></li>
-              </ul>
-            </li>
-            {if $_username}
-              <li class="f14" style="display:none">
-                <a href="{APP_PATH}index.php?m=member&c=index&a=favorite&t=2">
-                  我的收藏
-                </a>
-              </li>
-              <li class="f14">
-                <a href="{APP_PATH}index.php?m=member&siteid={$siteid}" target="_blank">
-                  <i class="glyphicon glyphicon-user cF96"></i>
-                  {L('您好')} {get_nickname()}
-                </a>
-              </li>
-              <li class="f14">
-                <a href="{APP_PATH}index.php?m=member&c=index&a=logout&forward={urlencode($_GET['forward'])}&siteid={$siteid}" target="_top">
-                  <i class="icon-signout c9C9"></i>
-                  {L('退出')}
-                </a>
-              </li>
-              {else}
-              <li class="f14" style="display:none">
-                <a href="{APP_PATH}index.php?m=member&c=index&a=login&forward={urlencode($_GET['forward'])}&siteid={$siteid}">
-                  我的收藏
-                </a>
-              </li>
-              <li class="f14">
-                <a href="{APP_PATH}index.php?m=member&c=index&a=login&forward={urlencode($_GET['forward'])}&siteid={$siteid}">
-                  <i class="icon-signin cF96"></i>
-                  登录
-                </a>
-              </li>
-              <li class="f14">
-                <a href="{APP_PATH}index.php?m=member&c=index&a=register&siteid={$siteid}">
-                  <i class="icon-plus-sign c9C9"></i>
-                  注册
-                </a>
-              </li>
-            {/if}
-
-          </ul>
-          
-        </div>
+        <a href="#" onclick="addFavorite()" title="创业在路上" rel="sidebar" class="navbar-brand">
+         <!-- <span>收藏本站</span>-->
+        </a>
       </div>
-      <div class="container">
-        <h1 class="pull-left">
-          <a href="/"><img src="{APP_PATH}statics/71zls/images/logo2.png" class="pull-left" alt=""></a>
-          <div class="pull-left ml10 p15" style="border-left:1px solid #ccc"><small>用户登入</small></div>
-        </h1>
-      
+    
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav btnTooltip">
+          <li class="f14">
+            <a href="{APP_PATH}/index.php?m=formguide&c=index&a=show&formid=19&siteid=1&pc_hash=AKdqWH">
+              <span style="color:#0099CC"><strong>给我提建议</strong></span>
+            </a>
+          </li>
+          
+        </ul>
+             
+        {pc:content action="category" catid="0" num="25" siteid="$siteid" order="listorder ASC"}
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-9">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a href="{siteurl($siteid)}" class="navbar-brand" style="font-size: 14px;">首页</a>
+          </div>
+          <div class="" id="bs-example-navbar-collapse-9">
+            <ul class="nav navbar-nav">
+              {loop $data $k $v}
+                <li class="f14 dropdown">
+                  <a href="{$v[catname]}" class="dropdown-toggle" data-toggle="dropdown">
+                    {$v[catname]}
+                    <b class="caret"></b>
+                  </a>
+                  {if $k==22}
+                      
+                       <ul class="dropdown-menu">
+                          {loop headerfilters('servers',15) $r}
+                          <li>{$r[menu]}</li>
+                          {/loop}
+                        </ul>
+                             
+                      {else}
+                     
+                      {pc:content action="category" catid="$k" num="25" siteid="$siteid" order="listorder ASC"}
+                  
+                        <ul class="dropdown-menu">
+                          <li><a href="index.php?m=content&c=index&a=lists&catid={$k}">全部</a></li>
+                          {loop $data $n}
+                          <li><a href="{$n[url]}">{$n[catname]}</a></li>
+                          {/loop}
+                        </ul>
+                  
+                      {/pc}
+                      {/if}
+                </li>
+              {/loop}
+                <li class="<?php if ($_GET[a]=='mylist') echo active; ?> f14"><a href="http://71zls.com/index.php?m=city&c=index&a=mylist">同城在线</a></li>
+                <li class="<?php if (6==$_GET[catid]) echo active; ?> f14"><a href="http://71zls.com/index.php?m=content&c=index&a=lists&catid=6">创业俱乐部</a></li>
+            </ul>
+          </div>
+        {/pc}
+        {php echo runhook('glogal_menu')}
+              
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown" >
+            <a href="#" class="dropdown-toggle f14" data-toggle="dropdown" style="font-size: 14px;">
+              最近浏览 <b class="caret"></b>
+            </a>
+            
+            <ul class="bbbccc dropdown-menu">
+             
+            </ul>
+          </li>
+          {if $_username}
+            <li class="f14" style="display:none">
+              <a href="{APP_PATH}index.php?m=member&c=index&a=favorite&t=2">
+                我的收藏
+              </a>
+            </li>
+            <li class="f14">
+              <a href="{APP_PATH}index.php?m=member&siteid={$siteid}" target="_blank">
+                <i class="glyphicon glyphicon-user cF96"></i>
+                {L('您好')} {get_nickname()}
+              </a>
+            </li>
+            <li class="f14">
+              <a href="{APP_PATH}index.php?m=member&c=index&a=logout&forward={urlencode($_GET['forward'])}&siteid={$siteid}" target="_top">
+                <i class="icon-signout c9C9"></i>
+                {L('退出')}
+              </a>
+            </li>
+            {else}
+            <li class="f14" style="display:none">
+              <a href="{APP_PATH}index.php?m=member&c=index&a=login&forward={urlencode($_GET['forward'])}&siteid={$siteid}">
+                我的收藏
+              </a>
+            </li>
+            <li class="f14">
+              <a href="{APP_PATH}index.php?m=member&c=index&a=login&forward={urlencode($_GET['forward'])}&siteid={$siteid}">
+                <i class="icon-signin cF96"></i>
+                登录
+              </a>
+            </li>
+            <li class="f14">
+              <a href="{APP_PATH}index.php?m=member&c=index&a=register&siteid={$siteid}">
+                <i class="icon-plus-sign c9C9"></i>
+                注册
+              </a>
+            </li>
+          {/if}
+
+        </ul>
       </div>
     </div>
+  </div>

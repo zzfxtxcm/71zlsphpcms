@@ -1,4 +1,4 @@
-  <div class="header">
+    <div class="header">
     <div class="navbar navbar-default" role="navigation">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -8,10 +8,9 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
+  
         <a href="#" onclick="addFavorite()" title="创业在路上" rel="sidebar" class="navbar-brand">
-          <span class="glyphicon glyphicon-star"></span>
-          &nbsp;
-          收藏本站
+         <!-- <span>收藏本站</span>-->
         </a>
       </div>
     
@@ -22,15 +21,65 @@
               <span style="color:#0099CC"><strong>给我提建议</strong></span>
             </a>
           </li>
+          
         </ul>
-      
+             
+        {pc:content action="category" catid="0" num="25" siteid="$siteid" order="listorder ASC"}
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-9">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a href="{siteurl($siteid)}" class="navbar-brand" style="font-size: 14px;">首页</a>
+          </div>
+          <div class="" id="bs-example-navbar-collapse-9">
+            <ul class="nav navbar-nav">
+              {loop $data $k $v}
+                <li class="f14 dropdown">
+                  <a href="{$v[catname]}" class="dropdown-toggle" data-toggle="dropdown">
+                    {$v[catname]}
+                    <b class="caret"></b>
+                  </a>
+                  {if $k==22}
+                      
+                       <ul class="dropdown-menu">
+                          {loop headerfilters('servers',15) $r}
+                          <li>{$r[menu]}</li>
+                          {/loop}
+                        </ul>
+                             
+                      {else}
+                     
+                      {pc:content action="category" catid="$k" num="25" siteid="$siteid" order="listorder ASC"}
+                  
+                        <ul class="dropdown-menu">
+                          <li><a href="index.php?m=content&c=index&a=lists&catid={$k}">全部</a></li>
+                          {loop $data $n}
+                          <li><a href="{$n[url]}">{$n[catname]}</a></li>
+                          {/loop}
+                        </ul>
+                  
+                      {/pc}
+                      {/if}
+                </li>
+              {/loop}
+                <li class="<?php if ($_GET[a]=='mylist') echo active; ?> f14"><a href="http://71zls.com/index.php?m=city&c=index&a=mylist">同城在线</a></li>
+                <li class="<?php if (6==$_GET[catid]) echo active; ?> f14"><a href="http://71zls.com/index.php?m=content&c=index&a=lists&catid=6">创业俱乐部</a></li>
+            </ul>
+          </div>
+        {/pc}
+        {php echo runhook('glogal_menu')}
+              
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown" >
-            <a href="#" class="dropdown-toggle f16" data-toggle="dropdown">
-              最近浏览
-              <b class="caret"></b>
+            <a href="#" class="dropdown-toggle f14" data-toggle="dropdown" style="font-size: 14px;">
+              最近浏览 <b class="caret"></b>
             </a>
-           <ul class="bbbccc dropdown-menu">
+            
+            <ul class="bbbccc dropdown-menu">
+             
             </ul>
           </li>
           {if $_username}
@@ -70,9 +119,11 @@
               </a>
             </li>
           {/if}
+
         </ul>
       </div>
     </div>
+  </div>
     <div class="container">
       <h1 class="pull-left">
        <a href='{APP_PATH}'><img src="{APP_PATH}statics/71zls/images/logo2.png" alt="在路上创业网"></a>
@@ -227,13 +278,13 @@
       </div>
       <div class="btnTooltip pull-left mt50 ml10">
         <a href="{APP_PATH}index.php?m=member&c=content&a=publish" class="btn btn-success btn-lg" data-toggle="tooltip"
-                    data-placement="left" title=""
+                    data-placement="top" title=""
                     data-original-title="在此免费发布项目、奖金、服务信息、帮助大家一起创业吧">
           免费发布
         </a>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <a href="{APP_PATH}index.php?m=member&c=index&a=account_manage_info&t=1" class="btn btn-success btn-lg" data-toggle="tooltip"
-                    data-placement="right" title=""
+                    data-placement="top" title=""
                     data-original-title="在此发布你的创业需求，将为你提供最符合你想要的东西">
           创业帮帮
         </a>
@@ -251,7 +302,7 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-                <a href="{siteurl($siteid)}" class="navbar-brand">首页</a>
+                <a href="{siteurl($siteid)}" class="navbar-brand" style="font-size: 14px;">首页</a>
               </div>
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
                 <ul class="nav navbar-nav">
