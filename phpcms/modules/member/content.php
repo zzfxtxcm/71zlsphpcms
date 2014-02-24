@@ -218,7 +218,8 @@ class content extends foreground {
 				$grouplist = getcache('grouplist');
 				$setting = string2array($category['setting']);
 				if(!$grouplist[$memberinfo['groupid']]['allowpostverify'] || $setting['workflowid']) {
-					$_POST['info']['status'] = 1;
+					$_POST['info']['status'] = 99;
+					//1要审核 99不需要审核
 				}
 				$info = array();
 				foreach($_POST['info'] as $_k=>$_v) {
@@ -252,7 +253,8 @@ class content extends foreground {
 					$r = $this->content_db->get_one(array('id'=>$id,'username'=>$_username,'sysadd'=>0));
 		
 					if(!$r) showmessage(L('illegal_operation'));
-					if($r['status']==99) showmessage(L('has_been_verified'));
+					//通关审核也可以重新编辑
+					//if($r['status']==99) showmessage(L('has_been_verified'));
 					$this->content_db->table_name = $this->content_db->table_name.'_data';
 					$r2 = $this->content_db->get_one(array('id'=>$id));
 					$data = array_merge($r,$r2);
@@ -308,6 +310,9 @@ class content extends foreground {
  		$where = " checkid='$checkid' and username='$username' and status!=99 ";
 		$check_pushed_db = pc_base::load_model('content_check_model');
  		$array = $check_pushed_db->get_one($where);
+ 		
+		/*
+		修改通过审核的也可以删除
 		if(!$array){
  			showmessage(L('operation_failure'), HTTP_REFERER); 
 		}else{
@@ -318,6 +323,14 @@ class content extends foreground {
  			$check_pushed_db->delete(array('checkid'=>$checkid));//删除对应投稿表
 			showmessage(L('operation_success'), HTTP_REFERER); 
 		}
+		*/
+		$content_db = pc_base::load_model('content_model');
+		$content_db->set_model($modelid);
+		$table_name = $content_db->table_name;
+		$content_db->delete_content($id); //删除文章
+		$check_pushed_db->delete(array('checkid'=>$checkid));//删除对应投稿表
+		showmessage(L('operation_success'), HTTP_REFERER); 
+
 	}
 	
 	public function info_publish() {
